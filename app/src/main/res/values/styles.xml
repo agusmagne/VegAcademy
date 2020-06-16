@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="DarkMode" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/blackBackground</item>
+        <item name="colorPrimaryDark">@color/blackBackground</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="BlackActionBar">
+        <item name="android:background">@color/blackBackground</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="BlackActionBarPopUp">
+        <item name="android:background">@color/grey</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+
+</resources>

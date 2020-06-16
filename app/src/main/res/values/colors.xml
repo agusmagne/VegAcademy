@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#454545</color>
+    <color name="colorPrimaryDark">#454545</color>
+    <color name="black">#454545</color>
+    <color name="colorAccent">#6C63FF</color>
+    <color name="white">#FBFCFF</color>
+    <color name="transparent_purple">#E9E9FF</color>
+    <color name="error">#FF0009</color>
+    <color name="blackBackground">#05041A</color>
+    <color name="navBarOff">#BABABA</color>
+    <color name="navBarOn">@color/white</color>
+    <color name="grey">#414141</color>
+</resources>

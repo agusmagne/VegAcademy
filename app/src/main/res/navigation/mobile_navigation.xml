@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.vegdev.vegacademy.ui.news.NewsFragment"
+        android:label="Novedades"
+        tools:layout="@layout/fragment_news" />
+
+    <fragment
+        android:id="@+id/navigation_learning"
+        android:name="com.vegdev.vegacademy.ui.learning.LearningFragment"
+        android:label="Aprendizaje"
+        tools:layout="@layout/fragment_learning" />
+
+    <fragment
+        android:id="@+id/navigation_recipes"
+        android:name="com.vegdev.vegacademy.ui.recipes.RecipesFragment"
+        android:label="Recetas"
+        tools:layout="@layout/fragment_recipes" />
+
+
+</navigation>

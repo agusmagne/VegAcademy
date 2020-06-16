@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">VegAcademy</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="iniciarsesion">Iniciar sesión</string>
+    <string name="veg_academy">Veg Academy</string>
+    <string name="nete_a_nuestra_comunidad_de_activistas">Únete a nuestra comunidad de activistas</string>
+    <string name="crear_usuario">Crear usuario</string>
+    <string name="anon">o ingresa <u>anónimamente</u></string>
+    <string name="ingresa_tus_datos">Ingresa tus datos</string>
+    <string name="desdevegacademy">Desde VegAcademy trabjamos para brindarte todo lo que un activista por los derechos de los animales necesita</string>
+    <string name="facebook_application_id" translatable="false">3058193794261507</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb3058193794261507</string>
+    <string name="noticias">Noticias</string>
+    <string name="aprendizaje">Aprendizaje</string>
+    <string name="recetas">Recetas</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="settings">Configuración</string>
+
+
+</resources>

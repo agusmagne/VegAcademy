@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "661707353208",
+    "firebase_url": "https://vegdev-vegacademy.firebaseio.com",
+    "project_id": "vegdev-vegacademy",
+    "storage_bucket": "vegdev-vegacademy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661707353208:android:1c6bbccf3cb158a6fa918d",
+        "android_client_info": {
+          "package_name": "com.vegdev.vegacademy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661707353208-0qg2ktnmh3fmsp9s3qc2ebpulbbs7t09.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vegdev.vegacademy",
+            "certificate_hash": "925c15e9a84832f47371d9f22adde443dc577c2c"
+          }
+        },
+        {
+          "client_id": "661707353208-rq0eirqlqf2nefrdkq1nipv4gen11uiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBAnzMmy0z4hNCob2Givw6dXz3Zz28PFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661707353208-rq0eirqlqf2nefrdkq1nipv4gen11uiv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
