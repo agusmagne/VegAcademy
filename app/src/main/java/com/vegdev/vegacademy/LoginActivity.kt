@@ -10,6 +10,7 @@ import android.util.Pair
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import androidx.constraintlayout.widget.ConstraintSet
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_login.*
@@ -25,16 +26,9 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        back_btn.setOnClickListener {
-            onBackPressed()
-        }
-
         login_btn.setOnClickListener {
 
             if (email_txt.text.toString() != "" && password_txt.text.toString() != "") {
-
-
-
                 val email = email_txt.text.toString().trim()
                 val password = password_txt.text.toString().trim()
 
@@ -50,9 +44,11 @@ class LoginActivity : AppCompatActivity() {
                         override fun onAnimationStart(animation: Animation?) {}
 
                         override fun onAnimationEnd(animation: Animation?) {
-                            val intent = Intent(context, WelcomeActivity::class.java)
-                            context.startActivity(intent)
-                            layoutUtils.overrideEnterAndExitTransitions(activity)
+                            val p1 = Pair.create(logo as View, "logo")
+                            val options = ActivityOptions.makeSceneTransitionAnimation(activity, p1)
+                            val intent = Intent(context, FirstActivity::class.java)
+                            intent.putExtra("from", "loginActivity")
+                            context.startActivity(intent, options.toBundle())
                         }
 
                     })
@@ -69,15 +65,15 @@ class LoginActivity : AppCompatActivity() {
                     login_txt.startAnimation(animation)
 
 
-
                 }.addOnFailureListener {
 
                     layoutUtils.createToast(this, "Error al iniciar sesión")
                 }
-
             } else {
                 layoutUtils.createToast(this, "Debe ingresar su correo y contraseña")
+
             }
+
         }
     }
 }

@@ -141,4 +141,8 @@ class StartActivity : AppCompatActivity() {
         start_create_user_txt.startAnimation(animation)
     }
 
+    override fun onBackPressed() {
+        this.moveTaskToBack(true)
+    }
+
 }

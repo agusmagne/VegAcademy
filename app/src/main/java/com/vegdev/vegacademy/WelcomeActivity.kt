@@ -21,7 +21,6 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
+        this.moveTaskToBack(true)
     }
-
 }
