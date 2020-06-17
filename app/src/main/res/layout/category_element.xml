@@ -19,16 +19,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/element_image_src"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@drawable/logosignedin" />
+            android:background="@drawable/imageapp" />
 
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/element_txt"
+        android:id="@+id/element_title"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"

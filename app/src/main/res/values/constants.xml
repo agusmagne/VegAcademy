@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="video_categories">3</integer>
+
+    <array name="videos_categories_drawables">
+        <item>@drawable/imageapp</item>
+        <item>@drawable/image_ceva</item>
+        <item>@drawable/image_carnism</item>
+    </array>
+
+    <string-array name="videos_categories_titles">
+        <item>VegAcademy introducción</item>
+        <item>Abogacía vegana efectiva</item>
+        <item>Más sobre carnismo</item>
+    </string-array>
+
+    <array name="articles_categories_drawables">
+        <item>@drawable/comunication</item>
+        <item>@drawable/othermovements</item>
+        <item>@drawable/nutrition</item>
+    </array>
+
+    <string-array name="articles_categories_titles">
+        <item>Comunicación</item>
+        <item>Otros movimientos</item>
+        <item>Nutrición</item>
+    </string-array>
 
 </resources>

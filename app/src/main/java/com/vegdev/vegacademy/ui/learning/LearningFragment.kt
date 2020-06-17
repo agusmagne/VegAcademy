@@ -16,12 +16,12 @@ class LearningFragment : Fragment() {
     private lateinit var learningViewModel: LearningViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         learningViewModel =
-            ViewModelProviders.of(this).get(LearningViewModel::class.java)
+                ViewModelProviders.of(this).get(LearningViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_learning, container, false)
         learningViewModel.text.observe(this, Observer {
         })
@@ -33,10 +33,22 @@ class LearningFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-        learning_rv.apply {
+        val videos_categories = resources.obtainTypedArray(R.array.videos_categories_drawables)
+        val videos_titles = resources.obtainTypedArray(R.array.videos_categories_titles)
+
+        val articles_categories = resources.obtainTypedArray(R.array.articles_categories_drawables)
+        val articles_titles = resources.obtainTypedArray(R.array.articles_categories_titles)
+
+        videos_rv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = LearningRvAdapter()
+            adapter = LearningRvAdapter(videos_categories, videos_titles)
         }
+
+        articles_rv.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = LearningRvAdapter(articles_categories, articles_titles)
+        }
+
 
         super.onViewCreated(view, savedInstanceState)
     }
