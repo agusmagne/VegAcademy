@@ -25,4 +25,14 @@
         <item>Nutrición</item>
     </string-array>
 
+    <array name="books_drawables">
+        <item>@drawable/book_whywelovedogs</item>
+        <item>@drawable/book_animalliberation</item>
+    </array>
+
+    <string-array name="books_titles">
+        <item>Por qué amamos a los perros, comemos cerdos y vestimos vacas - Melanie Joy</item>
+        <item>Liberación Animal - Peter Singer</item>
+    </string-array>
+
 </resources>
