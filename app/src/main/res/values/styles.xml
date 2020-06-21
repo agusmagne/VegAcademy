@@ -24,7 +24,7 @@
     </style>
 
     <style name="BlackActionBar">
-        <item name="android:background">@color/blackBackground</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>
@@ -33,6 +33,18 @@
         <item name="android:background">@color/grey</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="collapsedBarTitle">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="expandedBarTitle">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 

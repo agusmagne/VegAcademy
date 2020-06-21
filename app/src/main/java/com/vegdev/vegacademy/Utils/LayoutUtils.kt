@@ -4,17 +4,21 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.DisplayMetrics
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
 import android.widget.Toast
 import com.vegdev.vegacademy.R
 import kotlin.math.roundToInt
 
 class LayoutUtils {
 
-    fun overrideEnterAndExitTransitions(activity: Activity){
+    fun overrideEnterAndExitTransitions(activity: Activity) {
         activity.overridePendingTransition(R.anim.welcome_fade_in, R.anim.welcome_fade_out)
     }
 
-    fun startActivity(context: Context, activity: Any){
+    fun startActivity(context: Context, activity: Any) {
         val intent = Intent(context, activity as Class<*>)
         context.startActivity(intent)
     }
@@ -29,9 +33,40 @@ class LayoutUtils {
         return (dp / (displayMetrics.ydpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
     }
 
-    fun createToast(context: Context, text: String){
+    fun createToast(context: Context, text: String) {
         val toast = Toast.makeText(context, text, Toast.LENGTH_LONG)
         toast.show()
+    }
+
+    fun animateIn(view: View, context: Context) {
+        val animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+        animation.duration = 400
+        animation.startOffset = 100
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(animation: Animation?) {}
+            override fun onAnimationStart(animation: Animation?) {
+                view.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                view.clearAnimation()
+            }
+
+        })
+        view.startAnimation(animation)
+    }
+
+    fun animateOut(view: View, context: Context, id: Int) {
+        val animation = AnimationUtils.loadAnimation(context, id)
+        animation.duration = 400
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(animation: Animation?) {}
+            override fun onAnimationStart(animation: Animation?) {}
+            override fun onAnimationEnd(animation: Animation?) {
+                view.visibility = View.GONE
+            }
+        })
+        view.startAnimation(animation)
     }
 
 }
