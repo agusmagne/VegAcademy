@@ -18,7 +18,7 @@
 
     <style name="DarkMode" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/blackBackground</item>
-        <item name="colorPrimaryDark">@color/blackBackground</item>
+        <item name="colorPrimaryDark">#00000000</item>
         <item name="colorAccent">@color/white</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
