@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
