@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+
+
+<!--    <ConstraintSet android:id="@+id/onclick">-->
+<!--        <Constraint-->
+<!--            android:id="@id/src"-->
+<!--            android:visibility="gone"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintTop_toTopOf="parent"/>-->
+<!--        <Constraint-->
+<!--            android:id="@id/back"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:visibility="gone"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@id/videos_rv"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginTop="320dp"-->
+<!--            android:background="@color/blackBackground"-->
+<!--            motion:layout_constraintTop_toTopOf="parent"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"/>-->
+<!--        <Constraint-->
+<!--            android:id="@+id/who"-->
+<!--            android:visibility="gone"/>-->
+<!--    </ConstraintSet>-->
+
+    <Transition
+        motion:constraintSetEnd="@id/collapsed"
+        motion:constraintSetStart="@id/expanded">
+
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:touchAnchorId="@id/videos_rv"
+            motion:touchAnchorSide="top" />
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/expanded">
+        <Constraint
+            android:id="@id/src"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="64dp"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                motion:attributeName="imageAlpha"
+                motion:customIntegerValue="255" />
+        </Constraint>
+        <Constraint
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/src">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@color/white" />
+        </Constraint>
+        <Constraint
+            android:id="@id/back"
+            android:layout_height="350dp"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/who"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/white"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/title">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@color/white" />
+        </Constraint>
+    </ConstraintSet>
+
+
+    <ConstraintSet android:id="@+id/collapsed">
+        <Constraint
+            android:id="@id/src"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="86dp"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                motion:attributeName="imageAlpha"
+                motion:customIntegerValue="100" />
+        </Constraint>
+        <Constraint
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/src">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="#00FBFCFF" />
+        </Constraint>
+        <Constraint
+            android:id="@id/back"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/who"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:textColor="@color/white"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/title">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="#00FBFCFF" />
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>
