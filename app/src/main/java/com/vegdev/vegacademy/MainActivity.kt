@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -14,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), InhabilitateToolbar {
+class MainActivity : AppCompatActivity(), IToogleToolbar {
 
     val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
@@ -51,11 +50,29 @@ class MainActivity : AppCompatActivity(), InhabilitateToolbar {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun inhabilitateToolbar() {
+    override fun toolbarOff() {
         main_toolbar.visibility = View.GONE
+    }
+
+    override fun toolbarOn() {
+        main_toolbar.visibility = View.VISIBLE
+    }
+
+    override fun onBackPressed() {
+        val fragment =
+            this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+        val currentFragment = fragment?.childFragmentManager?.fragments?.get(0) as? IOnFragmentBackPressed
+        currentFragment?.onFragmentBackPressed()?.takeIf { !it }?.let {
+            super.onBackPressed()
+        }
     }
 }
 
-interface InhabilitateToolbar {
-    fun inhabilitateToolbar()
+interface IToogleToolbar {
+    fun toolbarOff()
+    fun toolbarOn()
+}
+
+interface IOnFragmentBackPressed {
+    fun onFragmentBackPressed(): Boolean
 }
