@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity(), IToogleToolbar {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        main_toolbar.visibility = View.VISIBLE
+
         firebaseAuth = FirebaseAuth.getInstance()
 
         setSupportActionBar(main_toolbar)

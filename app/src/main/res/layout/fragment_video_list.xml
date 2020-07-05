@@ -5,9 +5,15 @@
     android:id="@+id/fragment_video_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blackBackground"
     app:layoutDescription="@xml/fragment_video_motion_scene">
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="1dp"
+        android:visibility="invisible"
+        android:src="@color/blackBackground"/>
 
     <ImageView
         android:id="@+id/back"
@@ -74,7 +80,7 @@
         android:id="@+id/player_inlist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="1dp"
+        android:elevation="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

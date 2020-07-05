@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -17,7 +16,6 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.IToogleToolbar
-
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import com.vegdev.vegacademy.models.Video
@@ -28,28 +26,26 @@ import kotlinx.android.synthetic.main.fragment_video_list.*
  */
 class VideoListFragment : Fragment(), IOnFragmentBackPressed {
 
-    val layoutUtils = LayoutUtils()
-    lateinit var firestore: FirebaseFirestore
-    lateinit var rvAdapter: FirestoreRecyclerAdapter<Video, VideoListViewHolder>
-    lateinit var videoCurrentlyPlaying: Video
-    var youTubePlayer: YouTubePlayer? = null
-    var youtubeFragment: YouTubePlayerSupportFragmentX? = null
-    var readyToExit: Boolean = true
-    lateinit var trans: FragmentTransaction
-    var videoBeingLoaded: String = ""
-    var IToogleToolbar: IToogleToolbar? = null
+    private val layoutUtils = LayoutUtils()
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var rvAdapter: FirestoreRecyclerAdapter<Video, VideoListViewHolder>
+    private var youTubePlayer: YouTubePlayer? = null
+    private var linkCurrent: String = ""
+    private var linkIncoming: String = ""
+    private var iToogleToolbar: IToogleToolbar? = null
+    private var isYoutubeFragmentActive: Boolean = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is IToogleToolbar) {
-            IToogleToolbar = context
+            iToogleToolbar = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        IToogleToolbar?.toolbarOn()
-        IToogleToolbar = null
+        iToogleToolbar?.toolbarOn()
+        iToogleToolbar = null
     }
 
 
@@ -64,24 +60,25 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeYoutubePlayer(fragment_video_list)
+        initializeYoutubePlayer()
+
         rvAdapter = VideoListRvAdapter().fetchVideos(firestore) { video ->
+            linkIncoming = video.link
 
-            readyToExit = false
-            videoCurrentlyPlaying = video
-
-            if (youTubePlayer == null) {
+            if (!isYoutubeFragmentActive) {
+                isYoutubeFragmentActive = true
+                videos_rv.smoothScrollToPosition(0)
                 fragment_video_list.transitionToState(R.id.onclick)
+            }
+
+            if (linkIncoming == linkCurrent) {
+                layoutUtils.createToast(requireContext(), "Ya estás reproduciendo este video")
             } else {
-                if (videoBeingLoaded != video.link) {
-                    youTubePlayer?.loadVideo(video.link)
-                    videoBeingLoaded = video.link
-                } else {
-                    youTubePlayer?.release()
-                    layoutUtils.createToast(requireContext(), "Ya estás reproduciendo este video")
-                }
+                youTubePlayer?.loadVideo(video.link)
+                linkCurrent = linkIncoming
             }
         }
+
 
         videos_rv.apply {
             layoutManager = LinearLayoutManager(context)
@@ -102,34 +99,19 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
 
     }
 
-    fun initializeYoutubePlayer(view: MotionLayout) {
-        view.setTransitionListener(object : MotionLayout.TransitionListener {
-            override fun onTransitionTrigger(
-                p0: MotionLayout?,
-                p1: Int,
-                p2: Boolean,
-                p3: Float
-            ) {
-            }
+    private fun initializeYoutubePlayer() {
 
+        fragment_video_list.setTransitionListener(object : MotionLayout.TransitionListener {
 
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
-
-            override fun onTransitionChange(
-                p0: MotionLayout?,
-                p1: Int,
-                p2: Int,
-                p3: Float
-            ) {
-            }
-
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                if (p1 == R.id.onclick) {
+                if ((p1 == R.id.onclick) && (youTubePlayer == null)) {
                     val youTubePlayerSupportFragmentX =
                         YouTubePlayerSupportFragmentX.newInstance()
-                    youtubeFragment = youTubePlayerSupportFragmentX
+
                     val transaction = childFragmentManager.beginTransaction()
-                    trans = transaction
                     transaction.add(R.id.player_inlist, youTubePlayerSupportFragmentX).commit()
                     youTubePlayerSupportFragmentX.initialize(
                         resources.getString(R.string.API_KEY),
@@ -139,40 +121,37 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
                                 p1: YouTubePlayer?,
                                 p2: Boolean
                             ) {
-                                IToogleToolbar?.toolbarOff()
-                                p1?.loadVideo(videoCurrentlyPlaying.link)
-                                youTubePlayer = p1!!
-                                videoBeingLoaded = videoCurrentlyPlaying.link
+                                iToogleToolbar?.toolbarOff()
+
+                                youTubePlayer = p1
+
+                                linkCurrent = linkIncoming
+                                youTubePlayer?.loadVideo(linkIncoming)
+
                             }
 
                             override fun onInitializationFailure(
                                 p0: YouTubePlayer.Provider?,
                                 p1: YouTubeInitializationResult?
                             ) {
-                                TODO("Not yet implemented")
+                                layoutUtils.createToast(requireContext(), "Error al cargar video")
                             }
-                        }
-                    )
+                        })
                 }
             }
         })
+
     }
 
     override fun onFragmentBackPressed(): Boolean {
-        return if(!readyToExit){
-            youTubePlayer?.release()
-            youTubePlayer = null
-
-            src.elevation = 20f
-            back.elevation = 20f
-            who.elevation = 20f
-            title.elevation = 20f
-            videos_rv.elevation = 20f
-            fragment_video_list.transitionToState(R.id.expanded)
-            fragment_video_list.rebuildScene()
-
-            readyToExit = true
-            true
+        return if (youTubePlayer != null) {
+            if (youTubePlayer?.isPlaying!!) {
+                youTubePlayer?.pause()
+                videos_rv.smoothScrollToPosition(0)
+                true
+            } else {
+                false
+            }
         } else {
             false
         }
