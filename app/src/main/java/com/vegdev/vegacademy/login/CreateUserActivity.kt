@@ -1,21 +1,20 @@
-package com.vegdev.vegacademy
+package com.vegdev.vegacademy.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
-import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity : AppCompatActivity() {
 
-    val layoutUtils = LayoutUtils()
-    lateinit var firebaseAuth: FirebaseAuth
+    private val layoutUtils = LayoutUtils()
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -17,9 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkMode">
-        <activity android:name=".FirstActivity"
+        <activity
+            android:name=".login.FirstActivity"
             android:theme="@style/LoginTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,22 +27,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".login.WelcomeActivity"
             android:theme="@style/WelcomeTheme" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name=".CreateUserActivity"
+            android:name=".login.CreateUserActivity"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name=".StartActivity"
-            android:theme="@style/LoginTheme">
-        </activity>
+            android:name=".login.StartActivity"
+            android:theme="@style/LoginTheme"></activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
