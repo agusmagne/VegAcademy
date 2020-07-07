@@ -6,7 +6,7 @@
     android:id="@+id/login_sv"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".LoginActivity">
+    tools:context=".login.LoginActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

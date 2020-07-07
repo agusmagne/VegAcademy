@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy
+package com.vegdev.vegacademy.login
 
 import android.app.Activity
 import android.app.ActivityOptions
@@ -10,13 +10,13 @@ import android.os.Handler
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.util.Pair
 import com.google.firebase.auth.FirebaseAuth
+import com.vegdev.vegacademy.R
 import kotlinx.android.synthetic.main.activity_first.*
 
 class FirstActivity : AppCompatActivity() {
 
-    lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
@@ -50,10 +50,12 @@ class FirstActivity : AppCompatActivity() {
             }
     }
 
-    fun animateLogo(): Animation {
+    private fun animateLogo(): Animation {
         val cont: Context = this
         val act: Activity = this
-        val animation = AnimationUtils.loadAnimation(this, R.anim.welcome_fade_out)
+        val animation = AnimationUtils.loadAnimation(this,
+            R.anim.welcome_fade_out
+        )
         val p1 = android.util.Pair.create(logo_in as View, "logo")
         animation.startOffset = 1000
         animation.setAnimationListener(object : Animation.AnimationListener {

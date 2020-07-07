@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.Utils.LayoutUtils
+import com.vegdev.vegacademy.login.StartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), IToogleToolbar {

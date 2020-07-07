@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy
+package com.vegdev.vegacademy.login
 
 import android.app.Activity
 import android.app.ActivityOptions
@@ -12,8 +12,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_create_user.logo
 import kotlinx.android.synthetic.main.activity_start.*
@@ -26,7 +26,7 @@ class StartActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private val RC_SIGN_IN = 1
 
-    fun createSignInIntent() {
+    private fun createSignInIntent() {
         val providers = arrayListOf(AuthUI.IdpConfig.FacebookBuilder().build())
         startActivityForResult(
             AuthUI.getInstance()
@@ -55,7 +55,9 @@ class StartActivity : AppCompatActivity() {
                 ActivityOptions.makeSceneTransitionAnimation(this, p1, p2, p3).toBundle()
             val context: Context = this
 
-            val animation = AnimationUtils.loadAnimation(this, R.anim.create_btn_fade_out)
+            val animation = AnimationUtils.loadAnimation(this,
+                R.anim.create_btn_fade_out
+            )
             start_create_user_btn.startAnimation(animation)
             start_create_user_txt.startAnimation(animation)
             animation.setAnimationListener(object : Animation.AnimationListener {
@@ -103,7 +105,7 @@ class StartActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
+//            val response = IdpResponse.fromResultIntent(data)
 
             if (resultCode == Activity.RESULT_OK) {
                 val intent = Intent(this, WelcomeActivity::class.java)
@@ -122,7 +124,9 @@ class StartActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
 
-        val animation = AnimationUtils.loadAnimation(this, R.anim.create_btn_fade_in)
+        val animation = AnimationUtils.loadAnimation(this,
+            R.anim.create_btn_fade_in
+        )
         animation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationRepeat(animation: Animation?) {
             }
