@@ -38,5 +38,10 @@
         android:id="@+id/navigation_videos"
         android:name="com.vegdev.vegacademy.ui.learning.VideoListFragment"
         android:label="Videos"
-        tools:layout="@layout/fragment_video_list" />
+        tools:layout="@layout/fragment_video_list">
+        <argument
+            android:name="firestore_collection"
+            android:defaultValue="defaultValue"
+            app:argType="string" />
+    </fragment>
 </navigation>

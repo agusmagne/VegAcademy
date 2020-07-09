@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.video_list_element.view.*
 
 class VideoListRvAdapter {
     fun fetchVideos(
-        firestore: FirebaseFirestore, listener: (Video) -> Unit
+        firestore: FirebaseFirestore, firestoreCollection: String, listener: (Video) -> Unit
     ): FirestoreRecyclerAdapter<Video, VideoListViewHolder> {
 
         val query = firestore.collection("learning").document("videos")
-            .collection("ceva")
+            .collection(firestoreCollection)
         val response =
             FirestoreRecyclerOptions.Builder<Video>().setQuery(query, Video::class.java).build()
 

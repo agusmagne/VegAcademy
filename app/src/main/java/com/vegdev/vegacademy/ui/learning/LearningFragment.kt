@@ -5,15 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vegdev.vegacademy.R
 import kotlinx.android.synthetic.main.fragment_learning.*
 
 class LearningFragment : Fragment() {
-
-    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,24 +22,38 @@ class LearningFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navController = findNavController()
-
 
         videos_rv.apply {
-            val videos_categories = resources.obtainTypedArray(R.array.videos_categories_drawables)
-            val videos_titles = resources.obtainTypedArray(R.array.videos_categories_titles)
+            val videosCategories = resources.obtainTypedArray(R.array.videos_categories_drawables)
+            val videosTitles = resources.obtainTypedArray(R.array.videos_categories_titles)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = LearningRvAdapter(navController, videos_categories, videos_titles)
+            adapter = LearningRvAdapter(videosCategories, videosTitles) { position ->
+                when (position) {
+                    0 -> {
+                        this.findNavController().navigate(R.id.action_video)
+                    }
+                    1 -> {
+                        this.findNavController()
+                            .navigate(LearningFragmentDirections.actionVideo("ceva"))
+                    }
+                    2 -> {
+                        this.findNavController()
+                            .navigate(LearningFragmentDirections.actionVideo("carn"))
+                    }
+                }
+            }
         }
 
 
 
         articles_rv.apply {
-            val articles_categories =
+            val articlesCategories =
                 resources.obtainTypedArray(R.array.articles_categories_drawables)
-            val articles_titles = resources.obtainTypedArray(R.array.articles_categories_titles)
+            val articlesTitles = resources.obtainTypedArray(R.array.articles_categories_titles)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = LearningRvAdapter(navController, articles_categories, articles_titles)
+            adapter = LearningRvAdapter(articlesCategories, articlesTitles) {
+
+            }
         }
 
         super.onViewCreated(view, savedInstanceState)

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -58,28 +59,32 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
         return inflater.inflate(R.layout.fragment_video_list, container, false)
     }
 
+    private val args: VideoListFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val collection = args.firestoreCollection
+
         initializeYoutubePlayer()
 
-        rvAdapter = VideoListRvAdapter().fetchVideos(firestore) { video ->
+        rvAdapter = VideoListRvAdapter().fetchVideos(firestore, collection) { video ->
             linkIncoming = video.link
 
             if (!isYoutubeFragmentActive) {
                 isYoutubeFragmentActive = true
                 videos_rv.smoothScrollToPosition(0)
                 fragment_video_list.transitionToState(R.id.onclick)
-            }
 
-            if (linkIncoming == linkCurrent) {
-                layoutUtils.createToast(requireContext(), "Ya estás reproduciendo este video")
             } else {
-                youTubePlayer?.loadVideo(video.link)
-                linkCurrent = linkIncoming
+                if (linkIncoming == linkCurrent) {
+                    layoutUtils.createToast(requireContext(), "Ya estás reproduciendo este video")
+                } else {
+                    youTubePlayer?.loadVideo(video.link)
+                    linkCurrent = linkIncoming
+                }
             }
         }
-
         videos_rv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
@@ -101,8 +106,6 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
     override fun onStop() {
         super.onStop()
         rvAdapter.stopListening()
-
-
     }
 
     private fun initializeYoutubePlayer() {
