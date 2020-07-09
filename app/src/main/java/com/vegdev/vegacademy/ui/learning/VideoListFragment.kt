@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +29,9 @@ import kotlinx.android.synthetic.main.fragment_video_list.*
  */
 class VideoListFragment : Fragment(), IOnFragmentBackPressed {
 
+    private val VEGACADEMY_POSITION = 0
+    private val CEVA_POSITION = 1
+    private val CARNISM_POSITION = 0
     private val layoutUtils = LayoutUtils()
     private lateinit var firestore: FirebaseFirestore
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<Video, VideoListViewHolder>
@@ -65,6 +69,8 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
         super.onViewCreated(view, savedInstanceState)
 
         val collection = args.firestoreCollection
+
+        setImageSrc(collection, src)
 
         initializeYoutubePlayer()
 
@@ -164,5 +170,23 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
         } else {
             false
         }
+    }
+
+    private fun setImageSrc(collection: String, src: ImageFilterView) {
+        val array = resources.obtainTypedArray(R.array.videos_categories_drawables)
+
+        when (collection) {
+            "veg" -> {
+                src.background = array.getDrawable(VEGACADEMY_POSITION)
+            }
+            "ceva" -> {
+                src.background = array.getDrawable(CEVA_POSITION)
+            }
+            "carn" -> {
+                src.background = array.getDrawable(CARNISM_POSITION)
+
+            }
+        }
+        array.recycle()
     }
 }

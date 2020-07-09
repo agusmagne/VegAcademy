@@ -30,7 +30,8 @@ class LearningFragment : Fragment() {
             adapter = LearningRvAdapter(videosCategories, videosTitles) { position ->
                 when (position) {
                     0 -> {
-                        this.findNavController().navigate(R.id.action_video)
+                        this.findNavController()
+                            .navigate(LearningFragmentDirections.actionVideo("veg"))
                     }
                     1 -> {
                         this.findNavController()
@@ -55,7 +56,6 @@ class LearningFragment : Fragment() {
 
             }
         }
-
         super.onViewCreated(view, savedInstanceState)
     }
 }
