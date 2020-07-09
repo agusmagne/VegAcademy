@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -79,7 +80,6 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
             }
         }
 
-
         videos_rv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
@@ -89,7 +89,13 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
     override fun onStart() {
         super.onStart()
         rvAdapter.startListening()
-
+        videos_rv.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                fragment_video_list.visibility = View.VISIBLE
+                videos_rv.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
     }
 
     override fun onStop() {

@@ -21,7 +21,7 @@
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:layout_width="350dp"
         android:layout_height="150dp"
-        android:src="#AA05041A"
+        android:src="#801A165B"
         app:layout_constraintBottom_toBottomOf="@id/video_src"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

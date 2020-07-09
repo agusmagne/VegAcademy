@@ -15,11 +15,7 @@
             app:destination="@id/navigation_recipes" />
         <action
             android:id="@+id/action_navigation_news_to_navigation_learning"
-            app:destination="@id/navigation_learning"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/navigation_learning" />
     </fragment>
 
     <fragment
@@ -42,22 +38,5 @@
         android:id="@+id/navigation_videos"
         android:name="com.vegdev.vegacademy.ui.learning.VideoListFragment"
         android:label="Videos"
-        tools:layout="@layout/fragment_video_list">
-        <action
-            android:id="@+id/action_video_player"
-            app:destination="@id/navigation_video_player"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_video_player"
-        android:name="com.vegdev.vegacademy.ui.learning.VideoPlayerFragment"
-        android:label="VideoPlayer"
-        tools:layout="@layout/fragment_video_player" >
-        <argument
-            android:name="link"
-            app:argType="string"
-            android:defaultValue="defaultValue" />
-    </fragment>
-
-
+        tools:layout="@layout/fragment_video_list" />
 </navigation>
