@@ -5,7 +5,6 @@
     android:id="@+id/fragment_video_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="invisible"
     app:layoutDescription="@xml/fragment_video_motion_scene">
 
     <ImageView
@@ -30,6 +29,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:contentDescription="@null"
+        android:elevation="10dp"
         android:scaleType="centerCrop"
         android:background="@drawable/image_ceva"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -72,6 +72,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="64dp"
         android:background="@color/blackBackground"
+        android:scaleX="-0.3"
+        android:scaleY="-0.3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

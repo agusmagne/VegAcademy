@@ -40,8 +40,7 @@
         android:label="Videos"
         tools:layout="@layout/fragment_video_list">
         <argument
-            android:name="firestore_collection"
-            android:defaultValue="defaultValue"
-            app:argType="string" />
+            android:name="category"
+            app:argType="com.vegdev.vegacademy.models.Category" />
     </fragment>
 </navigation>

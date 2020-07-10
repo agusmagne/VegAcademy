@@ -120,6 +120,8 @@
             android:layout_marginTop="64dp"
             android:background="@color/blackBackground"
             android:elevation="2dp"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
