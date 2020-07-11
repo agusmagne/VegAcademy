@@ -2,6 +2,9 @@ package com.vegdev.vegacademy.ui.learning
 
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +30,6 @@ import kotlinx.android.synthetic.main.fragment_video_list.*
  */
 class VideoListFragment : Fragment(), IOnFragmentBackPressed {
 
-    private val VEGACADEMY_POSITION = 0
-    private val CEVA_POSITION = 1
-    private val CARNISM_POSITION = 2
     private val layoutUtils = LayoutUtils()
     private lateinit var firestore: FirebaseFirestore
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<Video, VideoListViewHolder>
@@ -52,15 +52,17 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
         super.onViewCreated(view, savedInstanceState)
 
         val category = args.category
-        val collection = category.collection!!
-        val source = category.source
-        val instagram = category.instagram!!
 
-        adjustLayout(collection, source, instagram)
+        val categoryCollection = category.collection!!
+        val categoryImage = category.source
+        val categoryInstagram = category.instagram!!
+        val categoryTitle = category.title!!
+
+        adjustLayout(categoryImage, categoryInstagram, categoryTitle)
 
         initializeYoutubePlayer()
 
-        rvAdapter = VideoListRvAdapter().fetchVideos(firestore, collection) { video ->
+        rvAdapter = VideoListRvAdapter().fetchVideos(firestore, categoryCollection) { video ->
             linkIncoming = video.link
 
             if (!isYoutubeFragmentActive) {
@@ -81,6 +83,20 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
         }
+
+        who.setOnClickListener {
+            val uri = Uri.parse("http://instagram.com/_u/$categoryInstagram")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            intent.setPackage("com.instagram.android")
+
+            if (isInstagramIntentAvailable(context, intent)) {
+                startActivity(intent)
+            } else {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram" +
+                        ".com/$categoryInstagram")))
+            }
+        }
+
     }
 
     override fun onStart() {
@@ -164,11 +180,16 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
 
     }
 
-    private fun adjustLayout(collection: String, source: Int, instagram: String) {
-        who.text = instagram
+    private fun isInstagramIntentAvailable(context: Context?, intent: Intent): Boolean {
+        val packageManager = context?.packageManager
+        val list = packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        return list?.size!! > 0
+    }
 
-        val array = resources.obtainTypedArray(R.array.videos_categories_drawables)
-        src.background = context?.getDrawable(source)
-        array.recycle()
+    private fun adjustLayout(categoryImage: Int, categoryInstagram: String, categoryTitle: String) {
+        val text = "@$categoryInstagram"
+        who.text = text
+        title.text = categoryTitle
+        src.background = context?.getDrawable(categoryImage)
     }
 }

@@ -3,17 +3,19 @@ package com.vegdev.vegacademy.models
 import android.os.Parcel
 import android.os.Parcelable
 
-class Category(val collection: String?, val source: Int, val instagram: String?) : Parcelable {
+class Category(val collection: String?, val source: Int, val instagram: String?, val title:
+String?) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readInt(),
-            parcel.readString()) {
-    }
+            parcel.readString(),
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(collection)
         parcel.writeInt(source)
         parcel.writeString(instagram)
+        parcel.writeString(title)
     }
 
     override fun describeContents(): Int {

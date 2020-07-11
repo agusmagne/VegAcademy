@@ -31,17 +31,20 @@ class LearningFragment : Fragment() {
 
                 when (position) {
                     0 -> {
-                        val category = Category("veg", R.drawable.imageapp, "@ceva.world")
+                        val category = Category("veg", R.drawable.imageapp, "vegacademy",
+                                "Academia Veg Introducción")
                         this.findNavController()
                                 .navigate(LearningFragmentDirections.actionVideo(category))
                     }
                     1 -> {
-                        val category = Category("ceva", R.drawable.image_ceva, "@ceva.world")
+                        val category = Category("ceva", R.drawable.image_ceva, "ceva.world",
+                                "Abogacía Vegana Efectiva")
                         this.findNavController()
                                 .navigate(LearningFragmentDirections.actionVideo(category))
                     }
                     2 -> {
-                        val category = Category("carn", R.drawable.image_carnism, "@beyondcarnism")
+                        val category = Category("carn", R.drawable.image_carnism,
+                                "beyondcarnism", "Más Allá Del Carnismo")
                         this.findNavController()
                                 .navigate(LearningFragmentDirections.actionVideo(category))
                     }
