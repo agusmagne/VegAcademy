@@ -53,16 +53,17 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
 
         val category = args.category
 
-        val categoryCollection = category.collection!!
-        val categoryImage = category.source
-        val categoryInstagram = category.instagram!!
-        val categoryTitle = category.title!!
+        val categoryType = category.categoryType!!
+        val categoryCollection = category.categoryCollection!!
+        val categoryImage = category.categoryImage!!
+        val categoryInstagram = category.categoryInstagram!!
+        val categoryTitle = category.categoryTitle!!
 
         adjustLayout(categoryImage, categoryInstagram, categoryTitle)
 
         initializeYoutubePlayer()
 
-        rvAdapter = VideoListRvAdapter().fetchVideos(firestore, categoryCollection) { video ->
+        rvAdapter = VideoListRvAdapter().fetchVideos(firestore, categoryType, categoryCollection) { video ->
             linkIncoming = video.link
 
             if (!isYoutubeFragmentActive) {
