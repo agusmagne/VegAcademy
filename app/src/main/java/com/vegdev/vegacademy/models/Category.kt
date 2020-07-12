@@ -7,8 +7,8 @@ class Category(
     var categoryType: String?,
     var categoryCollection: String?,
     var categoryImage: Int?,
-    var categoryInstagram: String?,
-    var categoryTitle: String?
+    var categoryTitle: String?,
+    var categoryInstagram: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -22,8 +22,9 @@ class Category(
         parcel.writeString(categoryType)
         parcel.writeString(categoryCollection)
         parcel.writeInt(categoryImage!!)
-        parcel.writeString(categoryInstagram)
         parcel.writeString(categoryTitle)
+        parcel.writeString(categoryInstagram)
+
     }
 
     override fun describeContents(): Int {

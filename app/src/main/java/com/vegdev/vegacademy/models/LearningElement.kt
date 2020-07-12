@@ -1,6 +1,6 @@
 package com.vegdev.vegacademy.models
 
-class Video {
+class LearningElement {
     val title: String
     val desc: String
     val src: String

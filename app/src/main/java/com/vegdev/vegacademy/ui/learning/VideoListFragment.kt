@@ -22,7 +22,7 @@ import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.IToogleToolbar
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.Utils.LayoutUtils
-import com.vegdev.vegacademy.models.Video
+import com.vegdev.vegacademy.models.LearningElement
 import kotlinx.android.synthetic.main.fragment_video_list.*
 
 /**
@@ -32,7 +32,7 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
 
     private val layoutUtils = LayoutUtils()
     private lateinit var firestore: FirebaseFirestore
-    private lateinit var rvAdapter: FirestoreRecyclerAdapter<Video, VideoListViewHolder>
+    private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>
     private var youTubePlayer: YouTubePlayer? = null
     private var linkCurrent: String = ""
     private var linkIncoming: String = ""
@@ -41,8 +41,8 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
     private val args: VideoListFragmentArgs by navArgs()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         firestore = FirebaseFirestore.getInstance()
         return inflater.inflate(R.layout.fragment_video_list, container, false)
@@ -56,45 +56,67 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
         val categoryType = category.categoryType!!
         val categoryCollection = category.categoryCollection!!
         val categoryImage = category.categoryImage!!
-        val categoryInstagram = category.categoryInstagram!!
         val categoryTitle = category.categoryTitle!!
+        val categoryInstagram = category.categoryInstagram!!
 
         adjustLayout(categoryImage, categoryInstagram, categoryTitle)
 
         initializeYoutubePlayer()
 
-        rvAdapter = VideoListRvAdapter().fetchVideos(firestore, categoryType, categoryCollection) { video ->
-            linkIncoming = video.link
+        if (categoryType == "videos") {
+            rvAdapter =
+                VideoListRvAdapter().fetchVideos(
+                    firestore,
+                    categoryCollection
+                ) { video ->
+                    linkIncoming = video.link
 
-            if (!isYoutubeFragmentActive) {
-                isYoutubeFragmentActive = true
-                videos_rv.smoothScrollToPosition(0)
-                fragment_video_list.transitionToState(R.id.onclick)
+                    if (!isYoutubeFragmentActive) {
+                        isYoutubeFragmentActive = true
+                        videos_rv.smoothScrollToPosition(0)
+                        fragment_video_list.transitionToState(R.id.onclick)
 
-            } else {
-                if (linkIncoming == linkCurrent) {
-                    layoutUtils.createToast(requireContext(), "Ya estás reproduciendo este video")
-                } else {
-                    youTubePlayer?.loadVideo(video.link)
-                    linkCurrent = linkIncoming
+                    } else {
+                        if (linkIncoming == linkCurrent) {
+                            layoutUtils.createToast(
+                                requireContext(),
+                                "Ya estás reproduciendo este video"
+                            )
+                        } else {
+                            youTubePlayer?.loadVideo(video.link)
+                            linkCurrent = linkIncoming
+                        }
+                    }
                 }
+        } else if (categoryType == "articles") {
+            rvAdapter = VideoListRvAdapter().fetchArticles(firestore, categoryCollection) { article ->
+
             }
         }
+
         videos_rv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
         }
 
         who.setOnClickListener {
-            val uri = Uri.parse("http://instagram.com/_u/$categoryInstagram")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            intent.setPackage("com.instagram.android")
+            if (who.text != "") {
+                val uri = Uri.parse("http://instagram.com/_u/$categoryInstagram")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                intent.setPackage("com.instagram.android")
 
-            if (isInstagramIntentAvailable(context, intent)) {
-                startActivity(intent)
-            } else {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram" +
-                        ".com/$categoryInstagram")))
+                if (isInstagramIntentAvailable(context, intent)) {
+                    startActivity(intent)
+                } else {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW, Uri.parse(
+                                "http://instagram" +
+                                        ".com/$categoryInstagram"
+                            )
+                        )
+                    )
+                }
             }
         }
 
@@ -147,34 +169,34 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 if ((p1 == R.id.onclick) && (youTubePlayer == null)) {
                     val youTubePlayerSupportFragmentX =
-                            YouTubePlayerSupportFragmentX.newInstance()
+                        YouTubePlayerSupportFragmentX.newInstance()
 
                     val transaction = childFragmentManager.beginTransaction()
                     transaction.add(R.id.player_inlist, youTubePlayerSupportFragmentX).commit()
                     youTubePlayerSupportFragmentX.initialize(
-                            resources.getString(R.string.API_KEY),
-                            object : YouTubePlayer.OnInitializedListener {
-                                override fun onInitializationSuccess(
-                                        p0: YouTubePlayer.Provider?,
-                                        p1: YouTubePlayer?,
-                                        p2: Boolean
-                                ) {
-                                    iToogleToolbar?.toolbarOff()
+                        resources.getString(R.string.API_KEY),
+                        object : YouTubePlayer.OnInitializedListener {
+                            override fun onInitializationSuccess(
+                                p0: YouTubePlayer.Provider?,
+                                p1: YouTubePlayer?,
+                                p2: Boolean
+                            ) {
+                                iToogleToolbar?.toolbarOff()
 
-                                    youTubePlayer = p1
+                                youTubePlayer = p1
 
-                                    linkCurrent = linkIncoming
-                                    youTubePlayer?.loadVideo(linkIncoming)
+                                linkCurrent = linkIncoming
+                                youTubePlayer?.loadVideo(linkIncoming)
 
-                                }
+                            }
 
-                                override fun onInitializationFailure(
-                                        p0: YouTubePlayer.Provider?,
-                                        p1: YouTubeInitializationResult?
-                                ) {
-                                    layoutUtils.createToast(requireContext(), "Error al cargar video")
-                                }
-                            })
+                            override fun onInitializationFailure(
+                                p0: YouTubePlayer.Provider?,
+                                p1: YouTubeInitializationResult?
+                            ) {
+                                layoutUtils.createToast(requireContext(), "Error al cargar video")
+                            }
+                        })
                 }
             }
         })
@@ -188,8 +210,12 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
     }
 
     private fun adjustLayout(categoryImage: Int, categoryInstagram: String, categoryTitle: String) {
-        val text = "@$categoryInstagram"
-        who.text = text
+        if (categoryInstagram != "") {
+            val text = "@$categoryInstagram"
+            who.text = text
+        } else {
+            who.text = ""
+        }
         title.text = categoryTitle
         src.background = context?.getDrawable(categoryImage)
     }
