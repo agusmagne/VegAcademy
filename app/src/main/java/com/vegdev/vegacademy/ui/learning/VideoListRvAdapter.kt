@@ -54,7 +54,7 @@ class VideoListRvAdapter {
         listener: (LearningElement) -> Unit
     ): FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder> {
 
-        val query = firestore.collection("learning").document("articles")
+        val query = firestore.collection("learning").document("art")
             .collection(firestoreCollection)
         val response =
             FirestoreRecyclerOptions.Builder<LearningElement>()

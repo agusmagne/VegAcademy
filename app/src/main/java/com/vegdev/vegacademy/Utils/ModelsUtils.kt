@@ -22,7 +22,7 @@ class ModelsUtils {
     val CARNISM_INSTAGRAM = "beyondcarnism"
     val CARNISM_TITLE = "Más Allá del Carnismo"
 
-    val ARTICLES_CATEGORY = "articles"
+    val ARTICLES_CATEGORY = "art"
 
     val OTHERMOVEMENTS_COLLECTION = "om"
     val OTHERMOVEMENTS_IMAGE = R.drawable.othermovements
@@ -35,6 +35,7 @@ class ModelsUtils {
     val NUTRITION_COLLECTION = "nu"
     val NUTRITION_IMAGE = R.drawable.nutrition
     val NUTRITION_TITLE = "Sobre Nutrición"
+    val NUTRITION_INSTAGRAM = "conetica_"
 
     fun createVegAcademyCategory(): Category = Category(
         VIDEOS_CATEGORY,
@@ -65,6 +66,10 @@ class ModelsUtils {
     )
 
     fun createNutritionCategory(): Category = Category(
-        ARTICLES_CATEGORY, NUTRITION_COLLECTION, NUTRITION_IMAGE, NUTRITION_TITLE, ""
+        ARTICLES_CATEGORY,
+        NUTRITION_COLLECTION,
+        NUTRITION_IMAGE,
+        NUTRITION_TITLE,
+        NUTRITION_INSTAGRAM
     )
 }

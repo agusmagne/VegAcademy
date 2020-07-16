@@ -60,6 +60,9 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
         val categoryInstagram = category.categoryInstagram!!
 
         adjustLayout(categoryImage, categoryInstagram, categoryTitle)
+        if(who.text == "") {
+            adjustRvToTitle()
+        }
 
         initializeYoutubePlayer()
 
@@ -88,10 +91,13 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
                         }
                     }
                 }
-        } else if (categoryType == "articles") {
-            rvAdapter = VideoListRvAdapter().fetchArticles(firestore, categoryCollection) { article ->
-
-            }
+        } else if (categoryType == "art") {
+            rvAdapter =
+                VideoListRvAdapter().fetchArticles(firestore, categoryCollection) { article ->
+                    val link = article.link
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                    this.startActivity(intent)
+                }
         }
 
         videos_rv.apply {
@@ -157,6 +163,12 @@ class VideoListFragment : Fragment(), IOnFragmentBackPressed {
         } else {
             false
         }
+    }
+
+    private fun adjustRvToTitle(){
+        val params = back.layoutParams
+        params.height = 275
+        back.layoutParams = params
     }
 
     private fun initializeYoutubePlayer() {
