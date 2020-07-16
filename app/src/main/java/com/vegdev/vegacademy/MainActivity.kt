@@ -14,7 +14,7 @@ import com.vegdev.vegacademy.Utils.LayoutUtils
 import com.vegdev.vegacademy.login.StartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IToogleToolbar {
+class MainActivity : AppCompatActivity(), IToogleToolbar, IProgressBar {
 
     val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
@@ -69,6 +69,19 @@ class MainActivity : AppCompatActivity(), IToogleToolbar {
             super.onBackPressed()
         }
     }
+
+    override fun loading() {
+        main_progressbar.visibility = View.VISIBLE
+    }
+
+    override fun loaded() {
+        main_progressbar.visibility = View.INVISIBLE
+    }
+}
+
+interface IProgressBar {
+    fun loading()
+    fun loaded()
 }
 
 interface IToogleToolbar {

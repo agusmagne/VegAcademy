@@ -69,4 +69,15 @@ class LayoutUtils {
         view.startAnimation(animation)
     }
 
+    fun animateViews(
+        context: Context,
+        animationId: Int,
+        viewArray: List<View>
+    ) {
+        val animation = AnimationUtils.loadAnimation(context, animationId)
+        for (view in viewArray) {
+            view.startAnimation(animation)
+        }
+    }
+
 }

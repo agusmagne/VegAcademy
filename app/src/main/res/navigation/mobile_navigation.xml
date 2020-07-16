@@ -15,11 +15,7 @@
             app:destination="@id/navigation_recipes" />
         <action
             android:id="@+id/action_navigation_news_to_navigation_learning"
-            app:destination="@id/navigation_learning"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_enter"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:destination="@id/navigation_learning" />
     </fragment>
 
     <fragment
@@ -30,10 +26,7 @@
         <action
             android:id="@+id/action_video"
             app:destination="@id/navigation_videos"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_enter"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
+            app:popEnterAnim="@anim/fragment_in" />
     </fragment>
 
     <fragment
@@ -44,7 +37,7 @@
 
     <fragment
         android:id="@+id/navigation_videos"
-        android:name="com.vegdev.vegacademy.ui.learning.VideoListFragment"
+        android:name="com.vegdev.vegacademy.ui.learning.LearningCategoryFragment"
         android:label="Videos"
         tools:layout="@layout/fragment_video_list">
         <argument

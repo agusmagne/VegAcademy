@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
-        android:visibility="visible"
         android:theme="@style/BlackActionBar"
+        android:visibility="visible"
         app:popupTheme="@style/BlackActionBarPopUp" />
 
     <fragment
@@ -25,6 +25,13 @@
         android:layout_marginBottom="?attr/actionBarSize"
         app:defaultNavHost="true"
         app:navGraph="@navigation/mobile_navigation" />
+
+    <ProgressBar
+        android:id="@+id/main_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

@@ -7,8 +7,9 @@
         android:toYDelta="0%" />
 
     <alpha xmlns:android="http://schemas.android.com/apk/res/android"
+        android:duration="@android:integer/config_longAnimTime"
+        android:fromAlpha="0.0"
         android:interpolator="@android:interpolator/decelerate_quad"
-        android:fromAlpha="0.0" android:toAlpha="1.0"
-        android:duration="@android:integer/config_longAnimTime" />
+        android:toAlpha="1.0" />
 
 </set>
