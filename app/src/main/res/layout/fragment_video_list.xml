@@ -5,9 +5,8 @@
     android:id="@+id/fragment_video_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:visibility="invisible"
-    app:layoutDescription="@xml/fragment_video_motion_scene">
+    app:layoutDescription="@xml/learning_category_fragment_motion">
 
     <ImageView
         android:id="@+id/background"

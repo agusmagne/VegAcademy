@@ -187,17 +187,17 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
     }
 
     override fun onFragmentBackPressed(): Boolean {
-        return if (youTubePlayer != null) {
+        if (youTubePlayer != null) {
             if (youTubePlayer?.isPlaying!!) {
                 youTubePlayer?.pause()
                 videos_rv.smoothScrollToPosition(0)
-                true
-            } else {
-                false
+                return true
             }
-        } else {
-            false
         }
+        if (isLayoutLoaded) {
+            return false
+        }
+        return true
     }
 
     private fun adjustRvToTitle() {

@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.Utils.LayoutUtils
 import com.vegdev.vegacademy.models.LearningElement
 import kotlinx.android.synthetic.main.article_list_element.view.*
 import kotlinx.android.synthetic.main.video_list_element.view.*
@@ -64,7 +65,6 @@ class VideoListRvAdapter {
             FirestoreRecyclerOptions.Builder<LearningElement>()
                 .setQuery(query, LearningElement::class.java).build()
 
-
         return object :
             FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>(response) {
             override fun onCreateViewHolder(
@@ -82,7 +82,9 @@ class VideoListRvAdapter {
                 article: LearningElement
             ) {
                 holder.bindArticle(article) { onFinish() }
-                holder.itemView.setOnClickListener { listener(article) }
+                holder.itemView.setOnClickListener {
+                    listener(article)
+                }
             }
         }
     }
