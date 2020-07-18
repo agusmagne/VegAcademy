@@ -37,12 +37,11 @@
             android:theme="@style/LoginTheme" />
         <activity
             android:name=".login.StartActivity"
-            android:theme="@style/LoginTheme"></activity>
+            android:theme="@style/LoginTheme"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            ></activity>
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <meta-data
             android:name="preloaded_fonts"

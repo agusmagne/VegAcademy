@@ -12,9 +12,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import com.vegdev.vegacademy.login.StartActivity
+import com.vegdev.vegacademy.login.WelcomeActivity
+import com.vegdev.vegacademy.ui.news.NewsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IToogleToolbar {
+class MainActivity : AppCompatActivity(), IToogleToolbar, IProgressBar {
 
     val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
@@ -64,11 +66,32 @@ class MainActivity : AppCompatActivity(), IToogleToolbar {
     override fun onBackPressed() {
         val fragment =
             this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
-        val currentFragment = fragment?.childFragmentManager?.fragments?.get(0) as? IOnFragmentBackPressed
-        currentFragment?.onFragmentBackPressed()?.takeIf { !it }?.let {
-            super.onBackPressed()
+        val currentFragment =
+            fragment?.childFragmentManager?.fragments?.get(0) as? IOnFragmentBackPressed
+        if (currentFragment is NewsFragment) {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("EXIT", true)
+            startActivity(intent)
+        } else {
+            currentFragment?.onFragmentBackPressed()?.takeIf { !it }?.let {
+                super.onBackPressed()
+            }
         }
     }
+
+    override fun loading() {
+        main_progressbar.visibility = View.VISIBLE
+    }
+
+    override fun loaded() {
+        main_progressbar.visibility = View.INVISIBLE
+    }
+}
+
+interface IProgressBar {
+    fun loading()
+    fun loaded()
 }
 
 interface IToogleToolbar {

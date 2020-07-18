@@ -25,7 +25,8 @@
         tools:layout="@layout/fragment_learning">
         <action
             android:id="@+id/action_video"
-            app:destination="@id/navigation_videos" />
+            app:destination="@id/navigation_videos"
+            app:popEnterAnim="@anim/fragment_in" />
     </fragment>
 
     <fragment
@@ -36,12 +37,11 @@
 
     <fragment
         android:id="@+id/navigation_videos"
-        android:name="com.vegdev.vegacademy.ui.learning.VideoListFragment"
+        android:name="com.vegdev.vegacademy.ui.learning.LearningCategoryFragment"
         android:label="Videos"
         tools:layout="@layout/fragment_video_list">
         <argument
-            android:name="firestore_collection"
-            android:defaultValue="defaultValue"
-            app:argType="string" />
+            android:name="category"
+            app:argType="com.vegdev.vegacademy.models.Category" />
     </fragment>
 </navigation>

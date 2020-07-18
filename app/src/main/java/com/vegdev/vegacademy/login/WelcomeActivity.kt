@@ -16,6 +16,10 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
+        if(intent.getBooleanExtra("EXIT", false)) {
+            onBackPressed()
+        }
+
         start_btn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             this.startActivity(intent)

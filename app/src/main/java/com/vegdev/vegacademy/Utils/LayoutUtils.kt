@@ -3,12 +3,15 @@ package com.vegdev.vegacademy.Utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.Toast
+import androidx.core.graphics.get
 import com.vegdev.vegacademy.R
 import kotlin.math.roundToInt
 
@@ -67,6 +70,38 @@ class LayoutUtils {
             }
         })
         view.startAnimation(animation)
+    }
+
+    fun animateViews(
+        context: Context,
+        animationId: Int,
+        viewArray: List<View>
+    ) {
+        val animation = AnimationUtils.loadAnimation(context, animationId)
+        for (view in viewArray) {
+            view.startAnimation(animation)
+        }
+    }
+
+    fun getAverageColor(bitmap: Bitmap) : List<Int>{
+        var red = 0
+        var green = 0
+        var blue = 0
+        var pixelCount = 0
+
+        for (x in 0 until bitmap.height) {
+            for (y in 0 until bitmap.width) {
+                val pixel = bitmap[x, y]
+                pixelCount++
+                red += Color.red(pixel)
+                green += Color.green(pixel)
+                blue += Color.blue(pixel)
+            }
+        }
+        val avgRed = red / pixelCount
+        val avgGreen = green / pixelCount
+        val avgBlue = blue / pixelCount
+        return listOf(avgRed, avgGreen, avgBlue)
     }
 
 }
