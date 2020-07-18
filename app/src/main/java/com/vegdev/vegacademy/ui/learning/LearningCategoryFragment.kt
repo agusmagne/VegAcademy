@@ -4,6 +4,8 @@ package com.vegdev.vegacademy.ui.learning
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -57,6 +59,7 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         iProgressBar?.loading()
 
         val category = args.category
@@ -66,6 +69,10 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
         val categoryImage = category.categoryImage!!
         val categoryTitle = category.categoryTitle!!
         val categoryInstagram = category.categoryInstagram!!
+
+        val bitmap = BitmapFactory.decodeResource(resources, categoryImage)
+        val colors = layoutUtils.getAverageColor(bitmap)
+        back.setBackgroundColor(Color.rgb(colors[0], colors[1], colors[2]))
 
         adjustLayout(categoryImage, categoryInstagram, categoryTitle)
         if (who.text == "") {
@@ -187,14 +194,16 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
     }
 
     override fun onFragmentBackPressed(): Boolean {
-        if (youTubePlayer != null) {
-            if (youTubePlayer?.isPlaying!!) {
-                youTubePlayer?.pause()
+        youTubePlayer?.let {
+            if(it.isPlaying) {
+                it.pause()
                 videos_rv.smoothScrollToPosition(0)
                 return true
+            } else if (!it.isPlaying) {
+                return false
             }
         }
-        if (isLayoutLoaded) {
+        if(youTubePlayer == null && isLayoutLoaded){
             return false
         }
         return true

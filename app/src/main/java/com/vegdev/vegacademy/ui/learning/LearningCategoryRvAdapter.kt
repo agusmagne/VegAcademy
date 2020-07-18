@@ -36,7 +36,7 @@ class VideoListRvAdapter {
                 viewType: Int
             ): LearningElementViewHolder {
                 val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.video_list_element, parent, false)
+                    .inflate(R.layout.article_list_element, parent, false)
                 return LearningElementViewHolder(itemView)
             }
 
@@ -45,7 +45,7 @@ class VideoListRvAdapter {
                 position: Int,
                 learningElement: LearningElement
             ) {
-                holderList.bindVideo(learningElement) { onFinish() }
+                holderList.bindArticle(learningElement) { onFinish() }
                 holderList.itemView.setOnClickListener { listener(learningElement) }
             }
         }

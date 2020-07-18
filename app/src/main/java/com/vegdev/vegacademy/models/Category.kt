@@ -10,6 +10,7 @@ class Category(
     var categoryTitle: String?,
     var categoryInstagram: String?
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),

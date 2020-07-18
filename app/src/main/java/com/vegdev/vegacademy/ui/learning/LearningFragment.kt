@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.Utils.ModelsUtils
 import kotlinx.android.synthetic.main.fragment_learning.*
 
-class LearningFragment : Fragment() {
+class LearningFragment : Fragment(), IOnFragmentBackPressed {
 
     val modelsUtils = ModelsUtils()
 
@@ -80,5 +81,9 @@ class LearningFragment : Fragment() {
                 navController.navigate(LearningFragmentDirections.actionVideo(category))
             }
         }
+    }
+
+    override fun onFragmentBackPressed(): Boolean {
+        return false
     }
 }
