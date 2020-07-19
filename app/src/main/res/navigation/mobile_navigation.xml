@@ -39,7 +39,7 @@
         android:id="@+id/navigation_videos"
         android:name="com.vegdev.vegacademy.ui.learning.LearningCategoryFragment"
         android:label="Videos"
-        tools:layout="@layout/fragment_video_list">
+        tools:layout="@layout/fragment_learning_category">
         <argument
             android:name="category"
             app:argType="com.vegdev.vegacademy.models.Category" />

@@ -11,9 +11,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,8 +26,7 @@ import com.vegdev.vegacademy.IToogleToolbar
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.Utils.LayoutUtils
 import com.vegdev.vegacademy.models.LearningElement
-import kotlinx.android.synthetic.main.fragment_video_list.*
-import kotlinx.android.synthetic.main.fragment_video_list.view.*
+import kotlinx.android.synthetic.main.fragment_learning_category.*
 
 /**
  * A simple [Fragment] subclass.
@@ -53,7 +50,7 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
         savedInstanceState: Bundle?
     ): View? {
         firestore = FirebaseFirestore.getInstance()
-        return inflater.inflate(R.layout.fragment_video_list, container, false)
+        return inflater.inflate(R.layout.fragment_learning_category, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

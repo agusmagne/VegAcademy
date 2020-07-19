@@ -10,10 +10,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.Utils.LayoutUtils
 import com.vegdev.vegacademy.models.LearningElement
 import kotlinx.android.synthetic.main.article_list_element.view.*
-import kotlinx.android.synthetic.main.video_list_element.view.*
 
 class VideoListRvAdapter {
     fun fetchVideos(
@@ -45,7 +43,7 @@ class VideoListRvAdapter {
                 position: Int,
                 learningElement: LearningElement
             ) {
-                holderList.bindArticle(learningElement) { onFinish() }
+                holderList.bindElement(learningElement) { onFinish() }
                 holderList.itemView.setOnClickListener { listener(learningElement) }
             }
         }
@@ -81,7 +79,7 @@ class VideoListRvAdapter {
                 position: Int,
                 article: LearningElement
             ) {
-                holder.bindArticle(article) { onFinish() }
+                holder.bindElement(article) { onFinish() }
                 holder.itemView.setOnClickListener {
                     listener(article)
                 }
@@ -94,18 +92,7 @@ class LearningElementViewHolder(
     itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
 
-    fun bindVideo(learningElement: LearningElement, listener: () -> Unit) {
-        itemView.video_title.text = learningElement.title
-        Picasso.with(itemView.context).load(learningElement.src)
-            .into(itemView.video_image, object : Callback {
-                override fun onError() {}
-                override fun onSuccess() {
-                    listener()
-                }
-            })
-    }
-
-    fun bindArticle(learningElement: LearningElement, listener: () -> Unit) {
+    fun bindElement(learningElement: LearningElement, listener: () -> Unit) {
         itemView.article_title.text = learningElement.title
         Picasso.with(itemView.context).load(learningElement.src)
             .into(itemView.article_image, object : Callback {
