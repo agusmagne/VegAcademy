@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="invisible"
-    app:layoutDescription="@xml/learning_category_fragment_motion">
+    app:layoutDescription="@xml/fragment_learning_category_scene">
 
     <ImageView
         android:id="@+id/background"
