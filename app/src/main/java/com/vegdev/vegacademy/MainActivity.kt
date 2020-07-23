@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.vegdev.vegacademy.Utils.LayoutUtils
+import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.login.StartActivity
 import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.ui.news.NewsFragment

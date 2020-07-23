@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.LearningElement
+import com.vegdev.vegacademy.utils.GenericUtils
 import kotlinx.android.synthetic.main.fragment_news_element.view.*
 import kotlinx.android.synthetic.main.fragment_news_page.*
+import java.util.concurrent.TimeUnit
 
 class NewsPageFragment(private val position: Int) : Fragment() {
 
@@ -58,7 +61,10 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         rvAdapter.stopListening()
     }
 
-    private fun fetchNewVideos(firestore: FirebaseFirestore, newsCollection: String): FirestoreRecyclerAdapter<LearningElement, NewsViewHolder> {
+    private fun fetchNewVideos(
+        firestore: FirebaseFirestore,
+        newsCollection: String
+    ): FirestoreRecyclerAdapter<LearningElement, NewsViewHolder> {
         val query = firestore.collection(newsCollection)
         val response =
             FirestoreRecyclerOptions.Builder<LearningElement>()
@@ -92,6 +98,15 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         Picasso.with(itemView.context).load(learningElement.src).into(itemView.src)
         itemView.title.text = learningElement.title
         itemView.desc.text = learningElement.desc
+
+        val days =
+            GenericUtils().getDateDifference(learningElement.date, Timestamp.now(), TimeUnit.DAYS)
+        val dateDiff = if (days != 0L) {
+            "Hace $days días"
+        } else {
+            "Hoy"
+        }
+        itemView.days_ago.text = dateDiff
 
         var src = 0
         when (learningElement.cat) {

@@ -8,7 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.Utils.LayoutUtils
+import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity : AppCompatActivity() {

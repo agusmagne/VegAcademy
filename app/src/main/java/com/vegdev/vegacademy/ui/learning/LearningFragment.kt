@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.Utils.ModelsUtils
+import com.vegdev.vegacademy.utils.ModelsUtils
 import kotlinx.android.synthetic.main.fragment_learning.*
 
 class LearningFragment : Fragment(), IOnFragmentBackPressed {

@@ -24,7 +24,7 @@ import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.IProgressBar
 import com.vegdev.vegacademy.IToogleToolbar
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.Utils.LayoutUtils
+import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.models.LearningElement
 import kotlinx.android.synthetic.main.fragment_learning_category.*
 

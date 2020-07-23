@@ -13,7 +13,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:background="@color/colorAccent"
+        android:background="@color/blackBackground"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,14 +23,14 @@
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/cat"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="@id/src"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/src"
+        app:layout_constraintLeft_toLeftOf="@id/src"
         app:roundPercent="1" />
 
     <TextView
@@ -39,9 +39,21 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="@id/src"
+        android:layout_marginStart="8dp"
+        android:textSize="@dimen/important"
+        app:layout_constraintLeft_toRightOf="@id/cat"
         app:layout_constraintRight_toRightOf="@id/src"
-        app:layout_constraintTop_toBottomOf="@id/src" />
+        app:layout_constraintTop_toTopOf="@id/cat" />
+
+    <TextView
+        android:id="@+id/days_ago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hace 2 días"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/navBarOff"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintLeft_toLeftOf="@id/title"/>
 
     <TextView
         android:id="@+id/desc"
@@ -49,11 +61,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
         android:text="@string/anon"
-        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/navBarOff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/src"
         app:layout_constraintRight_toRightOf="@id/src"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/days_ago" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
