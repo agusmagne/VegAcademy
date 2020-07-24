@@ -11,7 +11,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.LearningElement
-import kotlinx.android.synthetic.main.article_list_element.view.*
+import kotlinx.android.synthetic.main.fragment_learning_category_element.view.*
 
 class VideoListRvAdapter {
     fun fetchVideos(
@@ -34,7 +34,7 @@ class VideoListRvAdapter {
                 viewType: Int
             ): LearningElementViewHolder {
                 val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.article_list_element, parent, false)
+                    .inflate(R.layout.fragment_learning_category_element, parent, false)
                 return LearningElementViewHolder(itemView)
             }
 
@@ -70,7 +70,7 @@ class VideoListRvAdapter {
                 viewType: Int
             ): LearningElementViewHolder {
                 val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.article_list_element, parent, false)
+                    .inflate(R.layout.fragment_learning_category_element, parent, false)
                 return LearningElementViewHolder(itemView)
             }
 

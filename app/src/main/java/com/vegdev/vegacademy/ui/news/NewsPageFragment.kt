@@ -1,5 +1,6 @@
 package com.vegdev.vegacademy.ui.news
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
+import com.vegdev.vegacademy.IToolbar
+import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.utils.GenericUtils
@@ -21,8 +24,10 @@ import java.util.concurrent.TimeUnit
 
 class NewsPageFragment(private val position: Int) : Fragment() {
 
-    lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>
-    lateinit var firestore: FirebaseFirestore
+    private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>
+    private lateinit var firestore: FirebaseFirestore
+    private var youtubePlayer: IYoutubePlayer? = null
+    private var toolbar: IToolbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +47,10 @@ class NewsPageFragment(private val position: Int) : Fragment() {
             "articleNews"
         }
 
-        rvAdapter = this.fetchNewVideos(firestore, newsCollection)
+        rvAdapter = this.fetchNewLearningElements(firestore, newsCollection) {
+            youtubePlayer?.openYoutubePlayer(it.link)
+            youtubePlayer?.setYoutubePlayerState(true)
+        }
 
         new_videos_rv.apply {
             layoutManager = LinearLayoutManager(context)
@@ -61,9 +69,26 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         rvAdapter.stopListening()
     }
 
-    private fun fetchNewVideos(
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IYoutubePlayer) {
+            youtubePlayer = context
+        }
+        if (context is IToolbar) {
+            toolbar = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        youtubePlayer = null
+        toolbar = null
+    }
+
+    private fun fetchNewLearningElements(
         firestore: FirebaseFirestore,
-        newsCollection: String
+        newsCollection: String,
+        openYoutubeListener: (LearningElement) -> Unit
     ): FirestoreRecyclerAdapter<LearningElement, NewsViewHolder> {
         val query = firestore.collection(newsCollection)
         val response =
@@ -85,6 +110,7 @@ class NewsPageFragment(private val position: Int) : Fragment() {
                 learningElement: LearningElement
             ) {
                 holder.bindElement(learningElement)
+                holder.itemView.src.setOnClickListener { openYoutubeListener(learningElement) }
             }
 
         }

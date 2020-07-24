@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
-import kotlinx.android.synthetic.main.fragment_learning_category_element.view.*
+import kotlinx.android.synthetic.main.fragment_learning_element.view.*
 
 class LearningRvAdapter(
     val categories: TypedArray,
@@ -18,7 +18,7 @@ class LearningRvAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LearningViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_learning_category_element, parent, false)
+            .inflate(R.layout.fragment_learning_element, parent, false)
 
         return LearningViewHolder(itemView)
     }

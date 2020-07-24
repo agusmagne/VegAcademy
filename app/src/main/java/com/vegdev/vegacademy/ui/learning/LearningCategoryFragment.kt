@@ -22,7 +22,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.IProgressBar
-import com.vegdev.vegacademy.IToogleToolbar
+import com.vegdev.vegacademy.IToolbar
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.models.LearningElement
@@ -39,7 +39,7 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
     private var youTubePlayer: YouTubePlayer? = null
     private var linkCurrent: String = ""
     private var linkIncoming: String = ""
-    private var iToogleToolbar: IToogleToolbar? = null
+    private var iToolbar: IToolbar? = null
     private var iProgressBar: IProgressBar? = null
     private var isYoutubeFragmentActive: Boolean = false
     private var isLayoutLoaded: Boolean = false
@@ -175,8 +175,8 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IToogleToolbar) {
-            iToogleToolbar = context
+        if (context is IToolbar) {
+            iToolbar = context
         }
         if (context is IProgressBar) {
             iProgressBar = context
@@ -185,8 +185,8 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
 
     override fun onDetach() {
         super.onDetach()
-        iToogleToolbar?.toolbarOn()
-        iToogleToolbar = null
+        iToolbar?.toolbarOn()
+        iToolbar = null
         iProgressBar = null
     }
 
@@ -234,7 +234,7 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
                                 p1: YouTubePlayer?,
                                 p2: Boolean
                             ) {
-                                iToogleToolbar?.toolbarOff()
+                                iToolbar?.toolbarOff()
 
                                 youTubePlayer = p1
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/openYoutubePlayer">
+        <Constraint
+            android:id="@id/player_background"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:elevation="0dp">
+            <CustomAttribute
+                app:attributeName="backgroundColor"
+                app:customColorValue="#000000" />
+        </Constraint>
+        <Constraint
+            android:id="@id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="invisible" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/closeYoutubePlayer">
+        <Constraint
+            android:id="@id/player_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:elevation="4dp">
+            <CustomAttribute
+                app:attributeName="backgroundColor"
+                app:customColorValue="@color/blackBackground" />
+        </Constraint>
+        <Constraint
+            android:id="@id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="visible" />
+    </ConstraintSet>
+
+    <Transition
+        app:duration="500"
+        app:motionInterpolator="linear"
+        app:constraintSetEnd="@id/openYoutubePlayer"
+        app:constraintSetStart="@id/closeYoutubePlayer">
+        <OnSwipe
+            app:dragDirection="dragDown"
+            app:touchRegionId="@id/player_background" />
+    </Transition>
+
+
+</MotionScene>

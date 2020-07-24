@@ -1,5 +1,6 @@
 package com.vegdev.vegacademy.ui.news
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.vegdev.vegacademy.IOnFragmentBackPressed
+import com.vegdev.vegacademy.IToolbar
+import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import kotlinx.android.synthetic.main.fragment_news.*
 
 class NewsFragment : Fragment(), IOnFragmentBackPressed {
 
+    private var youtubePlayer: IYoutubePlayer? = null
+    private var toolbar: IToolbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        toolbar?.toolbarStyle(R.style.BlackActionBar)
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
@@ -29,7 +35,28 @@ class NewsFragment : Fragment(), IOnFragmentBackPressed {
     }
 
     override fun onFragmentBackPressed(): Boolean {
-        return false
+        if (youtubePlayer?.getYoutubePlayerState()!!){
+            youtubePlayer?.closeYoutubePlayer()
+            return true
+        } else {
+            return false
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IYoutubePlayer) {
+            youtubePlayer = context
+        }
+        if (context is IToolbar) {
+            toolbar = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        youtubePlayer = null
+        toolbar = null
     }
 }
 
