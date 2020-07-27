@@ -37,6 +37,58 @@ class ModelsUtils {
     val NUTRITION_TITLE = "Sobre Nutrición"
     val NUTRITION_INSTAGRAM = "conetica_"
 
+    fun createCategoryByCollection(collection: String): Category {
+
+        when (collection) {
+            VEGACADEMY_COLLECTION -> return Category(
+                VIDEOS_CATEGORY,
+                VEGACADEMY_COLLECTION,
+                VEGACADEMY_IMAGE,
+                VEGACADEMY_TITLE,
+                VEGACADEMY_INSTAGRAM
+            )
+
+            CEVA_COLLECTION -> return Category(
+                VIDEOS_CATEGORY, CEVA_COLLECTION, CEVA_IMAGE, CEVA_TITLE, CEVA_INSTAGRAM
+            )
+
+            CARNISM_COLLECTION -> return Category(
+                VIDEOS_CATEGORY,
+                CARNISM_COLLECTION,
+                CARNISM_IMAGE,
+                CARNISM_TITLE,
+                CARNISM_INSTAGRAM
+            )
+
+            OTHERMOVEMENTS_COLLECTION -> return Category(
+                ARTICLES_CATEGORY,
+                OTHERMOVEMENTS_COLLECTION,
+                OTHERMOVEMENTS_IMAGE,
+                OTHERMOVEMENTS_TITLE,
+                ""
+            )
+
+            COMUNICATION_COLLECTION -> return Category(
+                ARTICLES_CATEGORY,
+                COMUNICATION_COLLECTION,
+                COMUNICATION_IMAGE,
+                COMUNICATION_TITLE,
+                ""
+            )
+
+            NUTRITION_COLLECTION -> return Category(
+                ARTICLES_CATEGORY,
+                NUTRITION_COLLECTION,
+                NUTRITION_IMAGE,
+                NUTRITION_TITLE,
+                NUTRITION_INSTAGRAM
+            )
+            else ->
+                return Category("", "", 0, "", "")
+
+        }
+    }
+
     fun createVegAcademyCategory(): Category = Category(
         VIDEOS_CATEGORY,
         VEGACADEMY_COLLECTION,

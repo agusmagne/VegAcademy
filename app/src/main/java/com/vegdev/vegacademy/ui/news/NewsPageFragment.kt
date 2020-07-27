@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -18,12 +19,14 @@ import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.utils.GenericUtils
+import com.vegdev.vegacademy.utils.ModelsUtils
 import kotlinx.android.synthetic.main.fragment_news_element.view.*
 import kotlinx.android.synthetic.main.fragment_news_page.*
 import java.util.concurrent.TimeUnit
 
 class NewsPageFragment(private val position: Int) : Fragment() {
 
+    private val modelsUtils = ModelsUtils()
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>
     private lateinit var firestore: FirebaseFirestore
     private var youtubePlayer: IYoutubePlayer? = null
@@ -47,10 +50,19 @@ class NewsPageFragment(private val position: Int) : Fragment() {
             "articleNews"
         }
 
-        rvAdapter = this.fetchNewLearningElements(firestore, newsCollection) {
-            youtubePlayer?.openYoutubePlayer(it.link)
-            youtubePlayer?.setYoutubePlayerState(true)
-        }
+        rvAdapter = this.fetchNewLearningElements(firestore, newsCollection,
+            {
+                youtubePlayer?.openYoutubePlayer(it.link)
+                youtubePlayer?.setYoutubePlayerState(true)
+            },
+            {
+                val category = modelsUtils.createCategoryByCollection(it)
+                findNavController().navigate(
+                    NewsFragmentDirections.actionNavigationNewsToNavigationVideos(
+                        category
+                    )
+                )
+            })
 
         new_videos_rv.apply {
             layoutManager = LinearLayoutManager(context)
@@ -88,7 +100,8 @@ class NewsPageFragment(private val position: Int) : Fragment() {
     private fun fetchNewLearningElements(
         firestore: FirebaseFirestore,
         newsCollection: String,
-        openYoutubeListener: (LearningElement) -> Unit
+        openYoutubeListener: (LearningElement) -> Unit,
+        openCategoryListener: (String) -> Unit
     ): FirestoreRecyclerAdapter<LearningElement, NewsViewHolder> {
         val query = firestore.collection(newsCollection)
         val response =
@@ -111,6 +124,7 @@ class NewsPageFragment(private val position: Int) : Fragment() {
             ) {
                 holder.bindElement(learningElement)
                 holder.itemView.src.setOnClickListener { openYoutubeListener(learningElement) }
+                holder.itemView.cat.setOnClickListener { openCategoryListener(learningElement.cat) }
             }
 
         }

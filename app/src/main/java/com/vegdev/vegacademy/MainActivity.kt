@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -30,18 +31,9 @@ class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer
     private var currentLink: String = ""
     private var incomingLink: String = ""
     private val listener: MotionLayout.TransitionListener =
-        object : MotionLayout.TransitionListener {
-            override fun onTransitionTrigger(
-                p0: MotionLayout?,
-                p1: Int,
-                p2: Boolean,
-                p3: Float
-            ) {
-            }
-
-            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
-            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
+        object : TransitionAdapter() {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+
                 if (!isYoutubeInitialized) {
                     isYoutubeInitialized = true
                     val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
@@ -116,10 +108,6 @@ class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer
         main_toolbar.visibility = View.VISIBLE
     }
 
-    override fun toolbarStyle(styleId: Int) {
-        main_toolbar.context.setTheme(styleId)
-    }
-
     override fun onBackPressed() {
         youtubePlayer?.pause()
         currentLink = ""
@@ -155,7 +143,8 @@ class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer
     override fun openYoutubePlayer(link: String) {
         incomingLink = link
         if (youtubePlayer == null) {
-            container.addTransitionListener(listener)
+            //container.addTransitionListener(listener)
+            initializeYoutube()
         } else {
             if (currentLink != link) {
                 youtubePlayer?.loadVideo(link)
@@ -179,6 +168,38 @@ class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer
     override fun getYoutubePlayerState(): Boolean {
         return isYoutubePlayerOpen
     }
+
+    private fun initializeYoutube() {
+        if (!isYoutubeInitialized) {
+            isYoutubeInitialized = true
+            val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.main_player, youtubePlayerSupportFragment).commit()
+            youtubePlayerSupportFragment.initialize(
+                resources.getString(R.string.API_KEY),
+                object : YouTubePlayer.OnInitializedListener {
+                    override fun onInitializationSuccess(
+                        p0: YouTubePlayer.Provider?,
+                        p1: YouTubePlayer?,
+                        p2: Boolean
+                    ) {
+                        p1?.loadVideo(incomingLink)
+                        currentLink = incomingLink
+                        youtubePlayer = p1
+                    }
+
+                    override fun onInitializationFailure(
+                        p0: YouTubePlayer.Provider?,
+                        p1: YouTubeInitializationResult?
+                    ) {
+                        layoutUtils.createToast(
+                            applicationContext,
+                            "Error al iniciar Youtube"
+                        )
+                    }
+                })
+        }
+    }
 }
 
 
@@ -190,7 +211,6 @@ interface IProgressBar {
 interface IToolbar {
     fun toolbarOff()
     fun toolbarOn()
-    fun toolbarStyle(styleId: Int)
 }
 
 interface IYoutubePlayer {

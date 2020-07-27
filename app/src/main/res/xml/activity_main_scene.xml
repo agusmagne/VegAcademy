@@ -2,6 +2,33 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ConstraintSet android:id="@+id/bottomYoutubePlayer">
+        <Constraint
+            android:id="@+id/player_region"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/player_background"
+            app:layout_constraintLeft_toLeftOf="@id/player_background"
+            app:layout_constraintRight_toRightOf="@id/player_background"
+            app:layout_constraintTop_toTopOf="@id/player_background" />
+        <Constraint
+            android:id="@id/container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/nav_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
+        <Constraint
+            android:id="@id/player_background"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            app:layout_constraintBottom_toTopOf="@id/nav_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </ConstraintSet>
+
     <ConstraintSet android:id="@+id/openYoutubePlayer">
         <Constraint
             android:id="@id/player_background"
@@ -17,6 +44,15 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/player_region"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/player_background"
+            app:layout_constraintLeft_toLeftOf="@id/player_background"
+            app:layout_constraintRight_toRightOf="@id/player_background"
+            app:layout_constraintTop_toTopOf="@id/player_background" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/closeYoutubePlayer">
@@ -37,14 +73,20 @@
     </ConstraintSet>
 
     <Transition
-        app:duration="500"
-        app:motionInterpolator="linear"
         app:constraintSetEnd="@id/openYoutubePlayer"
-        app:constraintSetStart="@id/closeYoutubePlayer">
+        app:constraintSetStart="@id/closeYoutubePlayer"
+        app:duration="500"></Transition>
+
+    <Transition
+        android:id="@+id/youtubePlayerIsOpened"
+        app:constraintSetEnd="@id/bottomYoutubePlayer"
+        app:constraintSetStart="@id/openYoutubePlayer"
+        app:duration="500"
+        app:motionInterpolator="linear">
         <OnSwipe
             app:dragDirection="dragDown"
-            app:touchRegionId="@id/player_background" />
+            app:limitBoundsTo="@id/player_region"
+            app:nestedScrollFlags="disableScroll" />
     </Transition>
-
 
 </MotionScene>

@@ -12,10 +12,12 @@ import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.IToolbar
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.utils.ModelsUtils
 import kotlinx.android.synthetic.main.fragment_news.*
 
 class NewsFragment : Fragment(), IOnFragmentBackPressed {
 
+    private val modelsUtils = ModelsUtils()
     private var youtubePlayer: IYoutubePlayer? = null
     private var toolbar: IToolbar? = null
 
@@ -24,7 +26,6 @@ class NewsFragment : Fragment(), IOnFragmentBackPressed {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        toolbar?.toolbarStyle(R.style.BlackActionBar)
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
@@ -35,7 +36,7 @@ class NewsFragment : Fragment(), IOnFragmentBackPressed {
     }
 
     override fun onFragmentBackPressed(): Boolean {
-        if (youtubePlayer?.getYoutubePlayerState()!!){
+        if (youtubePlayer?.getYoutubePlayerState()!!) {
             youtubePlayer?.closeYoutubePlayer()
             return true
         } else {
@@ -58,15 +59,17 @@ class NewsFragment : Fragment(), IOnFragmentBackPressed {
         youtubePlayer = null
         toolbar = null
     }
+
+
 }
 
 private class NewsPagerAdapter(childFragmentManager: FragmentManager) :
     FragmentPagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getPageTitle(position: Int): CharSequence? {
         return if (position == 0) {
-            "Nuevos Videos"
+            "NUEVOS VIDEOS"
         } else {
-            "Nuevos Artículos"
+            "NUEVOS ARTÍCULOS"
         }
     }
 
@@ -74,3 +77,4 @@ private class NewsPagerAdapter(childFragmentManager: FragmentManager) :
     override fun getCount(): Int = 2
 
 }
+

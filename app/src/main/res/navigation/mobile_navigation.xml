@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_news_to_navigation_learning"
             app:destination="@id/navigation_learning" />
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_videos"
+            app:destination="@id/navigation_videos" />
     </fragment>
 
     <fragment
