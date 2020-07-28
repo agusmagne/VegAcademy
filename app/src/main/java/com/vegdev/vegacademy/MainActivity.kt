@@ -6,8 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -21,50 +19,15 @@ import com.vegdev.vegacademy.ui.news.NewsFragment
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer {
+class MainActivity : AppCompatActivity(), IYoutubePlayer {
 
-    val layoutUtils = LayoutUtils()
+    private val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
     private var youtubePlayer: YouTubePlayer? = null
     private var isYoutubePlayerOpen: Boolean = false
     private var isYoutubeInitialized: Boolean = false
     private var currentLink: String = ""
     private var incomingLink: String = ""
-    private val listener: MotionLayout.TransitionListener =
-        object : TransitionAdapter() {
-            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-
-                if (!isYoutubeInitialized) {
-                    isYoutubeInitialized = true
-                    val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.main_player, youtubePlayerSupportFragment).commit()
-                    youtubePlayerSupportFragment.initialize(
-                        resources.getString(R.string.API_KEY),
-                        object : YouTubePlayer.OnInitializedListener {
-                            override fun onInitializationSuccess(
-                                p0: YouTubePlayer.Provider?,
-                                p1: YouTubePlayer?,
-                                p2: Boolean
-                            ) {
-                                p1?.loadVideo(incomingLink)
-                                currentLink = incomingLink
-                                youtubePlayer = p1
-                            }
-
-                            override fun onInitializationFailure(
-                                p0: YouTubePlayer.Provider?,
-                                p1: YouTubeInitializationResult?
-                            ) {
-                                layoutUtils.createToast(
-                                    applicationContext,
-                                    "Error al iniciar Youtube"
-                                )
-                            }
-                        })
-                }
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,13 +63,6 @@ class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer
         return super.onOptionsItemSelected(item)
     }
 
-    override fun toolbarOff() {
-        main_toolbar.visibility = View.GONE
-    }
-
-    override fun toolbarOn() {
-        main_toolbar.visibility = View.VISIBLE
-    }
 
     override fun onBackPressed() {
         youtubePlayer?.pause()
@@ -131,15 +87,6 @@ class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer
             }
         }
     }
-
-    override fun loading() {
-        main_progressbar.visibility = View.VISIBLE
-    }
-
-    override fun loaded() {
-        main_progressbar.visibility = View.INVISIBLE
-    }
-
     override fun openYoutubePlayer(link: String) {
         incomingLink = link
         if (youtubePlayer == null) {
@@ -200,17 +147,6 @@ class MainActivity : AppCompatActivity(), IToolbar, IProgressBar, IYoutubePlayer
                 })
         }
     }
-}
-
-
-interface IProgressBar {
-    fun loading()
-    fun loaded()
-}
-
-interface IToolbar {
-    fun toolbarOff()
-    fun toolbarOn()
 }
 
 interface IYoutubePlayer {

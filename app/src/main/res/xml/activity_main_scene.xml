@@ -75,7 +75,7 @@
     <Transition
         app:constraintSetEnd="@id/openYoutubePlayer"
         app:constraintSetStart="@id/closeYoutubePlayer"
-        app:duration="500"></Transition>
+        app:duration="500" />
 
     <Transition
         android:id="@+id/youtubePlayerIsOpened"
@@ -85,7 +85,7 @@
         app:motionInterpolator="linear">
         <OnSwipe
             app:dragDirection="dragDown"
-            app:limitBoundsTo="@id/player_region"
+            app:limitBoundsTo="@id/player_background"
             app:nestedScrollFlags="disableScroll" />
     </Transition>
 

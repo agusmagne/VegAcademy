@@ -14,7 +14,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
-import com.vegdev.vegacademy.IToolbar
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.LearningElement
@@ -30,7 +29,6 @@ class NewsPageFragment(private val position: Int) : Fragment() {
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>
     private lateinit var firestore: FirebaseFirestore
     private var youtubePlayer: IYoutubePlayer? = null
-    private var toolbar: IToolbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,15 +84,11 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         if (context is IYoutubePlayer) {
             youtubePlayer = context
         }
-        if (context is IToolbar) {
-            toolbar = context
-        }
     }
 
     override fun onDetach() {
         super.onDetach()
         youtubePlayer = null
-        toolbar = null
     }
 
     private fun fetchNewLearningElements(

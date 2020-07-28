@@ -11,37 +11,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vegdev.vegacademy.IOnFragmentBackPressed
-import com.vegdev.vegacademy.IProgressBar
-import com.vegdev.vegacademy.IToolbar
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.models.Category
 import com.vegdev.vegacademy.models.LearningElement
+import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.fragment_learning_category.*
+import kotlinx.android.synthetic.main.fragment_learning_category_element.view.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
+class LearningCategoryFragment : Fragment() {
 
     private val layoutUtils = LayoutUtils()
     private lateinit var firestore: FirebaseFirestore
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>
-    private var youTubePlayer: YouTubePlayer? = null
-    private var linkCurrent: String = ""
-    private var linkIncoming: String = ""
-    private var iToolbar: IToolbar? = null
-    private var iProgressBar: IProgressBar? = null
-    private var isYoutubeFragmentActive: Boolean = false
+    private var youtubePlayer: IYoutubePlayer? = null
     private var isLayoutLoaded: Boolean = false
     private val args: LearningCategoryFragmentArgs by navArgs()
 
@@ -56,13 +51,8 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        iProgressBar?.loading()
-
         val category = args.category
 
-        val categoryType = category.categoryType!!
-        val categoryCollection = category.categoryCollection!!
         val categoryImage = category.categoryImage!!
         val categoryTitle = category.categoryTitle!!
         val categoryInstagram = category.categoryInstagram!!
@@ -76,64 +66,24 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
             adjustRvToTitle()
         }
 
-        initializeYoutubePlayer()
-
-        if (categoryType == "videos") {
-            rvAdapter =
-                VideoListRvAdapter().fetchVideos(
-                    firestore,
-                    categoryCollection,
-                    { video ->
-                        linkIncoming = video.link
-
-                        if (!isYoutubeFragmentActive) {
-                            isYoutubeFragmentActive = true
-                            videos_rv.smoothScrollToPosition(0)
-                            fragment_video_list.transitionToState(R.id.onclick)
-
-                        } else {
-                            if (linkIncoming == linkCurrent) {
-                                layoutUtils.createToast(
-                                    requireContext(),
-                                    "Ya estás reproduciendo este video"
-                                )
-                            } else {
-                                youTubePlayer?.loadVideo(video.link)
-                                linkCurrent = linkIncoming
-                            }
-                        }
-                    }, {
-                        if (!isLayoutLoaded) {
-                            isLayoutLoaded = true
-                            iProgressBar?.loaded()
-                            fragment_video_list.visibility = View.VISIBLE
-                            layoutUtils.animateViews(
-                                requireContext(),
-                                R.anim.fragment_in,
-                                listOf(src, who, title, videos_rv)
-                            )
-                        }
-                    })
-
-        } else if (categoryType == "art") {
-            rvAdapter =
-                VideoListRvAdapter().fetchArticles(firestore, categoryCollection, { article ->
-                    val link = article.link
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-                    this.startActivity(intent)
-                }, {
-                    if (!isLayoutLoaded) {
-                        isLayoutLoaded = true
-                        iProgressBar?.loaded()
-                        fragment_video_list.visibility = View.VISIBLE
-                        layoutUtils.animateViews(
-                            requireContext(),
-                            R.anim.fragment_in,
-                            listOf(src, who, title, videos_rv)
-                        )
-                    }
-                })
-        }
+        rvAdapter = fetchLearningElements(firestore, category, { element ->
+            if (category.categoryType == "videos") {
+                youtubePlayer?.openYoutubePlayer(element.link)
+            } else {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(element.link))
+                startActivity(intent)
+            }
+        }, {
+            if (!isLayoutLoaded) {
+                isLayoutLoaded = true
+                fragment_video_list.visibility = View.VISIBLE
+                layoutUtils.animateViews(
+                    requireContext(),
+                    R.anim.fragment_in,
+                    listOf(src, who, title, videos_rv)
+                )
+            }
+        })
 
         videos_rv.apply {
             layoutManager = LinearLayoutManager(context)
@@ -175,85 +125,20 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IToolbar) {
-            iToolbar = context
-        }
-        if (context is IProgressBar) {
-            iProgressBar = context
+        if (context is IYoutubePlayer) {
+            youtubePlayer = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        iToolbar?.toolbarOn()
-        iToolbar = null
-        iProgressBar = null
-    }
-
-    override fun onFragmentBackPressed(): Boolean {
-        youTubePlayer?.let {
-            if(it.isPlaying) {
-                it.pause()
-                videos_rv.smoothScrollToPosition(0)
-                return true
-            } else if (!it.isPlaying) {
-                return false
-            }
-        }
-        if(youTubePlayer == null && isLayoutLoaded){
-            return false
-        }
-        return true
+        youtubePlayer = null
     }
 
     private fun adjustRvToTitle() {
         val params = back.layoutParams
         params.height = 275
         back.layoutParams = params
-    }
-
-    private fun initializeYoutubePlayer() {
-
-        fragment_video_list.setTransitionListener(object : MotionLayout.TransitionListener {
-
-            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
-            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
-            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
-            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                if ((p1 == R.id.onclick) && (youTubePlayer == null)) {
-                    val youTubePlayerSupportFragmentX =
-                        YouTubePlayerSupportFragmentX.newInstance()
-
-                    val transaction = childFragmentManager.beginTransaction()
-                    transaction.add(R.id.player_inlist, youTubePlayerSupportFragmentX).commit()
-                    youTubePlayerSupportFragmentX.initialize(
-                        resources.getString(R.string.API_KEY),
-                        object : YouTubePlayer.OnInitializedListener {
-                            override fun onInitializationSuccess(
-                                p0: YouTubePlayer.Provider?,
-                                p1: YouTubePlayer?,
-                                p2: Boolean
-                            ) {
-                                iToolbar?.toolbarOff()
-
-                                youTubePlayer = p1
-
-                                linkCurrent = linkIncoming
-                                youTubePlayer?.loadVideo(linkIncoming)
-
-                            }
-
-                            override fun onInitializationFailure(
-                                p0: YouTubePlayer.Provider?,
-                                p1: YouTubeInitializationResult?
-                            ) {
-                                layoutUtils.createToast(requireContext(), "Error al cargar video")
-                            }
-                        })
-                }
-            }
-        })
-
     }
 
     private fun isInstagramIntentAvailable(context: Context?, intent: Intent): Boolean {
@@ -271,5 +156,56 @@ class LearningCategoryFragment : Fragment(), IOnFragmentBackPressed {
         }
         title.text = categoryTitle
         src.background = context?.getDrawable(categoryImage)
+    }
+
+    private fun fetchLearningElements(
+        firestore: FirebaseFirestore,
+        category: Category,
+        onElementClick: (LearningElement) -> Unit,
+        onFinishLoadingImages: () -> Unit
+    ): FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder> {
+
+        val query = firestore.collection("learning").document(category.categoryType!!)
+            .collection(category.categoryCollection!!)
+        val response = FirestoreRecyclerOptions.Builder<LearningElement>()
+            .setQuery(query, LearningElement::class.java).build()
+
+        return object :
+            FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>(response) {
+            override fun onCreateViewHolder(
+                parent: ViewGroup,
+                viewType: Int
+            ): LearningElementViewHolder {
+                val itemView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.fragment_learning_category_element, parent, false)
+                return LearningElementViewHolder(itemView)
+            }
+
+            override fun onBindViewHolder(
+                holder: LearningElementViewHolder,
+                position: Int,
+                learningElement: LearningElement
+            ) {
+                holder.bindElement(learningElement) { onFinishLoadingImages() }
+                holder.itemView.setOnClickListener { onElementClick(learningElement) }
+            }
+        }
+
+    }
+}
+
+class LearningElementViewHolder(
+    itemView: View
+) : RecyclerView.ViewHolder(itemView) {
+
+    fun bindElement(learningElement: LearningElement, listener: () -> Unit) {
+        itemView.article_title.text = learningElement.title
+        Picasso.with(itemView.context).load(learningElement.src)
+            .into(itemView.article_image, object : Callback {
+                override fun onError() {}
+                override fun onSuccess() {
+                    listener()
+                }
+            })
     }
 }
