@@ -9,6 +9,7 @@ import com.vegdev.vegacademy.models.Category
 import java.io.Serializable
 import java.lang.UnsupportedOperationException
 import kotlin.Int
+import kotlin.String
 import kotlin.Suppress
 
 class NewsFragmentDirections private constructor() {
@@ -32,6 +33,18 @@ class NewsFragmentDirections private constructor() {
     }
   }
 
+  private data class ActionNavigationNewsToNavigationWebview(
+    val link: String = "defaultValue"
+  ) : NavDirections {
+    override fun getActionId(): Int = R.id.action_navigation_news_to_navigation_webview
+
+    override fun getArguments(): Bundle {
+      val result = Bundle()
+      result.putString("link", this.link)
+      return result
+    }
+  }
+
   companion object {
     fun actionNavigationNewsToNavigationRecipes(): NavDirections =
         ActionOnlyNavDirections(R.id.action_navigation_news_to_navigation_recipes)
@@ -41,5 +54,8 @@ class NewsFragmentDirections private constructor() {
 
     fun actionNavigationNewsToNavigationVideos(category: Category): NavDirections =
         ActionNavigationNewsToNavigationVideos(category)
+
+    fun actionNavigationNewsToNavigationWebview(link: String = "defaultValue"): NavDirections =
+        ActionNavigationNewsToNavigationWebview(link)
   }
 }

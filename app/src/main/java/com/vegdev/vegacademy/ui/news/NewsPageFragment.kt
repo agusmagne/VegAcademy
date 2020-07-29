@@ -14,6 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
+import com.vegdev.vegacademy.IWebView
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.LearningElement
@@ -29,6 +30,7 @@ class NewsPageFragment(private val position: Int) : Fragment() {
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>
     private lateinit var firestore: FirebaseFirestore
     private var youtubePlayer: IYoutubePlayer? = null
+    private var webView: IWebView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,8 +52,17 @@ class NewsPageFragment(private val position: Int) : Fragment() {
 
         rvAdapter = this.fetchNewLearningElements(firestore, newsCollection,
             {
-                youtubePlayer?.openYoutubePlayer(it.link)
-                youtubePlayer?.setYoutubePlayerState(true)
+                val category = modelsUtils.createCategoryByCollection(it.cat)
+                if (category.categoryType == "art") {
+                    findNavController().navigate(
+                        NewsFragmentDirections.actionNavigationNewsToNavigationWebview(
+                            it.link
+                        )
+                    )
+                } else {
+                    youtubePlayer?.openYoutubePlayer(it.link)
+                    youtubePlayer?.setYoutubePlayerState(true)
+                }
             },
             {
                 val category = modelsUtils.createCategoryByCollection(it)
@@ -60,6 +71,7 @@ class NewsPageFragment(private val position: Int) : Fragment() {
                         category
                     )
                 )
+
             })
 
         new_videos_rv.apply {
@@ -84,11 +96,15 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         if (context is IYoutubePlayer) {
             youtubePlayer = context
         }
+        if (context is IWebView) {
+            webView = context
+        }
     }
 
     override fun onDetach() {
         super.onDetach()
         youtubePlayer = null
+        webView = null
     }
 
     private fun fetchNewLearningElements(
@@ -103,8 +119,12 @@ class NewsPageFragment(private val position: Int) : Fragment() {
                 .setQuery(query, LearningElement::class.java)
                 .build()
 
-        return object : FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>(response) {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+        return object :
+            FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>(response) {
+            override fun onCreateViewHolder(
+                parent: ViewGroup,
+                viewType: Int
+            ): NewsViewHolder {
                 return NewsViewHolder(
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.fragment_news_element, parent, false)
@@ -118,7 +138,11 @@ class NewsPageFragment(private val position: Int) : Fragment() {
             ) {
                 holder.bindElement(learningElement)
                 holder.itemView.src.setOnClickListener { openYoutubeListener(learningElement) }
-                holder.itemView.cat.setOnClickListener { openCategoryListener(learningElement.cat) }
+                holder.itemView.cat.setOnClickListener {
+                    openCategoryListener(
+                        learningElement.cat
+                    )
+                }
             }
 
         }
@@ -134,7 +158,11 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.desc.text = learningElement.desc
 
         val days =
-            GenericUtils().getDateDifference(learningElement.date, Timestamp.now(), TimeUnit.DAYS)
+            GenericUtils().getDateDifference(
+                learningElement.date,
+                Timestamp.now(),
+                TimeUnit.DAYS
+            )
         val dateDiff = if (days != 0L) {
             "Hace $days días"
         } else {

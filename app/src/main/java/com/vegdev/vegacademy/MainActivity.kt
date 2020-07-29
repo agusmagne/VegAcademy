@@ -19,7 +19,7 @@ import com.vegdev.vegacademy.ui.news.NewsFragment
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IYoutubePlayer {
+class MainActivity : AppCompatActivity(), IYoutubePlayer, IWebView, IProgressBar {
 
     private val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
@@ -82,11 +82,10 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer {
                 startActivity(intent)
             }
         } else {
-            currentFragment?.onFragmentBackPressed()?.takeIf { !it }?.let {
-                super.onBackPressed()
-            }
+            super.onBackPressed()
         }
     }
+
     override fun openYoutubePlayer(link: String) {
         incomingLink = link
         if (youtubePlayer == null) {
@@ -147,6 +146,25 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer {
                 })
         }
     }
+
+    override fun loadWebView(link: String) {
+
+    }
+
+    override fun currentlyLoading() {
+        container.setTransition(R.id.progressbar)
+        container.transitionToStart()
+    }
+
+    override fun finishedLoading() {
+        container.setTransition(R.id.progressbar)
+        container.transitionToEnd()
+    }
+}
+
+interface IProgressBar {
+    fun currentlyLoading()
+    fun finishedLoading()
 }
 
 interface IYoutubePlayer {
@@ -158,4 +176,8 @@ interface IYoutubePlayer {
 
 interface IOnFragmentBackPressed {
     fun onFragmentBackPressed(): Boolean
+}
+
+interface IWebView {
+    fun loadWebView(link: String)
 }

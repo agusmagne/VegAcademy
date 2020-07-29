@@ -20,6 +20,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import com.vegdev.vegacademy.IProgressBar
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.Category
@@ -38,12 +39,14 @@ class LearningCategoryFragment : Fragment() {
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>
     private var youtubePlayer: IYoutubePlayer? = null
     private var isLayoutLoaded: Boolean = false
+    private var progressBar: IProgressBar? = null
     private val args: LearningCategoryFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        progressBar?.currentlyLoading()
         firestore = FirebaseFirestore.getInstance()
         return inflater.inflate(R.layout.fragment_learning_category, container, false)
     }
@@ -76,6 +79,7 @@ class LearningCategoryFragment : Fragment() {
         }, {
             if (!isLayoutLoaded) {
                 isLayoutLoaded = true
+                progressBar?.finishedLoading()
                 fragment_video_list.visibility = View.VISIBLE
                 layoutUtils.animateViews(
                     requireContext(),
@@ -128,11 +132,15 @@ class LearningCategoryFragment : Fragment() {
         if (context is IYoutubePlayer) {
             youtubePlayer = context
         }
+        if (context is IProgressBar) {
+            progressBar = context
+        }
     }
 
     override fun onDetach() {
         super.onDetach()
         youtubePlayer = null
+        progressBar = null
     }
 
     private fun adjustRvToTitle() {
@@ -169,7 +177,7 @@ class LearningCategoryFragment : Fragment() {
             .collection(category.categoryCollection!!)
         val response = FirestoreRecyclerOptions.Builder<LearningElement>()
             .setQuery(query, LearningElement::class.java).build()
-
+        var size = 0
         return object :
             FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>(response) {
             override fun onCreateViewHolder(
@@ -186,7 +194,11 @@ class LearningCategoryFragment : Fragment() {
                 position: Int,
                 learningElement: LearningElement
             ) {
-                holder.bindElement(learningElement) { onFinishLoadingImages() }
+                holder.bindElement(learningElement) {
+                    if (position == 1) {
+                        onFinishLoadingImages()
+                    }
+                }
                 holder.itemView.setOnClickListener { onElementClick(learningElement) }
             }
         }
