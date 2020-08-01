@@ -3,12 +3,6 @@
 
     <string name="API_KEY">AIzaSyDvEIeukkxXciKgFB9FBiTEX20nvXq4dfA</string>
 
-    <array name="videos_categories_drawables">
-        <item>@drawable/imageapp</item>
-        <item>@drawable/image_ceva</item>
-        <item>@drawable/image_carnism</item>
-    </array>
-
     <string-array name="videos_categories_titles">
         <item>VegAcademy introducción</item>
         <item>Abogacía vegana efectiva</item>

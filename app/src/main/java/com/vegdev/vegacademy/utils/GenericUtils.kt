@@ -9,5 +9,4 @@ class GenericUtils {
         val diffInMillis = date2.seconds - date1.seconds
         return timeUnit.convert(diffInMillis, TimeUnit.SECONDS)
     }
-
 }

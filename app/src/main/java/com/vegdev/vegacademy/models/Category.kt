@@ -4,27 +4,32 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Category(
-    var categoryType: String?,
-    var categoryCollection: String?,
-    var categoryImage: Int?,
-    var categoryTitle: String?,
-    var categoryInstagram: String?
+    var type: String?,
+    var cat: String?,
+    var src: String?,
+    var title: String?,
+    var socials: String?,
+    var icon: String?
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString()
     )
 
+    constructor() : this("", "", "", "", "", "")
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(categoryType)
-        parcel.writeString(categoryCollection)
-        parcel.writeInt(categoryImage!!)
-        parcel.writeString(categoryTitle)
-        parcel.writeString(categoryInstagram)
+        parcel.writeString(type)
+        parcel.writeString(cat)
+        parcel.writeString(src)
+        parcel.writeString(title)
+        parcel.writeString(socials)
+        parcel.writeString(icon)
 
     }
 

@@ -4,8 +4,9 @@ package com.vegdev.vegacademy.ui.learning
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,19 +16,27 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import com.vegdev.vegacademy.IProgressBar
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.Category
 import com.vegdev.vegacademy.models.LearningElement
+import com.vegdev.vegacademy.utils.GenericUtils
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.fragment_learning_category.*
-import kotlinx.android.synthetic.main.fragment_learning_category_element.view.*
+import kotlinx.android.synthetic.main.fragment_news_element.view.*
+import java.util.concurrent.TimeUnit
 
 /**
  * A simple [Fragment] subclass.
@@ -56,21 +65,27 @@ class LearningCategoryFragment : Fragment() {
 
         val category = args.category
 
-        val categoryImage = category.categoryImage!!
-        val categoryTitle = category.categoryTitle!!
-        val categoryInstagram = category.categoryInstagram!!
+        val categoryImage = category.src!!
+        val categoryTitle = category.title!!
+        val categorySocials = category.socials!!
 
-        val bitmap = BitmapFactory.decodeResource(resources, categoryImage)
-        val colors = layoutUtils.getAverageColor(bitmap)
-        back.setBackgroundColor(Color.rgb(colors[0], colors[1], colors[2]))
+        // create background color
+        Glide.with(this).asBitmap().load(categoryImage).into(object : CustomTarget<Bitmap>() {
+            override fun onLoadCleared(placeholder: Drawable?) {}
+            override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
+                val colors = layoutUtils.getAverageColor(bitmap)
+                back.setBackgroundColor(Color.rgb(colors[0], colors[1], colors[2]))
+                adjustLayout(bitmap, categorySocials, categoryTitle)
+            }
 
-        adjustLayout(categoryImage, categoryInstagram, categoryTitle)
+        })
+
         if (who.text == "") {
             adjustRvToTitle()
         }
 
         rvAdapter = fetchLearningElements(firestore, category, { element ->
-            if (category.categoryType == "videos") {
+            if (category.type == "videos") {
                 youtubePlayer?.openYoutubePlayer(element.link)
             } else {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(element.link))
@@ -96,7 +111,7 @@ class LearningCategoryFragment : Fragment() {
 
         who.setOnClickListener {
             if (who.text != "") {
-                val uri = Uri.parse("http://instagram.com/_u/$categoryInstagram")
+                val uri = Uri.parse("http://instagram.com/_u/$categorySocials")
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 intent.setPackage("com.instagram.android")
 
@@ -107,7 +122,7 @@ class LearningCategoryFragment : Fragment() {
                         Intent(
                             Intent.ACTION_VIEW, Uri.parse(
                                 "http://instagram" +
-                                        ".com/$categoryInstagram"
+                                        ".com/$categorySocials"
                             )
                         )
                     )
@@ -155,7 +170,11 @@ class LearningCategoryFragment : Fragment() {
         return list?.size!! > 0
     }
 
-    private fun adjustLayout(categoryImage: Int, categoryInstagram: String, categoryTitle: String) {
+    private fun adjustLayout(
+        categoryImage: Bitmap,
+        categoryInstagram: String,
+        categoryTitle: String
+    ) {
         if (categoryInstagram != "") {
             val text = "@$categoryInstagram"
             who.text = text
@@ -163,7 +182,7 @@ class LearningCategoryFragment : Fragment() {
             who.text = ""
         }
         title.text = categoryTitle
-        src.background = context?.getDrawable(categoryImage)
+        src.setImageBitmap(categoryImage)
     }
 
     private fun fetchLearningElements(
@@ -173,11 +192,10 @@ class LearningCategoryFragment : Fragment() {
         onFinishLoadingImages: () -> Unit
     ): FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder> {
 
-        val query = firestore.collection("learning").document(category.categoryType!!)
-            .collection(category.categoryCollection!!)
+        val query = firestore.collection("learning").document(category.type!!)
+            .collection(category.cat!!)
         val response = FirestoreRecyclerOptions.Builder<LearningElement>()
             .setQuery(query, LearningElement::class.java).build()
-        var size = 0
         return object :
             FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>(response) {
             override fun onCreateViewHolder(
@@ -185,7 +203,7 @@ class LearningCategoryFragment : Fragment() {
                 viewType: Int
             ): LearningElementViewHolder {
                 val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fragment_learning_category_element, parent, false)
+                    .inflate(R.layout.fragment_news_element, parent, false)
                 return LearningElementViewHolder(itemView)
             }
 
@@ -195,11 +213,9 @@ class LearningCategoryFragment : Fragment() {
                 learningElement: LearningElement
             ) {
                 holder.bindElement(learningElement) {
-                    if (position == 1) {
-                        onFinishLoadingImages()
-                    }
+                    onFinishLoadingImages()
                 }
-                holder.itemView.setOnClickListener { onElementClick(learningElement) }
+                holder.itemView.src.setOnClickListener { onElementClick(learningElement) }
             }
         }
 
@@ -211,13 +227,43 @@ class LearningElementViewHolder(
 ) : RecyclerView.ViewHolder(itemView) {
 
     fun bindElement(learningElement: LearningElement, listener: () -> Unit) {
-        itemView.article_title.text = learningElement.title
-        Picasso.with(itemView.context).load(learningElement.src)
-            .into(itemView.article_image, object : Callback {
-                override fun onError() {}
-                override fun onSuccess() {
+        itemView.title.text = learningElement.title
+        Glide.with(itemView.context).load(learningElement.icon).into(itemView.cat)
+
+        val days =
+            GenericUtils().getDateDifference(
+                learningElement.date,
+                Timestamp.now(),
+                TimeUnit.DAYS
+            )
+        val dateDiff = if (days != 0L) {
+            "Hace $days días"
+        } else {
+            "Hoy"
+        }
+
+        itemView.days_ago.text = dateDiff
+        itemView.desc.text = learningElement.desc
+        Glide.with(itemView.context).load(learningElement.src)
+            .listener(object : RequestListener<Drawable?> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    isFirstResource: Boolean
+                ): Boolean = false
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     listener()
+                    return false
                 }
             })
+            .into(itemView.src)
     }
 }

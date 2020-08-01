@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blackBackground"
-    android:nestedScrollingEnabled="false"
-    app:layoutDescription="@xml/activity_main_scene"
-    app:motionDebug="SHOW_ALL">
+    android:nestedScrollingEnabled="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/player_background"
@@ -22,9 +21,9 @@
         android:id="@+id/main_player"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/player_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/player_background"
         app:layout_constraintTop_toTopOf="@id/player_background" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,8 +33,8 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/player_background"
         app:layout_constraintLeft_toLeftOf="@id/player_background"
-        app:layout_constraintTop_toTopOf="@id/player_background"
-        app:layout_constraintRight_toRightOf="@id/player_background" />
+        app:layout_constraintRight_toRightOf="@id/player_background"
+        app:layout_constraintTop_toTopOf="@id/player_background" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
@@ -55,7 +54,8 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintTop_toBottomOf="@id/player_background"
-        app:navGraph="@navigation/mobile_navigation" />
+        app:navGraph="@navigation/mobile_navigation"
+        tools:ignore="FragmentTagUsage" />
 
     <ProgressBar
         android:id="@+id/main_progressbar"
@@ -66,6 +66,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_closeyoutube"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_close"
+        android:tint="@color/white"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:rippleColor="@color/colorAccent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -79,4 +94,4 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

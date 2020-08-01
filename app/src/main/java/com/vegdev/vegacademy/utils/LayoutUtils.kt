@@ -3,6 +3,7 @@ package com.vegdev.vegacademy.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.DisplayMetrics
@@ -10,7 +11,6 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.core.graphics.get
 import com.vegdev.vegacademy.R
 import kotlin.math.roundToInt
 
@@ -24,6 +24,9 @@ class LayoutUtils {
         val intent = Intent(context, activity as Class<*>)
         context.startActivity(intent)
     }
+
+    fun toDp(px: Int): Int = (px / Resources.getSystem().displayMetrics.density).toInt()
+    fun toPx(dp: Int): Int = (dp * Resources.getSystem().displayMetrics.density).toInt()
 
     fun pxToDpYaxis(px: Int, context: Context): Int {
         val displayMetrics = context.resources.displayMetrics
@@ -82,15 +85,15 @@ class LayoutUtils {
         }
     }
 
-    fun getAverageColor(bitmap: Bitmap) : List<Int>{
+    fun getAverageColor(bitmap: Bitmap) : List<Int> {
         var red = 0
         var green = 0
         var blue = 0
         var pixelCount = 0
 
-        for (x in 0 until bitmap.height) {
-            for (y in 0 until bitmap.width) {
-                val pixel = bitmap[x, y]
+        for (x in 0 until bitmap.width) {
+            for (y in 0 until bitmap.height) {
+                val pixel = bitmap.getPixel(x, y)
                 pixelCount++
                 red += Color.red(pixel)
                 green += Color.green(pixel)

@@ -9,14 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.squareup.picasso.Picasso
-import com.vegdev.vegacademy.IWebView
+import com.vegdev.vegacademy.IToolbar
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.models.Category
 import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.utils.GenericUtils
 import com.vegdev.vegacademy.utils.ModelsUtils
@@ -26,11 +27,11 @@ import java.util.concurrent.TimeUnit
 
 class NewsPageFragment(private val position: Int) : Fragment() {
 
-    private val modelsUtils = ModelsUtils()
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>
     private lateinit var firestore: FirebaseFirestore
+    private var iToolbar: IToolbar? = null
     private var youtubePlayer: IYoutubePlayer? = null
-    private var webView: IWebView? = null
+    private val modelsUtils = ModelsUtils()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,26 +52,31 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         }
 
         rvAdapter = this.fetchNewLearningElements(firestore, newsCollection,
-            {
-                val category = modelsUtils.createCategoryByCollection(it.cat)
-                if (category.categoryType == "art") {
+            { learningElement ->
+                // on news element click
+                if (position == 1) {
+                    iToolbar?.toolbarOff()
                     findNavController().navigate(
                         NewsFragmentDirections.actionNavigationNewsToNavigationWebview(
-                            it.link
+                            learningElement.link
                         )
                     )
                 } else {
-                    youtubePlayer?.openYoutubePlayer(it.link)
-                    youtubePlayer?.setYoutubePlayerState(true)
+                    youtubePlayer?.openYoutubePlayer(learningElement.link)
                 }
             },
-            {
-                val category = modelsUtils.createCategoryByCollection(it)
-                findNavController().navigate(
-                    NewsFragmentDirections.actionNavigationNewsToNavigationVideos(
-                        category
-                    )
-                )
+            { learningElement ->
+                // on element category click
+                firestore.collection("learning").document(if (position == 0) "videos" else "art")
+                    .collection("cat").document(learningElement.cat).get()
+                    .addOnSuccessListener { category ->
+                        findNavController().navigate(
+                            NewsFragmentDirections.actionNavigationNewsToNavigationVideos(
+                                category.toObject(Category::class.java)!!
+                            )
+                        )
+                    }
+
 
             })
 
@@ -96,22 +102,22 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         if (context is IYoutubePlayer) {
             youtubePlayer = context
         }
-        if (context is IWebView) {
-            webView = context
+        if (context is IToolbar) {
+            iToolbar = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
         youtubePlayer = null
-        webView = null
+        iToolbar = null
     }
 
     private fun fetchNewLearningElements(
         firestore: FirebaseFirestore,
         newsCollection: String,
-        openYoutubeListener: (LearningElement) -> Unit,
-        openCategoryListener: (String) -> Unit
+        onElementClickListener: (LearningElement) -> Unit,
+        openCategoryListener: (LearningElement) -> Unit
     ): FirestoreRecyclerAdapter<LearningElement, NewsViewHolder> {
         val query = firestore.collection(newsCollection)
         val response =
@@ -137,12 +143,8 @@ class NewsPageFragment(private val position: Int) : Fragment() {
                 learningElement: LearningElement
             ) {
                 holder.bindElement(learningElement)
-                holder.itemView.src.setOnClickListener { openYoutubeListener(learningElement) }
-                holder.itemView.cat.setOnClickListener {
-                    openCategoryListener(
-                        learningElement.cat
-                    )
-                }
+                holder.itemView.src.setOnClickListener { onElementClickListener(learningElement) }
+                holder.itemView.cat.setOnClickListener { openCategoryListener(learningElement) }
             }
 
         }
@@ -153,7 +155,8 @@ class NewsPageFragment(private val position: Int) : Fragment() {
 class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindElement(learningElement: LearningElement) {
-        Picasso.with(itemView.context).load(learningElement.src).into(itemView.src)
+        Glide.with(itemView.context).load(learningElement.src).into(itemView.src)
+        Glide.with(itemView.context).load(learningElement.icon).into(itemView.cat)
         itemView.title.text = learningElement.title
         itemView.desc.text = learningElement.desc
 
@@ -169,16 +172,6 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             "Hoy"
         }
         itemView.days_ago.text = dateDiff
-
-        var src = 0
-        when (learningElement.cat) {
-            "ceva" -> src = R.drawable.image_ceva
-            "carn" -> src = R.drawable.image_carnism
-            "veg" -> src = R.drawable.imageapp
-            "nu" -> src = R.drawable.nutrition
-        }
-        itemView.cat.background = itemView.context.getDrawable(src)
-
     }
 
 }

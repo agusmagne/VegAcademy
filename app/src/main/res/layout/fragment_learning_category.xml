@@ -9,34 +9,25 @@
     app:layoutDescription="@xml/fragment_learning_category_scene">
 
     <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="1dp"
-        android:visibility="invisible"
-        android:src="@color/blackBackground"/>
-
-    <ImageView
         android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:background="@color/colorAccent"
         android:contentDescription="@null"
         android:src="@drawable/backgroundcolor_to_transparent"
-        android:background="@color/colorAccent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/src"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="175dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:elevation="10dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/image_ceva"
+        android:elevation="100dp"
+        android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:roundPercent="0.1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--suppress AndroidDomInspection -->
     <TextView
@@ -45,8 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto"
-        android:text="@beyondcarnism"
         android:paddingVertical="8dp"
+        android:text="@beyondcarnism"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="14sp"

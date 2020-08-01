@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.transition.TransitionManager
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
@@ -19,7 +20,7 @@ import com.vegdev.vegacademy.ui.news.NewsFragment
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IYoutubePlayer, IWebView, IProgressBar {
+class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar {
 
     private val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
@@ -42,6 +43,16 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IWebView, IProgressBar
 
         val navController = findNavController(R.id.nav_host_fragment)
         nav_view.setupWithNavController(navController)
+
+        // set FAB click listener allowing to close youtube player interface
+        fab_closeyoutube.hide()
+        fab_closeyoutube.setOnClickListener {
+            isYoutubePlayerOpen = false
+            TransitionManager.beginDelayedTransition(container)
+            fab_closeyoutube.hide()
+            player_background.minHeight = 0
+            youtubePlayer?.pause()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -65,59 +76,52 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IWebView, IProgressBar
 
 
     override fun onBackPressed() {
-        youtubePlayer?.pause()
-        currentLink = ""
-        incomingLink = ""
-
         val fragment =
             this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         val currentFragment =
-            fragment?.childFragmentManager?.fragments?.get(0) as? IOnFragmentBackPressed
+            fragment?.childFragmentManager?.fragments?.get(0)
 
         if (currentFragment is NewsFragment) {
-            currentFragment.onFragmentBackPressed().takeIf { !it }?.let {
                 val intent = Intent(this, WelcomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 intent.putExtra("EXIT", true)
                 startActivity(intent)
-            }
         } else {
             super.onBackPressed()
         }
     }
 
     override fun openYoutubePlayer(link: String) {
+        if (fab_closeyoutube.isOrWillBeHidden) fab_closeyoutube.show()
         incomingLink = link
         if (youtubePlayer == null) {
-            //container.addTransitionListener(listener)
             initializeYoutube()
         } else {
-            if (currentLink != link) {
-                youtubePlayer?.loadVideo(link)
-                currentLink = link
+            if (isYoutubePlayerOpen) {
+                if (currentLink != link) {
+                    youtubePlayer?.loadVideo(link)
+                    currentLink = link
+                } else {
+                    layoutUtils.createToast(applicationContext, "Ya estás reproduciendo este video")
+                }
             } else {
-                layoutUtils.createToast(applicationContext, "Ya estás reproduciendo este video")
+                TransitionManager.beginDelayedTransition(container)
+                main_toolbar.visibility = View.INVISIBLE
+                player_background.minHeight = layoutUtils.toPx(240)
+                youtubePlayer?.loadVideo(link)
             }
-
         }
-        container.transitionToState(R.id.openYoutubePlayer)
-    }
-
-    override fun closeYoutubePlayer() {
-        container.transitionToState(R.id.closeYoutubePlayer)
-    }
-
-    override fun setYoutubePlayerState(isItOpen: Boolean) {
-        isYoutubePlayerOpen = isItOpen
-    }
-
-    override fun getYoutubePlayerState(): Boolean {
-        return isYoutubePlayerOpen
+        isYoutubePlayerOpen = true
     }
 
     private fun initializeYoutube() {
         if (!isYoutubeInitialized) {
             isYoutubeInitialized = true
+
+            TransitionManager.beginDelayedTransition(container)
+            main_toolbar.visibility = View.INVISIBLE
+            player_background.minHeight = layoutUtils.toPx(240)
+
             val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
             supportFragmentManager.beginTransaction()
                 .add(R.id.main_player, youtubePlayerSupportFragment).commit()
@@ -147,18 +151,20 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IWebView, IProgressBar
         }
     }
 
-    override fun loadWebView(link: String) {
-
-    }
-
     override fun currentlyLoading() {
-        container.setTransition(R.id.progressbar)
-        container.transitionToStart()
+        main_progressbar.visibility = View.VISIBLE
     }
 
     override fun finishedLoading() {
-        container.setTransition(R.id.progressbar)
-        container.transitionToEnd()
+        main_progressbar.visibility = View.INVISIBLE
+    }
+
+    override fun toolbarOff() {
+        main_toolbar.visibility = View.INVISIBLE
+    }
+
+    override fun toolbarOn() {
+        main_toolbar.visibility = View.VISIBLE
     }
 }
 
@@ -169,15 +175,9 @@ interface IProgressBar {
 
 interface IYoutubePlayer {
     fun openYoutubePlayer(link: String)
-    fun closeYoutubePlayer()
-    fun setYoutubePlayerState(isItOpen: Boolean)
-    fun getYoutubePlayerState(): Boolean
 }
 
-interface IOnFragmentBackPressed {
-    fun onFragmentBackPressed(): Boolean
-}
-
-interface IWebView {
-    fun loadWebView(link: String)
+interface IToolbar {
+    fun toolbarOff()
+    fun toolbarOn()
 }

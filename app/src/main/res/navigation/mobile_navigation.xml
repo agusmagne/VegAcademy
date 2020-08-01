@@ -22,7 +22,10 @@
         <action
             android:id="@+id/action_navigation_news_to_navigation_webview"
             app:destination="@id/navigation_webview"
-            app:enterAnim="@anim/fui_slide_in_right" />
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment

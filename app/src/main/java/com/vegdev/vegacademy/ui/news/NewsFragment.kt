@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.vegdev.vegacademy.IOnFragmentBackPressed
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.ModelsUtils
 import kotlinx.android.synthetic.main.fragment_news.*
 
-class NewsFragment : Fragment(), IOnFragmentBackPressed {
+class NewsFragment : Fragment() {
 
     private val modelsUtils = ModelsUtils()
     private var youtubePlayer: IYoutubePlayer? = null
@@ -31,15 +30,6 @@ class NewsFragment : Fragment(), IOnFragmentBackPressed {
         super.onViewCreated(view, savedInstanceState)
         news_viewPager.adapter = NewsPagerAdapter(childFragmentManager)
         news_tablayout.setupWithViewPager(news_viewPager)
-    }
-
-    override fun onFragmentBackPressed(): Boolean {
-        if (youtubePlayer?.getYoutubePlayerState()!!) {
-            youtubePlayer?.closeYoutubePlayer()
-            return true
-        } else {
-            return false
-        }
     }
 
     override fun onAttach(context: Context) {
