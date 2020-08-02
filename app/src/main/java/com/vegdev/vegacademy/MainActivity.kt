@@ -29,10 +29,13 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
     private var isYoutubeInitialized: Boolean = false
     private var currentLink: String = ""
     private var incomingLink: String = ""
+    private var youTubePlayerHeight = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        youTubePlayerHeight = resources.displayMetrics.widthPixels * 9 / 16
 
         main_toolbar.visibility = View.VISIBLE
 
@@ -49,6 +52,8 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         fab_closeyoutube.setOnClickListener {
             isYoutubePlayerOpen = false
             TransitionManager.beginDelayedTransition(container)
+            main_player.visibility = View.INVISIBLE
+            main_toolbar.visibility = View.VISIBLE
             fab_closeyoutube.hide()
             player_background.minHeight = 0
             youtubePlayer?.pause()
@@ -82,17 +87,21 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
             fragment?.childFragmentManager?.fragments?.get(0)
 
         if (currentFragment is NewsFragment) {
-                val intent = Intent(this, WelcomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                intent.putExtra("EXIT", true)
-                startActivity(intent)
+            val intent = Intent(this, WelcomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("EXIT", true)
+            startActivity(intent)
         } else {
             super.onBackPressed()
         }
     }
 
     override fun openYoutubePlayer(link: String) {
-        if (fab_closeyoutube.isOrWillBeHidden) fab_closeyoutube.show()
+        if (fab_closeyoutube.isOrWillBeHidden) {
+            fab_closeyoutube.show()
+            main_player.visibility = View.VISIBLE
+
+        }
         incomingLink = link
         if (youtubePlayer == null) {
             initializeYoutube()
@@ -105,9 +114,8 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
                     layoutUtils.createToast(applicationContext, "Ya estás reproduciendo este video")
                 }
             } else {
-                TransitionManager.beginDelayedTransition(container)
                 main_toolbar.visibility = View.INVISIBLE
-                player_background.minHeight = layoutUtils.toPx(240)
+                player_background.minHeight = youTubePlayerHeight
                 youtubePlayer?.loadVideo(link)
             }
         }
@@ -118,9 +126,8 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         if (!isYoutubeInitialized) {
             isYoutubeInitialized = true
 
-            TransitionManager.beginDelayedTransition(container)
             main_toolbar.visibility = View.INVISIBLE
-            player_background.minHeight = layoutUtils.toPx(240)
+            player_background.minHeight = youTubePlayerHeight
 
             val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
             supportFragmentManager.beginTransaction()

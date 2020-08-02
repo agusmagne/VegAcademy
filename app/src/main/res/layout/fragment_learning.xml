@@ -6,7 +6,6 @@
     android:id="@+id/fragment_learning"
     android:animateLayoutChanges="true"
     android:visibility="invisible"
-    android:layout_marginTop="?attr/actionBarSize"
     android:background="@color/blackBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout

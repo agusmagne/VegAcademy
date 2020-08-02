@@ -215,6 +215,7 @@ class LearningCategoryFragment : Fragment() {
                 holder.bindElement(learningElement) {
                     onFinishLoadingImages()
                 }
+                holder.itemView.setOnClickListener { }
                 holder.itemView.src.setOnClickListener { onElementClick(learningElement) }
             }
         }
