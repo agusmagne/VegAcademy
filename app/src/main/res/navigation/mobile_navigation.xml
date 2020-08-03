@@ -16,6 +16,16 @@
         <action
             android:id="@+id/action_navigation_news_to_navigation_learning"
             app:destination="@id/navigation_learning" />
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_videos"
+            app:destination="@id/navigation_videos" />
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_webview"
+            app:destination="@id/navigation_webview"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -39,9 +49,24 @@
         android:id="@+id/navigation_videos"
         android:name="com.vegdev.vegacademy.ui.learning.LearningCategoryFragment"
         android:label="Videos"
-        tools:layout="@layout/fragment_video_list">
+        tools:layout="@layout/fragment_learning_category">
         <argument
             android:name="category"
             app:argType="com.vegdev.vegacademy.models.Category" />
+        <action
+            android:id="@+id/action_navigation_videos_to_navigation_webview"
+            app:destination="@id/navigation_webview" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_webview"
+        android:name="com.vegdev.vegacademy.ui.WebFragment"
+        android:label="WebView"
+        tools:layout="@layout/fragment_web">
+
+        <argument
+            android:name="link"
+            android:defaultValue="defaultValue"
+            app:argType="string" />
     </fragment>
 </navigation>

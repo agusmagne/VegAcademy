@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.transition.TransitionManager
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.Utils.LayoutUtils
+import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.email_txt
 import kotlinx.android.synthetic.main.activity_login.login_btn

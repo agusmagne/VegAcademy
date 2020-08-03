@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.vegdev.vegacademy.MainActivity
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.Utils.LayoutUtils
+import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {
