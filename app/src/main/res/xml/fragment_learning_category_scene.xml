@@ -5,14 +5,13 @@
     <Transition
         android:id="@+id/ready_to_exit"
         app:constraintSetEnd="@id/collapsed"
-        app:constraintSetStart="@id/expanded"
-        app:duration="500"
-        app:motionInterpolator="linear">
+        app:constraintSetStart="@id/expanded">
 
         <OnSwipe
             app:dragDirection="dragUp"
             app:onTouchUp="decelerate"
-            app:touchAnchorId="@id/videos_rv" />
+            app:touchAnchorId="@id/videos_rv"
+            app:touchAnchorSide="top" />
 
     </Transition>
 

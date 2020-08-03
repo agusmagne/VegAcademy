@@ -86,7 +86,7 @@ class LearningCategoryFragment : Fragment() {
 
         rvAdapter = fetchLearningElements(firestore, category, { element ->
             if (category.type == "videos") {
-                youtubePlayer?.openYoutubePlayer(element.link)
+                youtubePlayer?.openYoutubePlayer(element)
             } else {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(element.link))
                 startActivity(intent)
@@ -215,7 +215,7 @@ class LearningCategoryFragment : Fragment() {
                 holder.bindElement(learningElement) {
                     onFinishLoadingImages()
                 }
-                holder.itemView.setOnClickListener { }
+                holder.itemView.isClickable = false
                 holder.itemView.src.setOnClickListener { onElementClick(learningElement) }
             }
         }

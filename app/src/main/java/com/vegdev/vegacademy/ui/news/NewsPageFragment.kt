@@ -62,7 +62,7 @@ class NewsPageFragment(private val position: Int) : Fragment() {
                         )
                     )
                 } else {
-                    youtubePlayer?.openYoutubePlayer(learningElement.link)
+                    youtubePlayer?.openYoutubePlayer(learningElement)
                 }
             },
             { learningElement ->

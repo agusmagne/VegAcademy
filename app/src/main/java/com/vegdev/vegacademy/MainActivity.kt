@@ -16,6 +16,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.login.StartActivity
 import com.vegdev.vegacademy.login.WelcomeActivity
+import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.ui.news.NewsFragment
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -96,27 +97,27 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         }
     }
 
-    override fun openYoutubePlayer(link: String) {
+    override fun openYoutubePlayer(learningElement: LearningElement) {
         if (fab_closeyoutube.isOrWillBeHidden) {
             fab_closeyoutube.show()
             main_player.visibility = View.VISIBLE
-
         }
-        incomingLink = link
+        incomingLink = learningElement.link
         if (youtubePlayer == null) {
             initializeYoutube()
         } else {
             if (isYoutubePlayerOpen) {
-                if (currentLink != link) {
-                    youtubePlayer?.loadVideo(link)
-                    currentLink = link
+                if (currentLink != incomingLink) {
+                    youtubePlayer?.loadVideo(incomingLink)
+                    currentLink = incomingLink
                 } else {
                     layoutUtils.createToast(applicationContext, "Ya estás reproduciendo este video")
                 }
             } else {
                 main_toolbar.visibility = View.INVISIBLE
                 player_background.minHeight = youTubePlayerHeight
-                youtubePlayer?.loadVideo(link)
+                youtubePlayer?.loadVideo(incomingLink)
+                currentLink = incomingLink
             }
         }
         isYoutubePlayerOpen = true
@@ -181,7 +182,7 @@ interface IProgressBar {
 }
 
 interface IYoutubePlayer {
-    fun openYoutubePlayer(link: String)
+    fun openYoutubePlayer(learningElement: LearningElement)
 }
 
 interface IToolbar {
