@@ -43,7 +43,11 @@
         android:id="@+id/navigation_recipes"
         android:name="com.vegdev.vegacademy.ui.recipes.RecipesFragment"
         android:label="Recetas"
-        tools:layout="@layout/fragment_recipes" />
+        tools:layout="@layout/fragment_recipes">
+        <action
+            android:id="@+id/action_navigation_recipes_to_navigation_recipe_info"
+            app:destination="@id/navigation_recipe_info" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_videos"
@@ -68,5 +72,15 @@
             android:name="link"
             android:defaultValue="defaultValue"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_recipe_info"
+        android:name="com.vegdev.vegacademy.ui.recipes.RecipeInfoFragment"
+        android:label="Receta"
+        tools:layout="@layout/fragment_recipe_info">
+        <argument
+            android:name="recipe"
+            app:argType="com.vegdev.vegacademy.models.Recipe" />
     </fragment>
 </navigation>
