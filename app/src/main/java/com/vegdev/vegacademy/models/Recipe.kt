@@ -3,19 +3,19 @@ package com.vegdev.vegacademy.models
 import android.os.Parcel
 import android.os.Parcelable
 
-class Recipe(var src: String?, var title: String?, var ing: MutableList<String>?) : Parcelable {
+class Recipe(var src: String?, var title: String?, var ing: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.createStringArrayList()
+        parcel.readString()
     )
 
-    constructor() : this("", "", mutableListOf())
+    constructor() : this("", "", "")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(src)
         parcel.writeString(title)
-        parcel.writeStringList(ing)
+        parcel.writeString(ing)
     }
 
     override fun describeContents(): Int {

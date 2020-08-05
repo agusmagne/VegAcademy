@@ -33,7 +33,7 @@ class RecipeInfoFragment : Fragment() {
         recipe?.let {
             Glide.with(this).load(recipe.src).into(src)
             title.text = recipe.title
-            ingredients.text = recipe.ing?.joinToString()
+            ingredients.text = recipe.ing
         }
     }
 }
