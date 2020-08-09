@@ -24,6 +24,7 @@
     <string name="new_videos">Nuevos Videos</string>
     <string name="new_articles">Nuevos Artículos</string>
     <string name="agregar_receta">Agregar Receta</string>
+    <string name="filter_recipe">Filtrar Receta</string>
 
 
 </resources>

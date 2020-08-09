@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.models
 import android.os.Parcel
 import android.os.Parcelable
 
-class Recipe(var src: String?, var title: String?, var ing: String?) : Parcelable {
+class Recipe(var title: String?, var src: String?, var ing: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -13,8 +13,8 @@ class Recipe(var src: String?, var title: String?, var ing: String?) : Parcelabl
     constructor() : this("", "", "")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(src)
         parcel.writeString(title)
+        parcel.writeString(src)
         parcel.writeString(ing)
     }
 
@@ -32,3 +32,5 @@ class Recipe(var src: String?, var title: String?, var ing: String?) : Parcelabl
         }
     }
 }
+
+class Filter(var title: String, var type: Int)

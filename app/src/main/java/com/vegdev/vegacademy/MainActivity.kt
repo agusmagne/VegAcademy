@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -21,7 +21,8 @@ import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.models.Recipe
 import com.vegdev.vegacademy.ui.news.NewsFragment
-import com.vegdev.vegacademy.ui.recipes.AddRecipeDialogFragment
+import com.vegdev.vegacademy.ui.recipes.RecipeDialogAddFragment
+import com.vegdev.vegacademy.ui.recipes.RecipeDialogFilterFragment
 import com.vegdev.vegacademy.ui.recipes.RecipesFragment
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
     private var currentLink: String = ""
     private var incomingLink: String = ""
     private var youTubePlayerHeight = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,22 +69,40 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         }
 
         // search recipes toolbar logic
-        edtxt_recipes_search.addTextChangedListener {
+        edtxt_recipes_search.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val recipesFragment =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
+                        0
+                    ) as RecipesFragment
+                val text = textView.editableText.toString()
+                if (text.length >= 3) {
+                    recipesFragment.fetchFilteredRecipes(text, null, null)
+                } else {
+                    layoutUtils.createToast(this, "Debes ingresar por lo menos 3 caracteres")
+                }
+            }
+            true
+        }
+
+        btn_recipe_search.setOnClickListener {
             val recipesFragment =
                 supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
                     0
                 ) as RecipesFragment
-            it?.let { recipesFragment.searchRecipes(it.toString()) }
-        }
-
-        btn_recipe_search.setOnClickListener {
-
+            val text = edtxt_recipes_search.editableText.toString()
+            if (text.length >= 3) {
+                recipesFragment.fetchFilteredRecipes(text, null, null)
+            } else {
+                layoutUtils.createToast(this, "Debes ingresar por lo menos 3 caracteres")
+            }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         menu?.findItem(R.id.action_addrecipe)?.isVisible = false
+        menu?.findItem(R.id.action_filterrecipe)?.isVisible = false
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -97,7 +117,11 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
             }
 
             R.id.action_addrecipe -> {
-                AddRecipeDialogFragment().show(supportFragmentManager, "")
+                RecipeDialogAddFragment().show(supportFragmentManager, "")
+            }
+
+            R.id.action_filterrecipe -> {
+                RecipeDialogFilterFragment().show(supportFragmentManager, "")
             }
         }
 
@@ -212,6 +236,15 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
             .addOnSuccessListener { layoutUtils.createToast(this, "Receta enviada") }
             .addOnFailureListener { layoutUtils.createToast(this, "Error al enviar receta") }
     }
+
+    override fun updateFilters(byTitle: String?, byTaste: String?, byMeal: String?) {
+        val recipesFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
+                0
+            ) as RecipesFragment
+        recipesFragment.fetchFilteredRecipes(null, byTaste, byMeal)
+    }
+
 }
 
 interface IProgressBar {
@@ -232,4 +265,5 @@ interface IToolbar {
 
 interface IRecipeManager {
     fun uploadRecipe(recipe: Recipe)
+    fun updateFilters(byTitle: String?, byTaste: String?, byMeal: String?)
 }
