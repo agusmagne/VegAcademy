@@ -33,11 +33,11 @@ class RecipesFragment : Fragment() {
     private var iToolbar: IToolbar? = null
     private val layoutUtils = LayoutUtils()
 
-    private val FILTER_SEARCH = 0
+    private val FILTER_TITLE = 0
     private val FILTER_TASTE = 1
     private val FILTER_MEAL = 2
+    private var FILTER_BOTH = "Ambos"
     private var filtersList: MutableList<Filter?> = mutableListOf()
-
     private var filtersAdapter: FiltersStaggeredRvAdapter? = null
 
     override fun onCreateView(
@@ -54,7 +54,12 @@ class RecipesFragment : Fragment() {
                 )
             )
         }
-        filtersAdapter = FiltersStaggeredRvAdapter(filtersList)
+        filtersAdapter = FiltersStaggeredRvAdapter(filtersList) {
+            // on filter click
+            filtersList.remove(it)
+            filtersAdapter?.notifyDataSetChanged()
+            fetchFilteredRecipes()
+        }
         return inflater.inflate(R.layout.fragment_recipes, container, false)
     }
 
@@ -90,6 +95,11 @@ class RecipesFragment : Fragment() {
         iToolbar?.searchRecipesOff()
     }
 
+    override fun onResume() {
+        super.onResume()
+        fetchFilteredRecipes()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is IToolbar) {
@@ -102,66 +112,150 @@ class RecipesFragment : Fragment() {
         iToolbar = null
     }
 
-    fun fetchFilteredRecipes(byTitle: String?, byTaste: String?, byMeal: String?) {
-        addFilter(byTitle, byTaste, byMeal)
-        val query = getFilteredRecipesQuery()
-        query.addSnapshotListener { value, _ ->
-            val recipes = value?.toObjects(Recipe::class.java)
-            recipes?.let {
-                if (it.isEmpty()) {
-                    no_recipes_found.visibility = View.VISIBLE
-                } else {
-                    no_recipes_found.visibility = View.INVISIBLE
-                }
-            }
-        }
+    private fun fetchFilteredRecipes() {
         val config = PagedList.Config.Builder().setInitialLoadSizeHint(5).setPageSize(3).build()
         val response =
-            FirestorePagingOptions.Builder<Recipe>().setQuery(query, config, Recipe::class.java)
+            FirestorePagingOptions.Builder<Recipe>()
+                .setQuery(getFilteredRecipesQuery(), config, Recipe::class.java)
                 .build()
         rvAdapter.updateOptions(response)
     }
 
+    fun fetchFilteredRecipes(byTitle: String) {
+        val isSameFilterString = updateFilters(byTitle)
+
+        if (!isSameFilterString) {
+            val query = getFilteredRecipesQuery()
+            query.addSnapshotListener { value, _ ->
+                val recipes = value?.toObjects(Recipe::class.java)
+                recipes?.let {
+                    if (it.isEmpty()) {
+                        no_recipes_found.visibility = View.VISIBLE
+                    } else {
+                        no_recipes_found.visibility = View.INVISIBLE
+                    }
+                }
+            }
+            val config = PagedList.Config.Builder().setInitialLoadSizeHint(5).setPageSize(3).build()
+            val response =
+                FirestorePagingOptions.Builder<Recipe>().setQuery(query, config, Recipe::class.java)
+                    .build()
+            rvAdapter.updateOptions(response)
+        } else {
+            layoutUtils.createToast(
+                requireContext(),
+                "Ya estás buscando recetas que contengan '$byTitle'"
+            )
+        }
+    }
+
+    fun fetchFilteredRecipes(byTaste: String, byMeal: String) {
+        val didAnyFilterChange = updateFilters(byTaste, byMeal)
+
+        if (didAnyFilterChange) {
+            val query = getFilteredRecipesQuery()
+            query.addSnapshotListener { value, _ ->
+                val recipes = value?.toObjects(Recipe::class.java)
+                recipes?.let {
+                    if (it.isEmpty()) {
+                        no_recipes_found.visibility = View.VISIBLE
+                    } else {
+                        no_recipes_found.visibility = View.INVISIBLE
+                    }
+                }
+            }
+            val config = PagedList.Config.Builder().setInitialLoadSizeHint(5).setPageSize(3).build()
+            val response =
+                FirestorePagingOptions.Builder<Recipe>().setQuery(query, config, Recipe::class.java)
+                    .build()
+            rvAdapter.updateOptions(response)
+        } else {
+            layoutUtils.createToast(requireContext(), "No has cambiado ningún filtro")
+        }
+    }
+
     private fun getFilteredRecipesQuery(): Query {
-        val query: Query = firestore.collection("rec")
-        val titleFilter = filtersList.filter { it?.type == FILTER_SEARCH }
+        var query: Query = firestore.collection("rec")
+        val titleFilter = filtersList.filter { it?.type == FILTER_TITLE }
         val tasteFilter = filtersList.filter { it?.type == FILTER_TASTE }
         val mealFilter = filtersList.filter { it?.type == FILTER_MEAL }
 
         if (titleFilter.isNotEmpty()) {
             val filterString = titleFilter[0]!!.title
-            query.whereGreaterThanOrEqualTo("title", filterString)
+            query = query.whereGreaterThanOrEqualTo("title", filterString)
                 .whereLessThan("title", getFilterTo(filterString))
         }
 
         if (tasteFilter.isNotEmpty()) {
-            val filterString = tasteFilter[0]!!.title
-            query.whereEqualTo("taste", filterString)
+            val filterString = tasteFilter[0]!!.title.toLowerCase(Locale.ROOT)
+            query = query.whereEqualTo("taste", filterString)
         }
 
         if (mealFilter.isNotEmpty()) {
-            val filterString = mealFilter[0]!!.title
-            query.whereEqualTo("meal", filterString)
+            val filterString = mealFilter[0]!!.title.toLowerCase(Locale.ROOT)
+            query = query.whereEqualTo("meal", filterString)
         }
         return query
     }
 
-    private fun addFilter(byTitle: String?, byTaste: String?, byMeal: String?) {
-        val newFiltersList: MutableList<Filter?> = mutableListOf(null, null, null)
-        byTitle?.let {
-            newFiltersList[0] = Filter(byTitle, FILTER_SEARCH)
+    private fun updateFilters(byTitle: String): Boolean {
+        // remove old filter by title
+        val filterByTitle = filtersList.filter { it?.type == FILTER_TITLE }
+        return if (filterByTitle.isNotEmpty()) {
+            if (filterByTitle[0]?.title == byTitle) {
+                true
+            } else {
+                filtersList.remove(filterByTitle[0])
+                filtersList.add(Filter(byTitle, FILTER_TITLE))
+                filtersAdapter?.notifyDataSetChanged()
+                false
+            }
+        } else {
+            filtersList.add(Filter(byTitle, FILTER_TITLE))
+            filtersAdapter?.notifyDataSetChanged()
+            false
+        }
+    }
+
+
+    private fun updateFilters(byTaste: String, byMeal: String): Boolean {
+
+        var didAnyFilterChange = false
+
+        // erase old filters and update them with new ones
+        val filterByTaste = filtersList.filter { it?.type == FILTER_TASTE }
+        if (filterByTaste.isNotEmpty()) {
+            if (filterByTaste[0]?.title != byTaste) {
+                filtersList.remove(filterByTaste[0])
+                didAnyFilterChange = true
+                if (byTaste != FILTER_BOTH) {
+                    filtersList.add(Filter(byTaste, FILTER_TASTE))
+                }
+            }
+        } else {
+            if (byTaste != FILTER_BOTH) {
+                didAnyFilterChange = true
+                filtersList.add(Filter(byTaste, FILTER_TASTE))
+            }
         }
 
-        byTaste?.let {
-            newFiltersList[1] = Filter(byTaste, FILTER_TASTE)
+        val filterByMeal = filtersList.filter { it?.type == FILTER_MEAL }
+        if (filterByMeal.isNotEmpty()) {
+            if (filterByMeal[0]?.title != byMeal) {
+                filtersList.remove(filterByMeal[0])
+                didAnyFilterChange = true
+                if (byMeal != FILTER_BOTH) {
+                    filtersList.add(Filter(byMeal, FILTER_MEAL))
+                }
+            }
+        } else {
+            if (byMeal != FILTER_BOTH) {
+                didAnyFilterChange = true
+                filtersList.add(Filter(byMeal, FILTER_MEAL))
+            }
         }
-
-        byMeal?.let {
-            newFiltersList[2] = Filter(byMeal, FILTER_MEAL)
-        }
-        filtersList.removeAll(filtersList)
-        filtersList.addAll(newFiltersList)
         filtersAdapter?.notifyDataSetChanged()
+        return didAnyFilterChange
     }
 
     private fun getFilterTo(string: String): String {
@@ -172,12 +266,15 @@ class RecipesFragment : Fragment() {
         return stringWithoutLastLetter + (lastLetter.toCharArray()[0] + 1).toString()
     }
 
+    fun getFiltersList(): MutableList<Filter?> = filtersList
+
     private fun fetchRecipes(
         firestore: FirebaseFirestore,
         onRecipeClick: (Recipe) -> Unit
     ): FirestorePagingAdapter<Recipe, RecipeViewHolder> {
         val query = firestore.collection("rec")
-        val config = PagedList.Config.Builder().setInitialLoadSizeHint(10).setPageSize(3).build()
+        val config =
+            PagedList.Config.Builder().setInitialLoadSizeHint(10).setPageSize(3).build()
         val response =
             FirestorePagingOptions.Builder<Recipe>().setQuery(query, config, Recipe::class.java)
                 .build()
@@ -237,7 +334,10 @@ private class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     }
 }
 
-private class FiltersStaggeredRvAdapter(val filtersList: MutableList<Filter?>) :
+private class FiltersStaggeredRvAdapter(
+    val filtersList: MutableList<Filter?>,
+    val listener: (Filter) -> Unit
+) :
     RecyclerView.Adapter<FiltersViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FiltersViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -248,8 +348,9 @@ private class FiltersStaggeredRvAdapter(val filtersList: MutableList<Filter?>) :
     override fun getItemCount(): Int = filtersList.size
 
     override fun onBindViewHolder(holder: FiltersViewHolder, position: Int) {
-        filtersList[position]?.let {
-            holder.bindFilter(it)
+        filtersList[position]?.let { filter ->
+            holder.bindFilter(filter)
+            holder.itemView.setOnClickListener { listener(filter) }
         }
     }
 }

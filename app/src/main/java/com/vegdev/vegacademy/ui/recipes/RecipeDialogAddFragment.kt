@@ -41,7 +41,9 @@ class RecipeDialogAddFragment : DialogFragment() {
                     Recipe(
                         name.toLowerCase(Locale.ROOT),
                         image,
-                        ingredients
+                        ingredients,
+                        "",
+                        ""
                     )
                 )
                 dialog?.dismiss()

@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.login.StartActivity
 import com.vegdev.vegacademy.login.WelcomeActivity
+import com.vegdev.vegacademy.models.Filter
 import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.models.Recipe
 import com.vegdev.vegacademy.ui.news.NewsFragment
@@ -71,13 +72,9 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         // search recipes toolbar logic
         edtxt_recipes_search.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val recipesFragment =
-                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
-                        0
-                    ) as RecipesFragment
                 val text = textView.editableText.toString()
                 if (text.length >= 3) {
-                    recipesFragment.fetchFilteredRecipes(text, null, null)
+                    this.updateFilters(text)
                 } else {
                     layoutUtils.createToast(this, "Debes ingresar por lo menos 3 caracteres")
                 }
@@ -86,13 +83,9 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         }
 
         btn_recipe_search.setOnClickListener {
-            val recipesFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
-                    0
-                ) as RecipesFragment
             val text = edtxt_recipes_search.editableText.toString()
             if (text.length >= 3) {
-                recipesFragment.fetchFilteredRecipes(text, null, null)
+                this.updateFilters(text)
             } else {
                 layoutUtils.createToast(this, "Debes ingresar por lo menos 3 caracteres")
             }
@@ -237,13 +230,30 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
             .addOnFailureListener { layoutUtils.createToast(this, "Error al enviar receta") }
     }
 
-    override fun updateFilters(byTitle: String?, byTaste: String?, byMeal: String?) {
+    override fun updateFilters(byTitle: String) {
         val recipesFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
                 0
             ) as RecipesFragment
-        recipesFragment.fetchFilteredRecipes(null, byTaste, byMeal)
+        recipesFragment.fetchFilteredRecipes(byTitle)
     }
+
+    override fun updateFilters(byTaste: String, byMeal: String) {
+        val recipesFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
+                0
+            ) as RecipesFragment
+        recipesFragment.fetchFilteredRecipes(byTaste, byMeal)
+    }
+
+    override fun getFiltersList(): MutableList<Filter?> {
+        val recipesFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
+                0
+            ) as RecipesFragment
+        return recipesFragment.getFiltersList()
+    }
+
 
 }
 
@@ -265,5 +275,7 @@ interface IToolbar {
 
 interface IRecipeManager {
     fun uploadRecipe(recipe: Recipe)
-    fun updateFilters(byTitle: String?, byTaste: String?, byMeal: String?)
+    fun updateFilters(byTitle: String)
+    fun updateFilters(byTaste: String, byMeal: String)
+    fun getFiltersList(): MutableList<Filter?>
 }
