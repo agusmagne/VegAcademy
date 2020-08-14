@@ -7,8 +7,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.transition.TransitionManager
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -21,10 +23,13 @@ import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.models.Filter
 import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.models.Recipe
+import com.vegdev.vegacademy.ui.learning.LearningCategoryFragment
+import com.vegdev.vegacademy.ui.learning.LearningCategoryFragmentDirections
+import com.vegdev.vegacademy.ui.learning.LearningFragment
+import com.vegdev.vegacademy.ui.learning.LearningFragmentDirections
 import com.vegdev.vegacademy.ui.news.NewsFragment
-import com.vegdev.vegacademy.ui.recipes.RecipeDialogAddFragment
-import com.vegdev.vegacademy.ui.recipes.RecipeDialogFilterFragment
-import com.vegdev.vegacademy.ui.recipes.RecipesFragment
+import com.vegdev.vegacademy.ui.news.NewsFragmentDirections
+import com.vegdev.vegacademy.ui.recipes.*
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -38,7 +43,6 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
     private var currentLink: String = ""
     private var incomingLink: String = ""
     private var youTubePlayerHeight = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,6 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
 
         val navController = findNavController(R.id.nav_host_fragment)
         nav_view.setupWithNavController(navController)
-        nav_view.setOnNavigationItemReselectedListener { }
 
         // set FAB click listener allowing to close youtube player interface
         fab_closeyoutube.hide()
@@ -116,17 +119,32 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
             R.id.action_filterrecipe -> {
                 RecipeDialogFilterFragment().show(supportFragmentManager, "")
             }
-        }
 
+            R.id.action_donate -> {
+                val currentFragment = getCurrentFragment()
+                val navDirections: NavDirections
+                navDirections = when (currentFragment) {
+                    is NewsFragment -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()
+                    is LearningFragment -> LearningFragmentDirections.actionNavigationLearningToNavigationDonations()
+                    is LearningCategoryFragment -> LearningCategoryFragmentDirections.actionNavigationVideosToNavigationDonations()
+                    is RecipesFragment -> RecipesFragmentDirections.actionNavigationRecipesToNavigationDonations()
+                    is RecipeInfoFragment -> RecipeInfoFragmentDirections.actionNavigationRecipeInfoToNavigationDonations()
+                    else -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()
+                }
+                nav_host_fragment.findNavController().navigate(navDirections)
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun getCurrentFragment() =
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)?.childFragmentManager?.fragments?.get(
+            0
+        )
+
 
     override fun onBackPressed() {
-        val fragment =
-            this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
-        val currentFragment =
-            fragment?.childFragmentManager?.fragments?.get(0)
+        val currentFragment = getCurrentFragment()
 
         if (currentFragment is NewsFragment) {
             val intent = Intent(this, WelcomeActivity::class.java)
@@ -168,7 +186,6 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         if (!isYoutubeInitialized) {
             isYoutubeInitialized = true
 
-            main_toolbar.visibility = View.INVISIBLE
             player_background.minHeight = youTubePlayerHeight
 
             val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()

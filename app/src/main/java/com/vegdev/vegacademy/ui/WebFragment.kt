@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.vegdev.vegacademy.R
 import kotlinx.android.synthetic.main.fragment_web.*
 
+
 class WebFragment : Fragment() {
 
     private val args: WebFragmentArgs by navArgs()

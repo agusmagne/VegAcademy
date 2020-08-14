@@ -2,6 +2,7 @@ package com.vegdev.vegacademy.ui.learning
 
 import android.os.Bundle
 import android.os.Parcelable
+import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavDirections
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.Category
@@ -33,5 +34,8 @@ class LearningFragmentDirections private constructor() {
 
   companion object {
     fun actionVideo(category: Category): NavDirections = ActionVideo(category)
+
+    fun actionNavigationLearningToNavigationDonations(): NavDirections =
+        ActionOnlyNavDirections(R.id.action_navigation_learning_to_navigation_donations)
   }
 }

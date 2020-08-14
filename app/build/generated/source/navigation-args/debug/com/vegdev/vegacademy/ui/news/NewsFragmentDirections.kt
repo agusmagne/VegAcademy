@@ -57,5 +57,8 @@ class NewsFragmentDirections private constructor() {
 
     fun actionNavigationNewsToNavigationWebview(link: String = "defaultValue"): NavDirections =
         ActionNavigationNewsToNavigationWebview(link)
+
+    fun actionNavigationNewsToNavigationDonations(): NavDirections =
+        ActionOnlyNavDirections(R.id.action_navigation_news_to_navigation_donations)
   }
 }

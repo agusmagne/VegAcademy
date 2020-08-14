@@ -1,53 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_news">
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/mobile_navigation"
+     app:startDestination="@+id/navigation_news">
 
-    <fragment
-        android:id="@+id/navigation_news"
-        android:name="com.vegdev.vegacademy.ui.news.NewsFragment"
-        android:label="Novedades"
-        tools:layout="@layout/fragment_news">
+     <fragment
+         android:id="@+id/navigation_news"
+         android:name="com.vegdev.vegacademy.ui.news.NewsFragment"
+         android:label="Novedades"
+         tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/action_navigation_news_to_navigation_recipes"
             app:destination="@id/navigation_recipes" />
         <action
             android:id="@+id/action_navigation_news_to_navigation_learning"
             app:destination="@id/navigation_learning" />
-        <action
-            android:id="@+id/action_navigation_news_to_navigation_videos"
-            app:destination="@id/navigation_videos" />
-        <action
-            android:id="@+id/action_navigation_news_to_navigation_webview"
-            app:destination="@id/navigation_webview"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@anim/fui_slide_out_left"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-    </fragment>
+         <action
+             android:id="@+id/action_navigation_news_to_navigation_videos"
+             app:destination="@id/navigation_videos" />
+         <action
+             android:id="@+id/action_navigation_news_to_navigation_webview"
+             app:destination="@id/navigation_webview"
+             app:enterAnim="@anim/fui_slide_in_right"
+             app:exitAnim="@anim/fui_slide_out_left"
+             app:popEnterAnim="@android:anim/slide_in_left"
+             app:popExitAnim="@android:anim/slide_out_right" />
+         <action
+             android:id="@+id/action_navigation_news_to_navigation_donations"
+             app:destination="@id/navigation_donations" />
+     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_learning"
-        android:name="com.vegdev.vegacademy.ui.learning.LearningFragment"
-        android:label="Aprendizaje"
-        tools:layout="@layout/fragment_learning">
-        <action
-            android:id="@+id/action_video"
-            app:destination="@id/navigation_videos"
-            app:popEnterAnim="@anim/fragment_in" />
-    </fragment>
+     <fragment
+         android:id="@+id/navigation_learning"
+         android:name="com.vegdev.vegacademy.ui.learning.LearningFragment"
+         android:label="Aprendizaje"
+         tools:layout="@layout/fragment_learning">
+         <action
+             android:id="@+id/action_video"
+             app:destination="@id/navigation_videos"
+             app:popEnterAnim="@anim/fragment_in" />
+         <action
+             android:id="@+id/action_navigation_learning_to_navigation_donations"
+             app:destination="@id/navigation_donations" />
+     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_recipes"
-        android:name="com.vegdev.vegacademy.ui.recipes.RecipesFragment"
-        android:label="Recetas"
-        tools:layout="@layout/fragment_recipes">
-        <action
-            android:id="@+id/action_navigation_recipes_to_navigation_recipe_info"
-            app:destination="@id/navigation_recipe_info" />
-    </fragment>
+     <fragment
+         android:id="@+id/navigation_recipes"
+         android:name="com.vegdev.vegacademy.ui.recipes.RecipesFragment"
+         android:label="Recetas"
+         tools:layout="@layout/fragment_recipes">
+         <action
+             android:id="@+id/action_navigation_recipes_to_navigation_recipe_info"
+             app:destination="@id/navigation_recipe_info" />
+         <action
+             android:id="@+id/action_navigation_recipes_to_navigation_donations"
+             app:destination="@id/navigation_donations" />
+     </fragment>
 
     <fragment
         android:id="@+id/navigation_videos"
@@ -60,6 +69,9 @@
         <action
             android:id="@+id/action_navigation_videos_to_navigation_webview"
             app:destination="@id/navigation_webview" />
+        <action
+            android:id="@+id/action_navigation_videos_to_navigation_donations"
+            app:destination="@id/navigation_donations" />
     </fragment>
 
     <fragment
@@ -74,13 +86,22 @@
             app:argType="string" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_recipe_info"
-        android:name="com.vegdev.vegacademy.ui.recipes.RecipeInfoFragment"
-        android:label="Receta"
-        tools:layout="@layout/fragment_recipe_info">
-        <argument
-            android:name="recipe"
-            app:argType="com.vegdev.vegacademy.models.Recipe" />
-    </fragment>
-</navigation>
+     <fragment
+         android:id="@+id/navigation_recipe_info"
+         android:name="com.vegdev.vegacademy.ui.recipes.RecipeInfoFragment"
+         android:label="Receta"
+         tools:layout="@layout/fragment_recipe_info">
+         <argument
+             android:name="recipe"
+             app:argType="com.vegdev.vegacademy.models.Recipe" />
+         <action
+             android:id="@+id/action_navigation_recipe_info_to_navigation_donations"
+             app:destination="@id/navigation_donations" />
+     </fragment>
+
+     <fragment
+         android:id="@+id/navigation_donations"
+         android:name="com.vegdev.vegacademy.ui.DonationsFragment"
+         android:label="Donaciones"
+         tools:layout="@layout/fragment_donations" />
+ </navigation>
