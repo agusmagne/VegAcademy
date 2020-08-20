@@ -118,6 +118,7 @@
         android:layout_gravity="bottom"
         android:background="@drawable/navbar_background"
         app:itemIconTint="@drawable/navbar_colors"
+        android:visibility="invisible"
         app:itemTextColor="@drawable/navbar_colors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

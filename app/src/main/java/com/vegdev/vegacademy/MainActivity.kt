@@ -23,6 +23,7 @@ import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.models.Filter
 import com.vegdev.vegacademy.models.LearningElement
 import com.vegdev.vegacademy.models.Recipe
+import com.vegdev.vegacademy.models.User
 import com.vegdev.vegacademy.ui.learning.LearningCategoryFragment
 import com.vegdev.vegacademy.ui.learning.LearningCategoryFragmentDirections
 import com.vegdev.vegacademy.ui.learning.LearningFragment
@@ -33,16 +34,20 @@ import com.vegdev.vegacademy.ui.recipes.*
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar, IRecipeManager {
+
+class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecipeManager,
+    IUserManager {
 
     private val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
+    lateinit var firestore: FirebaseFirestore
     private var youtubePlayer: YouTubePlayer? = null
     private var isYoutubePlayerOpen: Boolean = false
     private var isYoutubeInitialized: Boolean = false
     private var currentLink: String = ""
     private var incomingLink: String = ""
     private var youTubePlayerHeight = 0
+    private var currentUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,15 +55,27 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
 
         youTubePlayerHeight = resources.displayMetrics.widthPixels * 9 / 16
 
+
         main_toolbar.visibility = View.VISIBLE
 
+        firestore = FirebaseFirestore.getInstance()
         firebaseAuth = FirebaseAuth.getInstance()
+        firestore.collection("users").document(firebaseAuth.currentUser!!.uid).get()
+            .addOnSuccessListener {
+                currentUser = it.toObject(User::class.java)
+                nav_view.visibility = View.VISIBLE
+                val newsFragment = getCurrentFragment() as NewsFragment
+                newsFragment.makeNewsFragmentVisible()
+                finishedLoading()
+            }
 
         setSupportActionBar(main_toolbar)
         supportActionBar?.title = ""
 
         val navController = findNavController(R.id.nav_host_fragment)
         nav_view.setupWithNavController(navController)
+        nav_view.setOnNavigationItemReselectedListener {}
+
 
         // set FAB click listener allowing to close youtube player interface
         fab_closeyoutube.hide()
@@ -225,6 +242,10 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         main_progressbar.visibility = View.INVISIBLE
     }
 
+    override fun isNavViewVisible(): Boolean {
+        return nav_view.visibility == View.VISIBLE
+    }
+
     override fun toolbarOff() {
         main_toolbar.visibility = View.INVISIBLE
     }
@@ -241,8 +262,11 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         recipes_search.visibility = View.GONE
     }
 
-    override fun uploadRecipe(recipe: Recipe) {
-        FirebaseFirestore.getInstance().collection("rec").document().set(recipe)
+    override fun suggestRecipe(recipe: Recipe) {
+
+        val docRef = FirebaseFirestore.getInstance().collection("recSug").document()
+        recipe.id = docRef.id
+        docRef.set(recipe)
             .addOnSuccessListener { layoutUtils.createToast(this, "Receta enviada") }
             .addOnFailureListener { layoutUtils.createToast(this, "Error al enviar receta") }
     }
@@ -271,28 +295,33 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, IProgressBar, IToolbar
         return recipesFragment.getFiltersList()
     }
 
+    override fun getCurrentUser(): User? = currentUser
+
 
 }
 
-interface IProgressBar {
-    fun currentlyLoading()
-    fun finishedLoading()
-}
 
 interface IYoutubePlayer {
     fun openYoutubePlayer(learningElement: LearningElement)
 }
 
-interface IToolbar {
+interface ILayoutManager {
     fun toolbarOff()
     fun toolbarOn()
     fun searchRecipesOn()
     fun searchRecipesOff()
+    fun currentlyLoading()
+    fun finishedLoading()
+    fun isNavViewVisible(): Boolean
 }
 
 interface IRecipeManager {
-    fun uploadRecipe(recipe: Recipe)
+    fun suggestRecipe(recipe: Recipe)
     fun updateFilters(byTitle: String)
     fun updateFilters(byTaste: String, byMeal: String)
     fun getFiltersList(): MutableList<Filter?>
+}
+
+interface IUserManager {
+    fun getCurrentUser(): User?
 }

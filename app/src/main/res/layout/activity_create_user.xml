@@ -249,10 +249,10 @@
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/password"
-            android:tint="@color/transparent_purple"
             app:layout_constraintBottom_toBottomOf="@id/confpassword_field"
             app:layout_constraintRight_toRightOf="@id/confpassword_field"
-            app:layout_constraintTop_toTopOf="@id/confpassword_field" />
+            app:layout_constraintTop_toTopOf="@id/confpassword_field"
+            app:tint="@color/transparent_purple" />
 
         <EditText
             android:id="@+id/confpassword_txt"
@@ -270,7 +270,7 @@
 
 
         <ImageView
-            android:id="@+id/start_create_user_filled_btn"
+            android:id="@+id/create_btn"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:elevation="20dp"
@@ -291,10 +291,10 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:transitionName="text_slides_down"
-            app:layout_constraintBottom_toBottomOf="@id/start_create_user_filled_btn"
-            app:layout_constraintLeft_toLeftOf="@id/start_create_user_filled_btn"
-            app:layout_constraintRight_toRightOf="@id/start_create_user_filled_btn"
-            app:layout_constraintTop_toTopOf="@id/start_create_user_filled_btn" />
+            app:layout_constraintBottom_toBottomOf="@id/create_btn"
+            app:layout_constraintLeft_toLeftOf="@id/create_btn"
+            app:layout_constraintRight_toRightOf="@id/create_btn"
+            app:layout_constraintTop_toTopOf="@id/create_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -33,16 +33,17 @@ class RecipeDialogAddFragment : DialogFragment() {
             val image = image_edtxt.editableText.toString()
             val ingredients = ingredients_edtxt.editableText.toString()
             if (name != "" &&
-                image != "" &&
-                ingredients != ""
+                image != ""
             ) {
                 layoutUtils.createToast(requireContext(), "Enviando receta")
-                iRecipeManager?.uploadRecipe(
+                iRecipeManager?.suggestRecipe(
                     Recipe(
                         name.toLowerCase(Locale.ROOT),
                         image,
                         ingredients,
                         "",
+                        "",
+                        0,
                         ""
                     )
                 )

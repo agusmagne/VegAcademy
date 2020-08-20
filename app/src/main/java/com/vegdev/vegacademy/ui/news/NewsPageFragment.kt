@@ -14,7 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vegdev.vegacademy.IToolbar
+import com.vegdev.vegacademy.ILayoutManager
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.Category
@@ -29,7 +29,8 @@ class NewsPageFragment(private val position: Int) : Fragment() {
 
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, NewsViewHolder>
     private lateinit var firestore: FirebaseFirestore
-    private var iToolbar: IToolbar? = null
+    private var isLayoutFinished: Boolean = false
+    private var iLayoutManager: ILayoutManager? = null
     private var youtubePlayer: IYoutubePlayer? = null
     private val modelsUtils = ModelsUtils()
 
@@ -39,6 +40,7 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         firestore = FirebaseFirestore.getInstance()
+        iLayoutManager?.currentlyLoading()
         return inflater.inflate(R.layout.fragment_news_page, container, false)
     }
 
@@ -51,11 +53,12 @@ class NewsPageFragment(private val position: Int) : Fragment() {
             "articleNews"
         }
 
+
         rvAdapter = this.fetchNewLearningElements(firestore, newsCollection,
             { learningElement ->
                 // on news element click
                 if (position == 1) {
-                    iToolbar?.toolbarOff()
+                    iLayoutManager?.toolbarOff()
                     findNavController().navigate(
                         NewsFragmentDirections.actionNavigationNewsToNavigationWebview(
                             learningElement.link
@@ -80,11 +83,24 @@ class NewsPageFragment(private val position: Int) : Fragment() {
 
             })
 
-        new_videos_rv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = rvAdapter
+        val layoutManager = object : LinearLayoutManager(context) {
+            override fun onLayoutCompleted(state: RecyclerView.State?) {
+                super.onLayoutCompleted(state)
+                iLayoutManager?.let {
+                    if (!isLayoutFinished && it.isNavViewVisible()) {
+                        isLayoutFinished = true
+                        it.finishedLoading()
+                        val parentFragment = parentFragment as NewsFragment
+                        parentFragment.makeNewsFragmentVisible()
+                    }
+                }
+            }
         }
 
+        new_videos_rv.apply {
+            this.layoutManager = layoutManager
+            adapter = rvAdapter
+        }
     }
 
     override fun onStart() {
@@ -102,15 +118,16 @@ class NewsPageFragment(private val position: Int) : Fragment() {
         if (context is IYoutubePlayer) {
             youtubePlayer = context
         }
-        if (context is IToolbar) {
-            iToolbar = context
+        if (context is ILayoutManager) {
+            iLayoutManager = context
         }
+
     }
 
     override fun onDetach() {
         super.onDetach()
         youtubePlayer = null
-        iToolbar = null
+        iLayoutManager = null
     }
 
     private fun fetchNewLearningElements(
@@ -152,11 +169,12 @@ class NewsPageFragment(private val position: Int) : Fragment() {
 }
 
 
-class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class NewsViewHolder(itemView: View) :
+    RecyclerView.ViewHolder(itemView) {
 
     fun bindElement(learningElement: LearningElement) {
-        Glide.with(itemView.context).load(learningElement.src).into(itemView.src)
         Glide.with(itemView.context).load(learningElement.icon).into(itemView.cat)
+        Glide.with(itemView.context).load(learningElement.src).into(itemView.src)
         itemView.title.text = learningElement.title
         itemView.desc.text = learningElement.desc
 

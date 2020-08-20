@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
     android:id="@+id/fragment_learning"
     android:animateLayoutChanges="true"
-    android:visibility="invisible"
     android:background="@color/blackBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_learning_cl"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="wrap_content">
 
         <TextView

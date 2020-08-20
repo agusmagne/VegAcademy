@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.vegdev.vegacademy.ILayoutManager
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.ModelsUtils
@@ -17,12 +18,14 @@ class NewsFragment : Fragment() {
 
     private val modelsUtils = ModelsUtils()
     private var youtubePlayer: IYoutubePlayer? = null
+    private var iLayoutManager: ILayoutManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        iLayoutManager?.currentlyLoading()
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
@@ -37,11 +40,24 @@ class NewsFragment : Fragment() {
         if (context is IYoutubePlayer) {
             youtubePlayer = context
         }
+        if (context is ILayoutManager) {
+            iLayoutManager = context
+        }
+
     }
 
     override fun onDetach() {
         super.onDetach()
         youtubePlayer = null
+        iLayoutManager = null
+    }
+
+    fun makeViewPagerVisible() {
+        news_viewPager.visibility = View.VISIBLE
+    }
+
+    fun makeNewsFragmentVisible() {
+        news_viewPager.visibility = View.VISIBLE
     }
 
 

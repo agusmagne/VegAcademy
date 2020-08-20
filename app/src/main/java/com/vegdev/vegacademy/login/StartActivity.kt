@@ -4,21 +4,19 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Pair as UtilPair
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_create_user.logo
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.android.synthetic.main.activity_start.login_btn
-import kotlinx.android.synthetic.main.activity_start.login_txt
+import android.util.Pair as UtilPair
 
 class StartActivity : AppCompatActivity() {
 
@@ -48,7 +46,7 @@ class StartActivity : AppCompatActivity() {
 
         start_create_user_btn.setOnClickListener {
 
-            val p1 = UtilPair.create(start_create_user_filled_btn as View, "image_slides_down")
+            val p1 = UtilPair.create(create_btn as View, "image_slides_down")
             val p2 = UtilPair.create(start_create_user_filled_txt as View, "text_slides_down")
             val p3 = UtilPair.create(logo as View, "logo")
             val options =

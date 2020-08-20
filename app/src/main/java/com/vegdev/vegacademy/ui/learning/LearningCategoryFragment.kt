@@ -27,7 +27,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vegdev.vegacademy.IProgressBar
+import com.vegdev.vegacademy.ILayoutManager
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.Category
@@ -48,14 +48,14 @@ class LearningCategoryFragment : Fragment() {
     private lateinit var rvAdapter: FirestoreRecyclerAdapter<LearningElement, LearningElementViewHolder>
     private var youtubePlayer: IYoutubePlayer? = null
     private var isLayoutLoaded: Boolean = false
-    private var progressBar: IProgressBar? = null
+    private var iLayoutManager: ILayoutManager? = null
     private val args: LearningCategoryFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        progressBar?.currentlyLoading()
+        iLayoutManager?.currentlyLoading()
         firestore = FirebaseFirestore.getInstance()
         return inflater.inflate(R.layout.fragment_learning_category, container, false)
     }
@@ -94,7 +94,7 @@ class LearningCategoryFragment : Fragment() {
         }, {
             if (!isLayoutLoaded) {
                 isLayoutLoaded = true
-                progressBar?.finishedLoading()
+                iLayoutManager?.finishedLoading()
                 fragment_video_list.visibility = View.VISIBLE
                 layoutUtils.animateViews(
                     requireContext(),
@@ -147,15 +147,15 @@ class LearningCategoryFragment : Fragment() {
         if (context is IYoutubePlayer) {
             youtubePlayer = context
         }
-        if (context is IProgressBar) {
-            progressBar = context
+        if (context is ILayoutManager) {
+            iLayoutManager = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
         youtubePlayer = null
-        progressBar = null
+        iLayoutManager = null
     }
 
     private fun adjustRvToTitle() {

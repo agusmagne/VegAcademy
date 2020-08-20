@@ -1,25 +1,19 @@
 package com.vegdev.vegacademy.ui.learning
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vegdev.vegacademy.IProgressBar
+import com.vegdev.vegacademy.ILayoutManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.models.Category
 import com.vegdev.vegacademy.utils.ModelsUtils
@@ -31,8 +25,8 @@ class LearningFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var videosRvAdapter: FirestoreRecyclerAdapter<Category, CategoryViewHolder>
     private lateinit var articlesRvAdapter: FirestoreRecyclerAdapter<Category, CategoryViewHolder>
-    private var progressBar: IProgressBar? = null
-    private var layoutLoaded: Boolean = false
+    private var iLayoutManager: ILayoutManager? = null
+    private var isLayoutLoaded: Boolean = false
     private val modelsUtils = ModelsUtils()
 
     override fun onCreateView(
@@ -41,34 +35,21 @@ class LearningFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        layoutLoaded = false
+        isLayoutLoaded = false
 
         // layout is loading images
-        progressBar?.currentlyLoading()
+        iLayoutManager?.currentlyLoading()
 
         firestore = FirebaseFirestore.getInstance()
-        videosRvAdapter = fetchCategories(firestore, "videos", {
-            // on finish loading images
-            if (!layoutLoaded) {
-                layoutLoaded = true
-                progressBar?.finishedLoading()
-                fragment_learning.visibility = ConstraintLayout.VISIBLE
-            }
-        }, { selectedCategory ->
+
+        videosRvAdapter = fetchCategories(firestore, "videos") { selectedCategory ->
             this.findNavController()
                 .navigate(LearningFragmentDirections.actionVideo(selectedCategory))
-        })
-        articlesRvAdapter = fetchCategories(firestore, "art", {
-            // on finish loading images
-            if (!layoutLoaded) {
-                layoutLoaded = true
-                progressBar?.finishedLoading()
-                fragment_learning.visibility = ConstraintLayout.VISIBLE
-            }
-        }, { selectedCategory ->
+        }
+        articlesRvAdapter = fetchCategories(firestore, "art") { selectedCategory ->
             this.findNavController()
                 .navigate(LearningFragmentDirections.actionVideo(selectedCategory))
-        })
+        }
         return inflater.inflate(R.layout.fragment_learning, container, false)
     }
 
@@ -80,21 +61,30 @@ class LearningFragment : Fragment() {
             adapter = videosRvAdapter
         }
         articles_rv.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = object : LinearLayoutManager(context, HORIZONTAL, false) {
+                override fun onLayoutCompleted(state: RecyclerView.State?) {
+                    super.onLayoutCompleted(state)
+                    if (!isLayoutLoaded) {
+                        isLayoutLoaded = true
+                        iLayoutManager?.finishedLoading()
+                        fragment_learning_cl.visibility = View.VISIBLE
+                    }
+                }
+            }
             adapter = articlesRvAdapter
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IProgressBar) {
-            progressBar = context
+        if (context is ILayoutManager) {
+            iLayoutManager = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        progressBar = null
+        iLayoutManager = null
     }
 
     override fun onStart() {
@@ -112,7 +102,6 @@ class LearningFragment : Fragment() {
     private fun fetchCategories(
         firestore: FirebaseFirestore,
         categoryType: String,
-        onImageLoaded: () -> Unit,
         onCategoryClick: (Category) -> Unit
     ): FirestoreRecyclerAdapter<Category, CategoryViewHolder> {
         val query = firestore.collection("learning").document(categoryType).collection("cat")
@@ -132,7 +121,7 @@ class LearningFragment : Fragment() {
                 position: Int,
                 category: Category
             ) {
-                holder.bindCategory(category) { onImageLoaded() }
+                holder.bindCategory(category)
                 holder.itemView.setOnClickListener { onCategoryClick(category) }
             }
 
@@ -142,28 +131,9 @@ class LearningFragment : Fragment() {
 
 private class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bindCategory(category: Category, imageLoaded: () -> Unit) {
+    fun bindCategory(category: Category) {
         itemView.title.text = category.title
-        Glide.with(itemView.context).load(category.icon)
-            .listener(object : RequestListener<Drawable?> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    isFirstResource: Boolean
-                ): Boolean = false
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    imageLoaded()
-                    return false
-                }
-            }).into(itemView.src)
+        Glide.with(itemView.context).load(category.icon).into(itemView.src)
     }
 
 }

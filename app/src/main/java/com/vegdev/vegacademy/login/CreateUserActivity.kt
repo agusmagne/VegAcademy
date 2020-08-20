@@ -1,12 +1,13 @@
 package com.vegdev.vegacademy.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_create_user.*
@@ -26,7 +27,7 @@ class CreateUserActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        start_create_user_filled_btn.setOnClickListener {
+        create_btn.setOnClickListener {
 
             val name = name_txt.text.toString()
             val email = email_txt.text.toString()
@@ -52,10 +53,13 @@ class CreateUserActivity : AppCompatActivity() {
                 progress_bar_background.visibility = View.VISIBLE
 
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                    val intent = Intent(this, WelcomeActivity::class.java)
-                    this.startActivity(intent)
+                    it.user?.updateProfile(
+                        UserProfileChangeRequest.Builder().setDisplayName(name).build()
+                    )?.addOnSuccessListener {
+                        val intent = Intent(this, WelcomeActivity::class.java)
+                        this.startActivity(intent)
+                    }
                 }.addOnFailureListener {
-
                 }
             }
 
