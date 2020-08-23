@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.data.models.Category
+import com.vegdev.vegacademy.model.data.models.Category
 import kotlinx.android.synthetic.main.fragment_learning_element.view.*
 
 class LearningFragmentAdapters(
