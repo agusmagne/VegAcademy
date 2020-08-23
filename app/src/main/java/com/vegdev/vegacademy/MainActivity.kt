@@ -18,12 +18,13 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.vegdev.vegacademy.data.models.Filter
+import com.vegdev.vegacademy.data.models.LearningElement
+import com.vegdev.vegacademy.data.models.Recipe
+import com.vegdev.vegacademy.data.models.User
+import com.vegdev.vegacademy.data.repositories.recipes.RecipesRepositoryImpl
 import com.vegdev.vegacademy.login.StartActivity
 import com.vegdev.vegacademy.login.WelcomeActivity
-import com.vegdev.vegacademy.models.Filter
-import com.vegdev.vegacademy.models.LearningElement
-import com.vegdev.vegacademy.models.Recipe
-import com.vegdev.vegacademy.models.User
 import com.vegdev.vegacademy.ui.learning.LearningCategoryFragment
 import com.vegdev.vegacademy.ui.learning.LearningCategoryFragmentDirections
 import com.vegdev.vegacademy.ui.learning.LearningFragment
@@ -33,10 +34,13 @@ import com.vegdev.vegacademy.ui.news.NewsFragmentDirections
 import com.vegdev.vegacademy.ui.recipes.*
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecipeManager,
-    IUserManager {
+    IUserManager, IMainView {
 
     private val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
@@ -49,9 +53,14 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
     private var youTubePlayerHeight = 0
     private var currentUser: User? = null
 
+    private val recipesRepository = RecipesRepositoryImpl()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        GlobalScope.launch(Dispatchers.IO) {
+
+        }
 
         youTubePlayerHeight = resources.displayMetrics.widthPixels * 9 / 16
 
@@ -246,6 +255,10 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
         return nav_view.visibility == View.VISIBLE
     }
 
+    override fun showToast(message: String) {
+        layoutUtils.createToast(this, message)
+    }
+
     override fun toolbarOff() {
         main_toolbar.visibility = View.INVISIBLE
     }
@@ -297,6 +310,14 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
 
     override fun getCurrentUser(): User? = currentUser
 
+    override fun showprogress() {
+        main_progressbar.visibility = View.VISIBLE
+    }
+
+    override fun hideprogress() {
+        main_progressbar.visibility = View.INVISIBLE
+    }
+
 
 }
 
@@ -313,6 +334,7 @@ interface ILayoutManager {
     fun currentlyLoading()
     fun finishedLoading()
     fun isNavViewVisible(): Boolean
+    fun showToast(message: String)
 }
 
 interface IRecipeManager {

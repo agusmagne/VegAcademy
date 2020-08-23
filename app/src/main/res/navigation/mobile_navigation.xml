@@ -65,7 +65,7 @@
         tools:layout="@layout/fragment_learning_category">
         <argument
             android:name="category"
-            app:argType="com.vegdev.vegacademy.models.Category" />
+            app:argType="com.vegdev.vegacademy.data.models.Category" />
         <action
             android:id="@+id/action_navigation_videos_to_navigation_webview"
             app:destination="@id/navigation_webview" />
@@ -93,7 +93,7 @@
          tools:layout="@layout/fragment_recipe_info">
          <argument
              android:name="recipe"
-             app:argType="com.vegdev.vegacademy.models.Recipe" />
+             app:argType="com.vegdev.vegacademy.data.models.Recipe" />
          <action
              android:id="@+id/action_navigation_recipe_info_to_navigation_donations"
              app:destination="@id/navigation_donations" />

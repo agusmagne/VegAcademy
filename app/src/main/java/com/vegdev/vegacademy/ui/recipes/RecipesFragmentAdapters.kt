@@ -12,8 +12,8 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.models.Filter
-import com.vegdev.vegacademy.models.Recipe
+import com.vegdev.vegacademy.data.models.Filter
+import com.vegdev.vegacademy.data.models.Recipe
 import kotlinx.android.synthetic.main.fragment_recipes_element.view.*
 import kotlinx.android.synthetic.main.recipe_single_filter.view.*
 import java.util.*

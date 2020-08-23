@@ -10,7 +10,7 @@ import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import com.vegdev.vegacademy.IRecipeManager
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.models.Filter
+import com.vegdev.vegacademy.data.models.Filter
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_filter.*
 

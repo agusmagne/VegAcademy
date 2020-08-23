@@ -30,8 +30,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.ILayoutManager
 import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.models.Category
-import com.vegdev.vegacademy.models.LearningElement
+import com.vegdev.vegacademy.data.models.Category
+import com.vegdev.vegacademy.data.models.LearningElement
+import com.vegdev.vegacademy.data.repositories.learningelements.LearningRepositoryImpl
 import com.vegdev.vegacademy.utils.GenericUtils
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.fragment_learning_category.*
@@ -50,6 +51,8 @@ class LearningCategoryFragment : Fragment() {
     private var isLayoutLoaded: Boolean = false
     private var iLayoutManager: ILayoutManager? = null
     private val args: LearningCategoryFragmentArgs by navArgs()
+
+    private val repository = LearningRepositoryImpl()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

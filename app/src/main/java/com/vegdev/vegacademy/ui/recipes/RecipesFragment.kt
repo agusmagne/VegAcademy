@@ -18,8 +18,8 @@ import com.google.firebase.firestore.Query
 import com.vegdev.vegacademy.ILayoutManager
 import com.vegdev.vegacademy.IUserManager
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.models.Filter
-import com.vegdev.vegacademy.models.Recipe
+import com.vegdev.vegacademy.data.models.Filter
+import com.vegdev.vegacademy.data.models.Recipe
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.fragment_recipes.*
 import java.util.*

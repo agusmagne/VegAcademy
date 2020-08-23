@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavDirections
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.models.Category
+import com.vegdev.vegacademy.data.models.Category
 import java.io.Serializable
 import java.lang.UnsupportedOperationException
 import kotlin.Int

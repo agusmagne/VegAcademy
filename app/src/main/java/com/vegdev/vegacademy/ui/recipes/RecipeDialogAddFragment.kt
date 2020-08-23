@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.vegdev.vegacademy.IRecipeManager
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.models.Recipe
+import com.vegdev.vegacademy.data.models.Recipe
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_add.*
 import java.util.*

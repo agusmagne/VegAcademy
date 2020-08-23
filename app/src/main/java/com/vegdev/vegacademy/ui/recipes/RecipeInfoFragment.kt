@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.models.Recipe
+import com.vegdev.vegacademy.data.models.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_info.*
 
 class RecipeInfoFragment : Fragment() {
