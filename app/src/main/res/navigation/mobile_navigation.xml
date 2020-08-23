@@ -33,9 +33,9 @@
 
      <fragment
          android:id="@+id/navigation_learning"
-         android:name="com.vegdev.vegacademy.view.learning.LearningFragment"
+         android:name="com.vegdev.vegacademy.view.learning.categories.CategoriesView"
          android:label="Aprendizaje"
-         tools:layout="@layout/fragment_learning">
+         tools:layout="@layout/learning_view">
          <action
              android:id="@+id/action_video"
              app:destination="@id/navigation_videos"
@@ -60,15 +60,19 @@
 
     <fragment
         android:id="@+id/navigation_videos"
-        android:name="com.vegdev.vegacademy.view.learning.LearningCategoryFragment"
+        android:name="com.vegdev.vegacademy.view.learning.elements.ElementsView"
         android:label="Videos"
-        tools:layout="@layout/fragment_learning_category">
+        tools:layout="@layout/elements_view">
         <argument
             android:name="category"
             app:argType="com.vegdev.vegacademy.model.data.models.Category" />
         <action
             android:id="@+id/action_navigation_videos_to_navigation_webview"
-            app:destination="@id/navigation_webview" />
+            app:destination="@id/navigation_webview"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_videos_to_navigation_donations"
             app:destination="@id/navigation_donations" />

@@ -26,10 +26,8 @@ import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.model.data.repositories.recipes.RecipesRepositoryImpl
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.learning.LearningCategoryFragment
-import com.vegdev.vegacademy.view.learning.LearningCategoryFragmentDirections
-import com.vegdev.vegacademy.view.learning.LearningFragment
-import com.vegdev.vegacademy.view.learning.LearningFragmentDirections
+import com.vegdev.vegacademy.view.learning.elements.ElementsView
+import com.vegdev.vegacademy.view.learning.elements.ElementsViewDirections
 import com.vegdev.vegacademy.view.news.NewsFragment
 import com.vegdev.vegacademy.view.news.NewsFragmentDirections
 import com.vegdev.vegacademy.view.recipes.*
@@ -151,8 +149,8 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
                 val navDirections: NavDirections
                 navDirections = when (currentFragment) {
                     is NewsFragment -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()
-                    is LearningFragment -> LearningFragmentDirections.actionNavigationLearningToNavigationDonations()
-                    is LearningCategoryFragment -> LearningCategoryFragmentDirections.actionNavigationVideosToNavigationDonations()
+//                    is CategoriesView -> .actionNavigationLearningToNavigationDonations()
+                    is ElementsView -> ElementsViewDirections.actionNavigationVideosToNavigationDonations()
                     is RecipesFragment -> RecipesFragmentDirections.actionNavigationRecipesToNavigationDonations()
                     is RecipeInfoFragment -> RecipeInfoFragmentDirections.actionNavigationRecipeInfoToNavigationDonations()
                     else -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()

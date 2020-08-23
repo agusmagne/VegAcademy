@@ -10,7 +10,7 @@
         <OnSwipe
             app:dragDirection="dragUp"
             app:onTouchUp="decelerate"
-            app:touchAnchorId="@id/videos_rv"
+            app:touchAnchorId="@id/elements_rv"
             app:touchAnchorSide="top" />
 
     </Transition>
@@ -68,7 +68,7 @@
                 app:customColorValue="@color/white" />
         </Constraint>
         <Constraint
-            android:id="@id/videos_rv"
+            android:id="@id/elements_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
@@ -142,7 +142,7 @@
                 app:customColorValue="#00FBFCFF" />
         </Constraint>
         <Constraint
-            android:id="@id/videos_rv"
+            android:id="@id/elements_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/blackBackground"
