@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.vegdev.vegacademy.MainActivity
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {

@@ -15,12 +15,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.vegdev.vegacademy.ILayoutManager
-import com.vegdev.vegacademy.IUserManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.view.main.ILayoutManager
+import com.vegdev.vegacademy.view.main.IUserManager
 import kotlinx.android.synthetic.main.fragment_recipes.*
 import java.util.*
 

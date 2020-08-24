@@ -14,13 +14,13 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vegdev.vegacademy.ILayoutManager
-import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.data.models.LearningElement
 import com.vegdev.vegacademy.utils.GenericUtils
 import com.vegdev.vegacademy.utils.ModelsUtils
+import com.vegdev.vegacademy.view.main.ILayoutManager
+import com.vegdev.vegacademy.view.main.IYoutubePlayer
 import kotlinx.android.synthetic.main.fragment_news_element.view.*
 import kotlinx.android.synthetic.main.fragment_news_page.*
 import java.util.concurrent.TimeUnit

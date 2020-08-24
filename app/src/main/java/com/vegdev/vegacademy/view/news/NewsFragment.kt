@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.vegdev.vegacademy.ILayoutManager
-import com.vegdev.vegacademy.IYoutubePlayer
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.ModelsUtils
+import com.vegdev.vegacademy.view.main.ILayoutManager
+import com.vegdev.vegacademy.view.main.IYoutubePlayer
 import kotlinx.android.synthetic.main.fragment_news.*
 
 class NewsFragment : Fragment() {

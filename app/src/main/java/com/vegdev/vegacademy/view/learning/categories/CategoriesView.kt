@@ -10,11 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.vegdev.vegacademy.IMainView
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
-import com.vegdev.vegacademy.presenter.learning.CategoriesPresenter
-import com.vegdev.vegacademy.presenter.learning.CategoryViewHolder
+import com.vegdev.vegacademy.presenter.learning.categories.CategoriesPresenter
+import com.vegdev.vegacademy.presenter.learning.categories.CategoryViewHolder
+import com.vegdev.vegacademy.view.main.IMainView
 import kotlinx.android.synthetic.main.learning_view.*
 import kotlinx.coroutines.launch
 

@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
-import com.vegdev.vegacademy.IRecipeManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.view.main.IRecipeManager
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_filter.*
 
 class RecipeDialogFilterFragment : DialogFragment() {

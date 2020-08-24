@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.vegdev.vegacademy.IRecipeManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.view.main.IRecipeManager
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_add.*
 import java.util.*
 

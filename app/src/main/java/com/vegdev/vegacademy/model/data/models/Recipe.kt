@@ -4,13 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Recipe(
-    var title: String,
-    var src: String,
-    var ing: String,
-    var taste: String,
-    var meal: String,
-    var likes: Int,
-    var id: String
+    var title: String = "",
+    var src: String = "",
+    var ing: String = "",
+    var taste: String = "",
+    var meal: String = "",
+    var likes: Int = 0,
+    var id: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -21,8 +21,6 @@ class Recipe(
         parcel.readInt(),
         parcel.readString()!!
     )
-
-    constructor() : this("", "", "", "", "", 0, "")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
