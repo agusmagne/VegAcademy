@@ -5,22 +5,41 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
+import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.model.domain.interactor.main.MainInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.news.NewsView
 
 class MainPresenter(
     val context: Context,
     val supportFragmentManager: FragmentManager,
-    val iMainView: IMainView
+    val iMainView: IMainView,
+    val interactor: MainInteractor
 ) : YouTubePlayer.OnInitializedListener {
 
     private var youtubeInterface: YouTubePlayer? = null
     private var currentYoutubeUrl: String = ""
     private var YOUTUBE_BACKGROUND_HEIGHT = 0
 
+    private var firebaseUser: FirebaseUser? = null
+
     fun init() {
+        iMainView.showprogress()
+        iMainView.hideNavView()
+
         YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
+
+        firebaseUser = interactor.getFirebaseUser()
+        firebaseUser?.let {
+            interactor.getUserInfo(it.uid).addOnSuccessListener {
+                val newsView = iMainView.getCurrentFragment() as NewsView
+                newsView.showLayout()
+                iMainView.showNavView()
+                iMainView.hideprogress()
+            }
+        }
     }
 
     fun closeYouTubePlayer() {

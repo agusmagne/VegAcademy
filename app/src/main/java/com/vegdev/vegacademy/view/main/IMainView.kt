@@ -1,5 +1,7 @@
 package com.vegdev.vegacademy.view.main
 
+import androidx.fragment.app.Fragment
+
 interface IMainView {
     fun showprogress()
     fun hideprogress()
@@ -11,4 +13,7 @@ interface IMainView {
     fun transitionBackgroundToHeight(minHeight: Int)
     fun showPlayer()
     fun hidePlayer()
+    fun showNavView()
+    fun hideNavView()
+    fun getCurrentFragment(): Fragment?
 }

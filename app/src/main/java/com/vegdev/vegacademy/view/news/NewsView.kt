@@ -2,13 +2,14 @@ package com.vegdev.vegacademy.view.news
 
 import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.presenter.news.NewsPagerAdapter
 import com.vegdev.vegacademy.presenter.news.NewsPresenter
-import com.vegdev.vegacademy.presenter.news.pager.NewsPagerAdapter
 import com.vegdev.vegacademy.view.main.IMainView
 import kotlinx.android.synthetic.main.fragment_news.*
 
@@ -41,10 +42,12 @@ class NewsView : Fragment(), INewsView {
     }
 
     override fun hideLayout() {
+        TransitionManager.beginDelayedTransition(fragment_news)
         news_viewPager.visibility = View.INVISIBLE
     }
 
     override fun showLayout() {
+        TransitionManager.beginDelayedTransition(fragment_news)
         news_viewPager.visibility = View.VISIBLE
     }
 

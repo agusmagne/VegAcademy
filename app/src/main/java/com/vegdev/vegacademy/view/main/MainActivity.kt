@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,14 +16,13 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.transition.TransitionManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.login.StartActivity
 import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.data.models.User
+import com.vegdev.vegacademy.model.domain.interactor.main.MainInteractor
 import com.vegdev.vegacademy.presenter.main.MainPresenter
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.view.learning.categories.CategoriesView
@@ -41,29 +41,24 @@ class MainActivity : AppCompatActivity(), ILayoutManager, IRecipeManager,
     lateinit var firebaseAuth: FirebaseAuth
     private var currentUser: User? = null
 
-    private var presenter = MainPresenter(this, supportFragmentManager, this)
+    private var presenter = MainPresenter(this, supportFragmentManager, this, MainInteractor())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter.init()
-
-        firebaseAuth = FirebaseAuth.getInstance()
-        Firebase.firestore.collection("users").document(firebaseAuth.currentUser!!.uid).get()
-            .addOnSuccessListener {
-                currentUser = it.toObject(User::class.java)
-                nav_view.visibility = View.VISIBLE
-                val newsFragment = getCurrentFragment() as NewsView
-//                newsFragment.makeNewsFragmentVisible()
-                finishedLoading()
-            }
-
-        setSupportActionBar(main_toolbar)
-        supportActionBar?.title = ""
 
         val navController = findNavController(R.id.nav_host_fragment)
         nav_view.setupWithNavController(navController)
         nav_view.setOnNavigationItemReselectedListener {}
+
+        presenter.init()
+
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        setSupportActionBar(main_toolbar)
+        supportActionBar?.title = ""
+
+
 
 
         // set FAB click listener allowing to close youtube player interface
@@ -137,7 +132,7 @@ class MainActivity : AppCompatActivity(), ILayoutManager, IRecipeManager,
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getCurrentFragment() =
+    override fun getCurrentFragment(): Fragment? =
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)?.childFragmentManager?.fragments?.get(
             0
         )
@@ -179,6 +174,14 @@ class MainActivity : AppCompatActivity(), ILayoutManager, IRecipeManager,
 
     override fun hidePlayer() {
         player.visibility = View.INVISIBLE
+    }
+
+    override fun showNavView() {
+        nav_view.visibility = View.VISIBLE
+    }
+
+    override fun hideNavView() {
+        nav_view.visibility = View.INVISIBLE
     }
 
     override fun currentlyLoading() {

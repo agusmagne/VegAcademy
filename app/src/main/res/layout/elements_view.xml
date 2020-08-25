@@ -9,7 +9,6 @@
         android:id="@+id/elements_view_root"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
         app:layoutDescription="@xml/fragment_learning_category_scene"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

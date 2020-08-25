@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.model.domain.interactor.news.NewsPagerInteractor
 import com.vegdev.vegacademy.presenter.news.pager.NewsPagerPresenter
 import com.vegdev.vegacademy.presenter.news.pager.NewsViewHolder
 import com.vegdev.vegacademy.view.main.IMainView
@@ -32,45 +35,20 @@ class NewsPagerView(private val position: Int) : Fragment(), INewsPageView {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch { presenter?.fetchNewsAndBuildRecyclerViews(position) }
-
-
-//        rvAdapter = this.fetchNewLearningElements(
-//            Firebase.firestore, newsCollection,
-//            { learningElement ->
-//                // on news element click
-//                if (position == 1) {
-//                    iLayoutManager?.toolbarOff()
-//                    findNavController().navigate(
-//                        NewsViewDirections.actionNavigationNewsToNavigationWebview(
-//                            learningElement.link
-//                        )
-//                    )
-//                } else {
-////                    youtubePlayer?.openYoutubePlayer(learningElement)
-//                }
-//            },
-//            { learningElement ->
-//                // on element category click
-//                Firebase.firestore.collection("learning")
-//                    .document(if (position == 0) "videos" else "art")
-//                    .collection("cat").document(learningElement.cat).get()
-//                    .addOnSuccessListener { category ->
-//                        findNavController().navigate(
-//                            NewsViewDirections.actionNavigationNewsToNavigationVideos(
-//                                category.toObject(Category::class.java)!!
-//                            )
-//                        )
-//                    }
-//
-//
-//            })
     }
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is IMainView) presenter =
-            NewsPagerPresenter(context, this, parentFragment as NewsView, context)
+            NewsPagerPresenter(
+                context,
+                this,
+                parentFragment as NewsView,
+                findNavController(),
+                context,
+                NewsPagerInteractor()
+            )
 
 
     }
@@ -86,5 +64,9 @@ class NewsPagerView(private val position: Int) : Fragment(), INewsPageView {
             this.layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
+    }
+
+    override fun navigateTo(navDirections: NavDirections) {
+        findNavController().navigate(navDirections)
     }
 }

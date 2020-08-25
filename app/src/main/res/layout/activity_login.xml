@@ -21,9 +21,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/back_arrow"
-            android:tint="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
 
         <ImageView
             android:id="@+id/logo"
@@ -81,10 +81,10 @@
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/email"
-            android:tint="@color/transparent_purple"
             app:layout_constraintBottom_toBottomOf="@id/email_field"
             app:layout_constraintRight_toRightOf="@id/email_field"
-            app:layout_constraintTop_toTopOf="@id/email_field" />
+            app:layout_constraintTop_toTopOf="@id/email_field"
+            app:tint="@color/transparent_purple" />
 
 
         <EditText
@@ -93,7 +93,7 @@
             android:layout_height="40dp"
             android:background="#00000000"
             android:fontFamily="@font/roboto"
-            android:text="asd@asd.com"
+            android:text="123@123.com"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/email_field"
@@ -132,10 +132,10 @@
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/password"
-            android:tint="@color/transparent_purple"
             app:layout_constraintBottom_toBottomOf="@id/password_field"
             app:layout_constraintRight_toRightOf="@id/password_field"
-            app:layout_constraintTop_toTopOf="@id/password_field" />
+            app:layout_constraintTop_toTopOf="@id/password_field"
+            app:tint="@color/transparent_purple" />
 
 
         <EditText
