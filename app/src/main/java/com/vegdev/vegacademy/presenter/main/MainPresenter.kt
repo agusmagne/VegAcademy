@@ -16,56 +16,63 @@ class MainPresenter(
 ) : YouTubePlayer.OnInitializedListener {
 
     private var youtubeInterface: YouTubePlayer? = null
-    private var isYoutubeInitializing: Boolean = false
     private var currentYoutubeUrl: String = ""
-    private var isYoutubePlayerOpen: Boolean = false
-    private var youtubePlayerMinHeight = 0
+    private var YOUTUBE_BACKGROUND_HEIGHT = 0
 
     fun init() {
-        youtubePlayerMinHeight = context.resources.displayMetrics.widthPixels * 9 / 16
+        YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
     }
 
     fun closeYouTubePlayer() {
-        isYoutubePlayerOpen = false
         youtubeInterface?.pause()
         currentYoutubeUrl = ""
-        iMainView.closeYouTubePlayer()
+        this.closeYoutube()
     }
 
-    fun playVideo(url: String) {
+    fun playVideo(url: String, isYoutubePlayerOpenOrOpening: Boolean) {
 
         if (youtubeInterface == null) {
+            // youtube interface is not initialized yet
+            currentYoutubeUrl = url
             this.initializeYoutube()
         } else {
-            if (isYoutubePlayerOpen) {
+            if (!isYoutubePlayerOpenOrOpening) {
+                // it is initialized now, but it's closed
+                this.openYoutube()
+            } else {
+                // it is initialized and it's open
                 if (currentYoutubeUrl == url) {
                     LayoutUtils().createToast(context, "Ya estás reproduciendo este video")
                     return //exits method immediately and wont reproduce again the same video
                 }
-            } else {
-                iMainView.hideToolbar()
-                iMainView.changePlayerBackgroundMinHeight(youtubePlayerMinHeight)
+
             }
-            youtubeInterface?.loadVideo(url)
+            currentYoutubeUrl = url
+            youtubeInterface?.loadVideo(url) // if currentYoutubeUrl == url -> this line is unreachable
 
         }
-        isYoutubePlayerOpen = true
-        currentYoutubeUrl = url
+    }
+
+    private fun openYoutube() {
+        iMainView.transitionBackgroundToHeight(YOUTUBE_BACKGROUND_HEIGHT)
+        iMainView.showFAB()
+        iMainView.showPlayer()
+    }
+
+    private fun closeYoutube() {
+        iMainView.transitionBackgroundToHeight(0)
+        iMainView.hideFAB()
+        iMainView.hidePlayer()
     }
 
     private fun initializeYoutube() {
-        if (!isYoutubeInitializing) {
-            isYoutubeInitializing = true
-
-            iMainView.changePlayerBackgroundMinHeight(youtubePlayerMinHeight)
-
-            val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.player, youtubePlayerSupportFragment).commit()
-            youtubePlayerSupportFragment.initialize(
-                context.resources.getString(R.string.API_KEY), this
-            )
-        }
+        iMainView.showprogress()
+        val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.player, youtubePlayerSupportFragment).commit()
+        youtubePlayerSupportFragment.initialize(
+            context.resources.getString(R.string.API_KEY), this
+        )
     }
 
     override fun onInitializationSuccess(
@@ -73,6 +80,10 @@ class MainPresenter(
         p1: YouTubePlayer?,
         p2: Boolean
     ) {
+        iMainView.hideprogress()
+        this.openYoutube() //---------------------------------------
+        //this animation needs to be here otherwise the initialization of the youtube interface glitches the animation
+
         p1?.loadVideo(currentYoutubeUrl)
         youtubeInterface = p1
     }

@@ -2,7 +2,7 @@ package com.vegdev.vegacademy.model.domain.interactor.learning
 
 import android.util.Log
 import com.vegdev.vegacademy.model.data.models.Category
-import com.vegdev.vegacademy.model.data.repositories.learning.categories.LearningRepositoryImpl
+import com.vegdev.vegacademy.model.data.repositories.learning.categories.CategoriesRepositoryImpl
 
 class CategoriesInteractor {
 
@@ -12,11 +12,11 @@ class CategoriesInteractor {
     private val PATH_ARTICLES_CATEGORIES = "learning/videos/"
 
     private val repository =
-        LearningRepositoryImpl()
+        CategoriesRepositoryImpl()
 
     suspend fun getVideoCategories(): MutableList<Category> {
         try {
-            val list = repository.getData(PATH_VIDEO_CATEGORIES)
+            val list = repository.getCategories(PATH_VIDEO_CATEGORIES)
             if (list.isNotEmpty()) return list
         } catch (e: Exception) {
             Log.d(TAG_ERROR, MSG_ERROR)
@@ -26,7 +26,7 @@ class CategoriesInteractor {
 
     suspend fun getArticlesCategories(): MutableList<Category> {
         try {
-            val list = repository.getData(PATH_ARTICLES_CATEGORIES)
+            val list = repository.getCategories(PATH_ARTICLES_CATEGORIES)
             if (list.isNotEmpty()) return list
         } catch (e: Exception) {
             Log.d(TAG_ERROR, MSG_ERROR)

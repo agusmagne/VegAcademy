@@ -6,6 +6,9 @@ interface IMainView {
     fun showToolbar()
     fun hideToolbar()
     fun onVideoClicked(url: String)
-    fun closeYouTubePlayer()
-    fun changePlayerBackgroundMinHeight(minHeight: Int)
+    fun showFAB()
+    fun hideFAB()
+    fun transitionBackgroundToHeight(minHeight: Int)
+    fun showPlayer()
+    fun hidePlayer()
 }

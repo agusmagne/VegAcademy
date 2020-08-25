@@ -13,40 +13,32 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.transition.TransitionManager
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.login.StartActivity
 import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.model.data.models.Filter
-import com.vegdev.vegacademy.model.data.models.LearningElement
 import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.presenter.main.MainPresenter
 import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.view.learning.categories.CategoriesView
+import com.vegdev.vegacademy.view.learning.categories.CategoriesViewDirections
 import com.vegdev.vegacademy.view.learning.elements.ElementsView
 import com.vegdev.vegacademy.view.learning.elements.ElementsViewDirections
-import com.vegdev.vegacademy.view.news.NewsFragment
-import com.vegdev.vegacademy.view.news.NewsFragmentDirections
+import com.vegdev.vegacademy.view.news.NewsView
+import com.vegdev.vegacademy.view.news.NewsViewDirections
 import com.vegdev.vegacademy.view.recipes.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-
-class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecipeManager,
+class MainActivity : AppCompatActivity(), ILayoutManager, IRecipeManager,
     IUserManager, IMainView {
 
     private val layoutUtils = LayoutUtils()
     lateinit var firebaseAuth: FirebaseAuth
-    lateinit var firestore: FirebaseFirestore
-    private var youtubePlayer: YouTubePlayer? = null
-    private var isYoutubePlayerOpen: Boolean = false
-    private var isYoutubeInitialized: Boolean = false
-    private var currentLink: String = ""
-    private var incomingLink: String = ""
-    private var youTubePlayerHeight = 0
     private var currentUser: User? = null
 
     private var presenter = MainPresenter(this, supportFragmentManager, this)
@@ -56,14 +48,13 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
         setContentView(R.layout.activity_main)
         presenter.init()
 
-        firestore = FirebaseFirestore.getInstance()
         firebaseAuth = FirebaseAuth.getInstance()
-        firestore.collection("users").document(firebaseAuth.currentUser!!.uid).get()
+        Firebase.firestore.collection("users").document(firebaseAuth.currentUser!!.uid).get()
             .addOnSuccessListener {
                 currentUser = it.toObject(User::class.java)
                 nav_view.visibility = View.VISIBLE
-                val newsFragment = getCurrentFragment() as NewsFragment
-                newsFragment.makeNewsFragmentVisible()
+                val newsFragment = getCurrentFragment() as NewsView
+//                newsFragment.makeNewsFragmentVisible()
                 finishedLoading()
             }
 
@@ -133,12 +124,12 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
                 val currentFragment = getCurrentFragment()
                 val navDirections: NavDirections
                 navDirections = when (currentFragment) {
-                    is NewsFragment -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()
-//                    is CategoriesView -> .actionNavigationLearningToNavigationDonations()
+                    is NewsView -> NewsViewDirections.actionNavigationNewsToNavigationDonations()
+                    is CategoriesView -> CategoriesViewDirections.actionNavigationLearningToNavigationDonations()
                     is ElementsView -> ElementsViewDirections.actionNavigationVideosToNavigationDonations()
                     is RecipesFragment -> RecipesFragmentDirections.actionNavigationRecipesToNavigationDonations()
                     is RecipeInfoFragment -> RecipeInfoFragmentDirections.actionNavigationRecipeInfoToNavigationDonations()
-                    else -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()
+                    else -> NewsViewDirections.actionNavigationNewsToNavigationDonations()
                 }
                 nav_host_fragment.findNavController().navigate(navDirections)
             }
@@ -155,7 +146,7 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
     override fun onBackPressed() {
         val currentFragment = getCurrentFragment()
 
-        if (currentFragment is NewsFragment) {
+        if (currentFragment is NewsView) {
             val intent = Intent(this, WelcomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.putExtra("EXIT", true)
@@ -165,86 +156,29 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
         }
     }
 
-    override fun openYoutubePlayer(learningElement: LearningElement) {
-        if (fab_closeyoutube.isOrWillBeHidden) {
-            fab_closeyoutube.show()
-            player.visibility = View.VISIBLE
-        }
-        incomingLink = learningElement.link
-        if (youtubePlayer == null) {
-            initializeYoutube()
-        } else {
-            if (isYoutubePlayerOpen) {
-                if (currentLink != incomingLink) {
-                    youtubePlayer?.loadVideo(incomingLink)
-                    currentLink = incomingLink
-                } else {
-                    layoutUtils.createToast(applicationContext, "Ya estás reproduciendo este video")
-                }
-            } else {
-                main_toolbar.visibility = View.INVISIBLE
-                player_background.minHeight = youTubePlayerHeight
-                youtubePlayer?.loadVideo(incomingLink)
-                currentLink = incomingLink
-            }
-        }
-        isYoutubePlayerOpen = true
-    }
-
     override fun onVideoClicked(url: String) {
-        if (fab_closeyoutube.isOrWillBeHidden) {
-            fab_closeyoutube.show()
-            player.visibility = View.VISIBLE
-        }
-        TransitionManager.beginDelayedTransition(container)
-        presenter.playVideo(url)
+        presenter.playVideo(url, fab_closeyoutube.isOrWillBeShown)
     }
 
-    override fun closeYouTubePlayer() {
-        TransitionManager.beginDelayedTransition(container)
-        player.visibility = View.INVISIBLE
+    override fun showFAB() {
+        fab_closeyoutube.show()
+    }
+
+    override fun hideFAB() {
         fab_closeyoutube.hide()
-        player_background.minHeight = 0
-
     }
 
-    override fun changePlayerBackgroundMinHeight(minHeight: Int) {
+    override fun transitionBackgroundToHeight(minHeight: Int) {
+        TransitionManager.beginDelayedTransition(container)
         player_background.minHeight = minHeight
     }
 
-    private fun initializeYoutube() {
-        if (!isYoutubeInitialized) {
-            isYoutubeInitialized = true
+    override fun showPlayer() {
+        player.visibility = View.VISIBLE
+    }
 
-            player_background.minHeight = youTubePlayerHeight
-
-            val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.player, youtubePlayerSupportFragment).commit()
-            youtubePlayerSupportFragment.initialize(
-                resources.getString(R.string.API_KEY),
-                object : YouTubePlayer.OnInitializedListener {
-                    override fun onInitializationSuccess(
-                        p0: YouTubePlayer.Provider?,
-                        p1: YouTubePlayer?,
-                        p2: Boolean
-                    ) {
-                        p1?.loadVideo(incomingLink)
-                        currentLink = incomingLink
-                        youtubePlayer = p1
-                    }
-
-                    override fun onInitializationFailure(
-                        p0: YouTubePlayer.Provider?,
-                        p1: YouTubeInitializationResult?
-                    ) {
-                        layoutUtils.createToast(
-                            applicationContext,
-                            "Error al iniciar Youtube"
-                        )
-                    }
-                })
-        }
+    override fun hidePlayer() {
+        player.visibility = View.INVISIBLE
     }
 
     override fun currentlyLoading() {
@@ -331,11 +265,6 @@ class MainActivity : AppCompatActivity(), IYoutubePlayer, ILayoutManager, IRecip
     }
 
 
-}
-
-
-interface IYoutubePlayer {
-    fun openYoutubePlayer(learningElement: LearningElement)
 }
 
 interface ILayoutManager {

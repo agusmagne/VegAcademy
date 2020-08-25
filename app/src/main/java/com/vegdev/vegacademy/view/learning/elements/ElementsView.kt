@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +87,7 @@ class ElementsView : Fragment(), IElementsView {
     }
 
     override fun showLayout() {
+        TransitionManager.beginDelayedTransition(elements_view_root)
         elements_view_root.visibility = View.VISIBLE
     }
 }
