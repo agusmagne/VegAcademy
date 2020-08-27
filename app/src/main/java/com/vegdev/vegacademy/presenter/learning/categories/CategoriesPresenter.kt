@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
 import com.vegdev.vegacademy.view.learning.categories.CategoriesViewDirections
 import com.vegdev.vegacademy.view.learning.categories.ICategoriesView
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 
 class CategoriesPresenter(
     val context: Context,

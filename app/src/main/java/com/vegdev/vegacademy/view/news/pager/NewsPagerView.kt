@@ -13,7 +13,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.domain.interactor.news.NewsPagerInteractor
 import com.vegdev.vegacademy.presenter.news.pager.NewsPagerPresenter
 import com.vegdev.vegacademy.presenter.news.pager.NewsViewHolder
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 import com.vegdev.vegacademy.view.news.news.NewsView
 import kotlinx.android.synthetic.main.fragment_news_page.*
 import kotlinx.coroutines.launch

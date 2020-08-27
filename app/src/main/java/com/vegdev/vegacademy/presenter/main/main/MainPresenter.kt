@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.presenter.main
+package com.vegdev.vegacademy.presenter.main.main
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
@@ -7,10 +7,11 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.data.models.User
-import com.vegdev.vegacademy.model.domain.interactor.main.MainInteractor
+import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 import com.vegdev.vegacademy.view.news.news.NewsView
 
 class MainPresenter(
@@ -22,6 +23,7 @@ class MainPresenter(
 
     private var youtubeInterface: YouTubePlayer? = null
     private var currentYoutubeUrl: String = ""
+    private val RECIPE_SENT_TEXT = "¡Receta enviada exitosamente!"
     private var YOUTUBE_BACKGROUND_HEIGHT = 0
 
     private var firebaseUser: FirebaseUser? = null
@@ -115,6 +117,13 @@ class MainPresenter(
         p1: YouTubeInitializationResult?
     ) {
         LayoutUtils().createToast(context, "Error al iniciar Youtube")
+    }
+
+
+    fun suggestRecipe(recipe: Recipe) {
+        interactor.uploadRecipeSuggestion(recipe).addOnSuccessListener {
+            iMainView.makeToast(RECIPE_SENT_TEXT)
+        }
     }
 
 }

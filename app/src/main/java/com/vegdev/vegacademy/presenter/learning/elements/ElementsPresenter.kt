@@ -13,7 +13,7 @@ import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.view.learning.elements.IElementsView
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 
 class ElementsPresenter(
     val context: Context,

@@ -42,6 +42,4 @@ class RecipesRepository : IRecipesRepository {
         firestore.collection(USERS_COLLECTION).document(userId)
             .update(LIKED_RECIPES_ID_FIELD, FieldValue.arrayRemove(recipeId))
     }
-
-
 }

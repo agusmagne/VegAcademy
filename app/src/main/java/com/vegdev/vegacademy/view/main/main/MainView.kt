@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.main
+package com.vegdev.vegacademy.view.main.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,18 +19,19 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.login.StartActivity
 import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.model.data.models.Filter
+import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.data.models.User
-import com.vegdev.vegacademy.model.domain.interactor.main.MainInteractor
-import com.vegdev.vegacademy.presenter.main.MainPresenter
+import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
+import com.vegdev.vegacademy.presenter.main.main.MainPresenter
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.view.learning.categories.CategoriesView
 import com.vegdev.vegacademy.view.learning.categories.CategoriesViewDirections
 import com.vegdev.vegacademy.view.learning.elements.ElementsView
 import com.vegdev.vegacademy.view.learning.elements.ElementsViewDirections
+import com.vegdev.vegacademy.view.main.dialogs.RecipeFilterView
+import com.vegdev.vegacademy.view.main.dialogs.RecipeSuggestionView
 import com.vegdev.vegacademy.view.news.news.NewsView
 import com.vegdev.vegacademy.view.news.news.NewsViewDirections
-import com.vegdev.vegacademy.view.recipes.RecipeDialogAddFragment
-import com.vegdev.vegacademy.view.recipes.RecipeDialogFilterFragment
 import com.vegdev.vegacademy.view.recipes.RecipeInfoFragment
 import com.vegdev.vegacademy.view.recipes.RecipeInfoFragmentDirections
 import com.vegdev.vegacademy.view.recipes.recipes.RecipesView
@@ -97,11 +98,11 @@ class MainView : AppCompatActivity(), IMainView {
             }
 
             R.id.action_addrecipe -> {
-                RecipeDialogAddFragment().show(supportFragmentManager, "")
+                RecipeSuggestionView().show(supportFragmentManager, "")
             }
 
             R.id.action_filterrecipe -> {
-                RecipeDialogFilterFragment().show(supportFragmentManager, "")
+                RecipeFilterView().show(supportFragmentManager, "")
             }
 
             R.id.action_donate -> {
@@ -193,15 +194,6 @@ class MainView : AppCompatActivity(), IMainView {
         nav_view.visibility = View.INVISIBLE
     }
 
-//    override fun suggestRecipe(recipe: Recipe) {
-//
-//        val docRef = FirebaseFirestore.getInstance().collection("recSug").document()
-//        recipe.id = docRef.id
-//        docRef.set(recipe)
-//            .addOnSuccessListener { layoutUtils.createToast(this, "Receta enviada") }
-//            .addOnFailureListener { layoutUtils.createToast(this, "Error al enviar receta") }
-//    }
-
     override fun updateFilters(newTitle: String, actionId: Int) {
         val recipesFragment = getCurrentFragment() as RecipesView
         recipesFragment.updateFilters(newTitle, actionId)
@@ -223,6 +215,10 @@ class MainView : AppCompatActivity(), IMainView {
 
     override fun hideRecipesSearchBar() {
         recipes_search.visibility = View.INVISIBLE
+    }
+
+    override fun suggestRecipe(recipe: Recipe) {
+        presenter.suggestRecipe(recipe)
     }
 
     override fun showProgress() {

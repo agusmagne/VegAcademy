@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.presenter.recipes
 import android.content.Context
 import android.view.inputmethod.EditorInfo
 import com.vegdev.vegacademy.model.domain.interactor.recipes.RecipesInteractor
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 import com.vegdev.vegacademy.view.recipes.filters.FiltersAdapter
 import com.vegdev.vegacademy.view.recipes.recipes.IRecipesView
 import com.vegdev.vegacademy.view.recipes.recipes.adapter.RecipesAdapter

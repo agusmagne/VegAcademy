@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.presenter.news.pager
 import android.content.Context
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.news.NewsPagerInteractor
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 import com.vegdev.vegacademy.view.news.news.NewsViewDirections
 import com.vegdev.vegacademy.view.news.pager.INewsPageView
 

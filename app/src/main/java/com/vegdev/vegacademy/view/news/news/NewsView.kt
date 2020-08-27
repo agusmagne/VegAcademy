@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.presenter.news.NewsPagerAdapter
 import com.vegdev.vegacademy.presenter.news.NewsPresenter
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 import kotlinx.android.synthetic.main.fragment_news.*
 
 class NewsView : Fragment(), INewsView {

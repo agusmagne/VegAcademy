@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.recipes
+package com.vegdev.vegacademy.view.main.dialogs
 
 import android.content.Context
 import android.os.Bundle
@@ -11,10 +11,10 @@ import androidx.fragment.app.DialogFragment
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_filter.*
 
-class RecipeDialogFilterFragment : DialogFragment() {
+class RecipeFilterView : DialogFragment() {
 
     private val layoutUtils = LayoutUtils()
     private var iMainView: IMainView? = null

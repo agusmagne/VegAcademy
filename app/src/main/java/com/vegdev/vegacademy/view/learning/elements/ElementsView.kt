@@ -19,7 +19,7 @@ import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.presenter.learning.elements.ElementViewHolder
 import com.vegdev.vegacademy.presenter.learning.elements.ElementsPresenter
-import com.vegdev.vegacademy.view.main.IMainView
+import com.vegdev.vegacademy.view.main.main.IMainView
 import kotlinx.android.synthetic.main.elements_view.*
 import kotlinx.coroutines.launch
 

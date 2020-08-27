@@ -1,8 +1,9 @@
-package com.vegdev.vegacademy.view.main
+package com.vegdev.vegacademy.view.main.main
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import com.vegdev.vegacademy.model.data.models.Filter
+import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.view.IBaseView
 
@@ -30,4 +31,5 @@ interface IMainView : IBaseView {
     fun getRecipeFilters(): MutableList<Filter>
     fun showRecipesSearchBar()
     fun hideRecipesSearchBar()
+    fun suggestRecipe(recipe: Recipe)
 }
