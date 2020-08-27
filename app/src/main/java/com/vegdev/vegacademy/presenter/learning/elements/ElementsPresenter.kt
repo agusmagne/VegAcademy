@@ -24,7 +24,7 @@ class ElementsPresenter(
 
     suspend fun fetchAndBuildRecyclerView(category: Category) {
         iElementsView.hideLayout()
-        iMainView.showprogress()
+        iMainView.showProgress()
 
         val path = "learning/${category.type}/${category.cat}"
         val list = interactor.getElements(path)
@@ -34,7 +34,7 @@ class ElementsPresenter(
         })
 
         iElementsView.showLayout()
-        iMainView.hideprogress()
+        iMainView.hideProgress()
     }
 
     fun buildAndSetBackgroundColor(imageUrl: String) {

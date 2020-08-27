@@ -67,7 +67,7 @@ class ElementsView : Fragment(), IElementsView {
 
     override fun buildRecyclerView(adapter: RecyclerView.Adapter<ElementViewHolder>) {
         elements_rv.apply {
-            layoutManager = LinearLayoutManager(this@ElementsView.context)
+            layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
     }

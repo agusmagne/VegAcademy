@@ -7,10 +7,11 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.model.domain.interactor.main.MainInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.view.main.IMainView
-import com.vegdev.vegacademy.view.news.NewsView
+import com.vegdev.vegacademy.view.news.news.NewsView
 
 class MainPresenter(
     val context: Context,
@@ -26,18 +27,20 @@ class MainPresenter(
     private var firebaseUser: FirebaseUser? = null
 
     fun init() {
-        iMainView.showprogress()
+        iMainView.showProgress()
         iMainView.hideNavView()
 
         YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
 
         firebaseUser = interactor.getFirebaseUser()
         firebaseUser?.let {
-            interactor.getUserInfo(it.uid).addOnSuccessListener {
+            interactor.getUserInfo(it.uid).addOnSuccessListener { userSnapshot ->
+                iMainView.setUserInfo(userSnapshot.toObject(User::class.java))
+
                 val newsView = iMainView.getCurrentFragment() as NewsView
                 newsView.showLayout()
                 iMainView.showNavView()
-                iMainView.hideprogress()
+                iMainView.hideProgress()
             }
         }
     }
@@ -85,7 +88,7 @@ class MainPresenter(
     }
 
     private fun initializeYoutube() {
-        iMainView.showprogress()
+        iMainView.showProgress()
         val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
         supportFragmentManager.beginTransaction()
             .add(R.id.player, youtubePlayerSupportFragment).commit()
@@ -99,7 +102,7 @@ class MainPresenter(
         p1: YouTubePlayer?,
         p2: Boolean
     ) {
-        iMainView.hideprogress()
+        iMainView.hideProgress()
         this.openYoutube() //---------------------------------------
         //this animation needs to be here otherwise the initialization of the youtube interface glitches the animation
 

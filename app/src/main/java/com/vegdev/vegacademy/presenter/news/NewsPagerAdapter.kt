@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.presenter.news
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.vegdev.vegacademy.view.news.NewsPagerView
+import com.vegdev.vegacademy.view.news.pager.NewsPagerView
 
 class NewsPagerAdapter(childFragmentManager: FragmentManager) :
     FragmentPagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

@@ -8,7 +8,10 @@ import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_create_user.*
 
@@ -52,14 +55,17 @@ class CreateUserActivity : AppCompatActivity() {
                 progress_bar.visibility = View.VISIBLE
                 progress_bar_background.visibility = View.VISIBLE
 
-                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                    it.user?.updateProfile(
-                        UserProfileChangeRequest.Builder().setDisplayName(name).build()
-                    )?.addOnSuccessListener {
-                        val intent = Intent(this, WelcomeActivity::class.java)
-                        this.startActivity(intent)
-                    }
-                }.addOnFailureListener {
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnSuccessListener { auth ->
+                        auth.user?.updateProfile(
+                            UserProfileChangeRequest.Builder().setDisplayName(name).build()
+                        )?.addOnSuccessListener {
+                            Firebase.firestore.collection("users").document(auth.user?.uid!!)
+                                .set(User())
+                            val intent = Intent(this, WelcomeActivity::class.java)
+                            this.startActivity(intent)
+                        }
+                    }.addOnFailureListener {
                 }
             }
 

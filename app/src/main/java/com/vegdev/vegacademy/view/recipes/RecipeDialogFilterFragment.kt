@@ -11,43 +11,41 @@ import androidx.fragment.app.DialogFragment
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.IRecipeManager
+import com.vegdev.vegacademy.view.main.IMainView
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_filter.*
 
 class RecipeDialogFilterFragment : DialogFragment() {
 
     private val layoutUtils = LayoutUtils()
-    private var iRecipeManager: IRecipeManager? = null
-    private lateinit var filtersList: MutableList<Filter?>
-    private val FILTER_TITLE = 0
+    private var iMainView: IMainView? = null
+    private lateinit var filters: MutableList<Filter>
     private val FILTER_TASTE = 1
     private val FILTER_MEAL = 2
-    private var FILTER_BOTH = "Ambos"
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        iRecipeManager?.let { filtersList = it.getFiltersList() }
+        iMainView?.let { filters = it.getRecipeFilters() }
         return inflater.inflate(R.layout.fragment_recipe_dialog_filter, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tasteFilter = filtersList.filter { it?.type == FILTER_TASTE }
+        val tasteFilter = filters.filter { it.type == FILTER_TASTE }
         val tasteFilterTitle: String?
         if (tasteFilter.isNotEmpty()) {
-            tasteFilterTitle = tasteFilter[0]?.title
+            tasteFilterTitle = tasteFilter[0].title
             (taste_group.children.find { (it as RadioButton).text == tasteFilterTitle } as RadioButton).isChecked =
                 true
         }
 
-        val mealFilter = filtersList.filter { it?.type == FILTER_MEAL }
+        val mealFilter = filters.filter { it.type == FILTER_MEAL }
         val mealFilterTitle: String?
         if (mealFilter.isNotEmpty()) {
-            mealFilterTitle = mealFilter[0]?.title
+            mealFilterTitle = mealFilter[0].title
             (meal_group.children.find { (it as RadioButton).text == mealFilterTitle } as RadioButton).isChecked =
                 true
         }
@@ -62,7 +60,7 @@ class RecipeDialogFilterFragment : DialogFragment() {
             val selectedMealString: String =
                 meal_group.findViewById<RadioButton>(meal_group.checkedRadioButtonId).text.toString()
 
-            iRecipeManager?.updateFilters(selectedTasteString, selectedMealString)
+            iMainView?.updateFilters(selectedTasteString, selectedMealString)
 
             dialog?.dismiss()
         }
@@ -83,10 +81,10 @@ class RecipeDialogFilterFragment : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IRecipeManager) iRecipeManager = context
+        if (context is IMainView) iMainView = context
     }
 
     override fun onDetach() {
-        super.onDetach(); iRecipeManager = null
+        super.onDetach(); iMainView = null
     }
 }

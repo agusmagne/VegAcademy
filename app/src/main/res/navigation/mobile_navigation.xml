@@ -7,7 +7,7 @@
 
      <fragment
          android:id="@+id/navigation_news"
-         android:name="com.vegdev.vegacademy.view.news.NewsView"
+         android:name="com.vegdev.vegacademy.view.news.news.NewsView"
          android:label="Novedades"
          tools:layout="@layout/fragment_news">
         <action
@@ -47,7 +47,7 @@
 
      <fragment
          android:id="@+id/navigation_recipes"
-         android:name="com.vegdev.vegacademy.view.recipes.RecipesFragment"
+         android:name="com.vegdev.vegacademy.view.recipes.recipes.RecipesView"
          android:label="Recetas"
          tools:layout="@layout/fragment_recipes">
          <action

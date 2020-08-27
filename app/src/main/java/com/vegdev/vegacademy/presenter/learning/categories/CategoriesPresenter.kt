@@ -16,7 +16,7 @@ class CategoriesPresenter(
 ) {
 
     suspend fun fetchAndBuildRecyclerViews() {
-        iMainView.showprogress()
+        iMainView.showProgress()
         iCategoriesView.hideLayout()
 
         val videoCategories = interactor.getVideoCategories()
@@ -29,7 +29,7 @@ class CategoriesPresenter(
             navController.navigate(CategoriesViewDirections.actionVideo(it))
         })
 
-        iMainView.hideprogress()
+        iMainView.hideProgress()
         iCategoriesView.showLayout()
     }
 

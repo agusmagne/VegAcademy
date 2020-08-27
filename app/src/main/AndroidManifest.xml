@@ -44,7 +44,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.main.MainView"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>

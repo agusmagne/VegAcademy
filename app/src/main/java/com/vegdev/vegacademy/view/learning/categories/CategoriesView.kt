@@ -67,7 +67,7 @@ class CategoriesView : Fragment(),
     override fun buildVideosRV(adapter: RecyclerView.Adapter<CategoryViewHolder>) {
         videos_rv.apply {
             layoutManager = LinearLayoutManager(
-                this@CategoriesView.context,
+                context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
@@ -78,7 +78,7 @@ class CategoriesView : Fragment(),
     override fun buildArticlesRV(adapter: RecyclerView.Adapter<CategoryViewHolder>) {
         articles_rv.apply {
             layoutManager = LinearLayoutManager(
-                this@CategoriesView.context,
+                context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
