@@ -7,7 +7,7 @@
 
      <fragment
          android:id="@+id/navigation_news"
-         android:name="com.vegdev.vegacademy.view.news.news.NewsView"
+         android:name="com.vegdev.vegacademy.view.news.news.NewsFragment"
          android:label="Novedades"
          tools:layout="@layout/fragment_news">
         <action
@@ -33,7 +33,7 @@
 
      <fragment
          android:id="@+id/navigation_learning"
-         android:name="com.vegdev.vegacademy.view.learning.categories.CategoriesView"
+         android:name="com.vegdev.vegacademy.view.learning.categories.CategoriesFragment"
          android:label="Aprendizaje"
          tools:layout="@layout/learning_view">
          <action
@@ -47,7 +47,7 @@
 
      <fragment
          android:id="@+id/navigation_recipes"
-         android:name="com.vegdev.vegacademy.view.recipes.recipes.RecipesView"
+         android:name="com.vegdev.vegacademy.view.recipes.recipes.recipes.RecipesFragment"
          android:label="Recetas"
          tools:layout="@layout/fragment_recipes">
          <action
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/navigation_videos"
-        android:name="com.vegdev.vegacademy.view.learning.elements.ElementsView"
+        android:name="com.vegdev.vegacademy.view.learning.elements.ElementsFragment"
         android:label="Videos"
         tools:layout="@layout/elements_view">
         <argument
@@ -92,7 +92,7 @@
 
      <fragment
          android:id="@+id/navigation_recipe_info"
-         android:name="com.vegdev.vegacademy.view.recipes.RecipeInfoFragment"
+         android:name="com.vegdev.vegacademy.view.recipes.info.RecipeInfoFragment"
          android:label="Receta"
          tools:layout="@layout/fragment_recipe_info">
          <argument

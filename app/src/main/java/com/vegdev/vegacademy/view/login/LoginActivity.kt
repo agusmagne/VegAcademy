@@ -1,16 +1,13 @@
-package com.vegdev.vegacademy.login
+package com.vegdev.vegacademy.view.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.transition.TransitionManager
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.email_txt
-import kotlinx.android.synthetic.main.activity_login.login_btn
-import kotlinx.android.synthetic.main.activity_login.password_txt
 
 class LoginActivity : AppCompatActivity() {
 

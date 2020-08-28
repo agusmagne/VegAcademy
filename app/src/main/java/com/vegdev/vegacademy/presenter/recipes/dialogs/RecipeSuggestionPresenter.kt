@@ -4,7 +4,7 @@ import android.app.Dialog
 import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.main.MainView
 import com.vegdev.vegacademy.view.recipes.dialogs.suggestion.RecipeSuggestionView
 
 class RecipeSuggestionPresenter(

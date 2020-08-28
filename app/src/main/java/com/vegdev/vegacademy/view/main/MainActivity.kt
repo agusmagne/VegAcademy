@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.main.main
+package com.vegdev.vegacademy.view.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,25 +16,25 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.transition.TransitionManager
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.login.StartActivity
-import com.vegdev.vegacademy.login.WelcomeActivity
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
-import com.vegdev.vegacademy.presenter.main.main.MainPresenter
+import com.vegdev.vegacademy.presenter.main.MainPresenter
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.learning.categories.CategoriesView
-import com.vegdev.vegacademy.view.learning.categories.CategoriesViewDirections
-import com.vegdev.vegacademy.view.learning.elements.ElementsView
-import com.vegdev.vegacademy.view.learning.elements.ElementsViewDirections
-import com.vegdev.vegacademy.view.news.news.NewsView
-import com.vegdev.vegacademy.view.news.news.NewsViewDirections
-import com.vegdev.vegacademy.view.recipes.RecipeInfoFragment
-import com.vegdev.vegacademy.view.recipes.RecipeInfoFragmentDirections
+import com.vegdev.vegacademy.view.learning.categories.CategoriesFragment
+import com.vegdev.vegacademy.view.learning.categories.CategoriesFragmentDirections
+import com.vegdev.vegacademy.view.learning.elements.ElementsFragment
+import com.vegdev.vegacademy.view.learning.elements.ElementsFragmentDirections
+import com.vegdev.vegacademy.view.login.WelcomeActivity
+import com.vegdev.vegacademy.view.login.start.StartActivity
+import com.vegdev.vegacademy.view.news.news.NewsFragment
+import com.vegdev.vegacademy.view.news.news.NewsFragmentDirections
 import com.vegdev.vegacademy.view.recipes.dialogs.filter.RecipeFilterDialogFragment
 import com.vegdev.vegacademy.view.recipes.dialogs.suggestion.RecipeSuggestionDialogFragment
-import com.vegdev.vegacademy.view.recipes.recipes.RecipesView
-import com.vegdev.vegacademy.view.recipes.recipes.RecipesViewDirections
+import com.vegdev.vegacademy.view.recipes.info.RecipeInfoFragment
+import com.vegdev.vegacademy.view.recipes.info.RecipeInfoFragmentDirections
+import com.vegdev.vegacademy.view.recipes.recipes.recipes.RecipesFragment
+import com.vegdev.vegacademy.view.recipes.recipes.recipes.RecipesFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainView {
@@ -108,12 +108,12 @@ class MainActivity : AppCompatActivity(), MainView {
                 val currentFragment = getCurrentFragment()
                 val navDirections: NavDirections
                 navDirections = when (currentFragment) {
-                    is NewsView -> NewsViewDirections.actionNavigationNewsToNavigationDonations()
-                    is CategoriesView -> CategoriesViewDirections.actionNavigationLearningToNavigationDonations()
-                    is ElementsView -> ElementsViewDirections.actionNavigationVideosToNavigationDonations()
-                    is RecipesView -> RecipesViewDirections.actionNavigationRecipesToNavigationDonations()
+                    is NewsFragment -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()
+                    is CategoriesFragment -> CategoriesFragmentDirections.actionNavigationLearningToNavigationDonations()
+                    is ElementsFragment -> ElementsFragmentDirections.actionNavigationVideosToNavigationDonations()
+                    is RecipesFragment -> RecipesFragmentDirections.actionNavigationRecipesToNavigationDonations()
                     is RecipeInfoFragment -> RecipeInfoFragmentDirections.actionNavigationRecipeInfoToNavigationDonations()
-                    else -> NewsViewDirections.actionNavigationNewsToNavigationDonations()
+                    else -> NewsFragmentDirections.actionNavigationNewsToNavigationDonations()
                 }
                 nav_host_fragment.findNavController().navigate(navDirections)
             }
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun onBackPressed() {
         val currentFragment = getCurrentFragment()
 
-        if (currentFragment is NewsView) {
+        if (currentFragment is NewsFragment) {
             val intent = Intent(this, WelcomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.putExtra("EXIT", true)
@@ -194,17 +194,17 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun updateFilters(newTitle: String, actionId: Int) {
-        val recipesFragment = getCurrentFragment() as RecipesView
+        val recipesFragment = getCurrentFragment() as RecipesFragment
         recipesFragment.updateFilters(newTitle, actionId)
     }
 
     override fun updateFilters(taste: String, meal: String) {
-        val recipesFragment = getCurrentFragment() as RecipesView
+        val recipesFragment = getCurrentFragment() as RecipesFragment
         recipesFragment.updateFilters(taste, meal)
     }
 
     override fun getRecipeFilters(): MutableList<Filter> {
-        val recipesFragment = getCurrentFragment() as RecipesView
+        val recipesFragment = getCurrentFragment() as RecipesFragment
         return recipesFragment.getFilters()
     }
 

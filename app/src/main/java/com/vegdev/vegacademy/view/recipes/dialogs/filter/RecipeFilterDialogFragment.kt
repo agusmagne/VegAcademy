@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.presenter.recipes.dialogs.RecipeFilterPresenter
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.main.MainView
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_filter.*
 
 class RecipeFilterDialogFragment : DialogFragment(), RecipeFilterDialogView {

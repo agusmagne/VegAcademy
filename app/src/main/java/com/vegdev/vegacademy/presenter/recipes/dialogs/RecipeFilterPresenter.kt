@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.main.MainView
 import com.vegdev.vegacademy.view.recipes.dialogs.filter.RecipeFilterDialogView
 
 class RecipeFilterPresenter(

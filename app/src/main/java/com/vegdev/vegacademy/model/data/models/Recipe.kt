@@ -47,4 +47,3 @@ class Recipe(
     }
 }
 
-class Filter(var title: String, var type: Int)

@@ -7,7 +7,7 @@
     android:animateLayoutChanges="true"
     android:id="@+id/recipes_fragment"
     android:background="@color/blackBackground"
-    tools:context=".view.main.main.MainActivity">
+    tools:context=".view.main.MainActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView

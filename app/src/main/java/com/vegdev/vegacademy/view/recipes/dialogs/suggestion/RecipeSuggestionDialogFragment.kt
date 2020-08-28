@@ -11,7 +11,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
 import com.vegdev.vegacademy.presenter.recipes.dialogs.RecipeSuggestionPresenter
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.main.MainView
 import kotlinx.android.synthetic.main.fragment_recipe_dialog_add.*
 
 class RecipeSuggestionDialogFragment : DialogFragment(), RecipeSuggestionView {

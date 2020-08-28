@@ -3,15 +3,15 @@ package com.vegdev.vegacademy.presenter.recipes
 import android.content.Context
 import android.view.inputmethod.EditorInfo
 import com.vegdev.vegacademy.model.domain.interactor.recipes.RecipesInteractor
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.main.MainView
 import com.vegdev.vegacademy.view.recipes.filters.FiltersAdapter
-import com.vegdev.vegacademy.view.recipes.recipes.IRecipesView
 import com.vegdev.vegacademy.view.recipes.recipes.adapter.RecipesAdapter
+import com.vegdev.vegacademy.view.recipes.recipes.recipes.RecipesView
 
 class RecipesPresenter(
     val context: Context,
     val mainView: MainView,
-    val iRecipesView: IRecipesView,
+    val iRecipesView: RecipesView,
     val interactor: RecipesInteractor
 ) {
 

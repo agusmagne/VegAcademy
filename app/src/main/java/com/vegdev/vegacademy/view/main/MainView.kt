@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.main.main
+package com.vegdev.vegacademy.view.main
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections

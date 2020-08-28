@@ -12,12 +12,12 @@ import com.bumptech.glide.request.transition.Transition
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.learning.elements.IElementsView
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.learning.elements.ElementsView
+import com.vegdev.vegacademy.view.main.MainView
 
 class ElementsPresenter(
     val context: Context,
-    private val iElementsView: IElementsView,
+    private val iElementsView: ElementsView,
     private val mainView: MainView,
     private val interactor: ElementsInteractor
 ) {

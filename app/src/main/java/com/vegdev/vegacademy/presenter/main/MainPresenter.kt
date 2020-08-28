@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.presenter.main.main
+package com.vegdev.vegacademy.presenter.main
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
@@ -10,8 +10,8 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.main.MainView
-import com.vegdev.vegacademy.view.news.news.NewsView
+import com.vegdev.vegacademy.view.main.MainView
+import com.vegdev.vegacademy.view.news.news.NewsFragment
 
 class MainPresenter(
     val context: Context,
@@ -38,7 +38,7 @@ class MainPresenter(
             interactor.getUserInfo(it.uid).addOnSuccessListener { userSnapshot ->
                 mainView.setUserInfo(userSnapshot.toObject(User::class.java))
 
-                val newsView = mainView.getCurrentFragment() as NewsView
+                val newsView = mainView.getCurrentFragment() as NewsFragment
                 newsView.showLayout()
                 mainView.showNavView()
                 mainView.hideProgress()

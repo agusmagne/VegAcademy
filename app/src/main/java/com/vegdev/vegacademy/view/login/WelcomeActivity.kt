@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.login
+package com.vegdev.vegacademy.view.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.main.MainActivity
+import com.vegdev.vegacademy.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {

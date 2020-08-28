@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/fragment_news_page"
     android:layout_height="match_parent"
-    tools:context=".view.news.pager.NewsPagerView">
+    tools:context=".view.news.pager.NewsPagerFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_viewpager_rv"

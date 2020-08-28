@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.login
+package com.vegdev.vegacademy.view.login
 
 import android.content.Intent
 import android.os.Bundle

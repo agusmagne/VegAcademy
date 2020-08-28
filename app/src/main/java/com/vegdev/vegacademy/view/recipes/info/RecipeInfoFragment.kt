@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.recipes
+package com.vegdev.vegacademy.view.recipes.info
 
 import android.os.Bundle
 import android.view.LayoutInflater

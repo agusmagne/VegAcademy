@@ -3,13 +3,13 @@ package com.vegdev.vegacademy.presenter.learning.categories
 import android.content.Context
 import androidx.navigation.NavController
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
-import com.vegdev.vegacademy.view.learning.categories.CategoriesViewDirections
-import com.vegdev.vegacademy.view.learning.categories.ICategoriesView
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.learning.categories.CategoriesFragmentDirections
+import com.vegdev.vegacademy.view.learning.categories.CategoriesView
+import com.vegdev.vegacademy.view.main.MainView
 
 class CategoriesPresenter(
     val context: Context,
-    val iCategoriesView: ICategoriesView,
+    val iCategoriesView: CategoriesView,
     val mainView: MainView,
     val navController: NavController,
     val interactor: CategoriesInteractor
@@ -21,12 +21,12 @@ class CategoriesPresenter(
 
         val videoCategories = interactor.getVideoCategories()
         iCategoriesView.buildVideosRV(CategoriesAdapter(videoCategories) {
-            navController.navigate(CategoriesViewDirections.actionVideo(it))
+            navController.navigate(CategoriesFragmentDirections.actionVideo(it))
         })
 
         val articlesCategories = interactor.getArticlesCategories()
         iCategoriesView.buildArticlesRV(CategoriesAdapter(articlesCategories) {
-            navController.navigate(CategoriesViewDirections.actionVideo(it))
+            navController.navigate(CategoriesFragmentDirections.actionVideo(it))
         })
 
         mainView.hideProgress()
