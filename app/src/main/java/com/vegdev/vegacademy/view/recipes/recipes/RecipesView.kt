@@ -13,7 +13,7 @@ import com.vegdev.vegacademy.model.data.models.Filter
 import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.RecipesPresenter
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.recipes.filters.FiltersAdapter
 import com.vegdev.vegacademy.view.recipes.recipes.adapter.RecipesViewHolder
 import kotlinx.android.synthetic.main.fragment_recipes.*
@@ -58,7 +58,7 @@ class RecipesView : Fragment(), IRecipesView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IMainView) presenter =
+        if (context is MainView) presenter =
             RecipesPresenter(context, context, this, RecipesInteractor())
     }
 

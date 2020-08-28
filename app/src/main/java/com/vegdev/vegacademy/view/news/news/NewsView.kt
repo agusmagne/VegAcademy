@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.presenter.news.NewsPagerAdapter
 import com.vegdev.vegacademy.presenter.news.NewsPresenter
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.fragment_news.*
 
 class NewsView : Fragment(), INewsView {
@@ -33,7 +33,7 @@ class NewsView : Fragment(), INewsView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IMainView) presenter = NewsPresenter(context, this, context)
+        if (context is MainView) presenter = NewsPresenter(context, this, context)
     }
 
     override fun onDetach() {

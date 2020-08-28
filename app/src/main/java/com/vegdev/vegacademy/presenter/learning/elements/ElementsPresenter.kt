@@ -13,28 +13,28 @@ import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.view.learning.elements.IElementsView
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 
 class ElementsPresenter(
     val context: Context,
     private val iElementsView: IElementsView,
-    private val iMainView: IMainView,
+    private val mainView: MainView,
     private val interactor: ElementsInteractor
 ) {
 
     suspend fun fetchAndBuildRecyclerView(category: Category) {
         iElementsView.hideLayout()
-        iMainView.showProgress()
+        mainView.showProgress()
 
         val path = "learning/${category.type}/${category.cat}"
         val list = interactor.getElements(path)
 
         iElementsView.buildRecyclerView(ElementsAdapter(list) {
-            iMainView.onVideoClicked(it.link)
+            mainView.onVideoClicked(it.link)
         })
 
         iElementsView.showLayout()
-        iMainView.hideProgress()
+        mainView.hideProgress()
     }
 
     fun buildAndSetBackgroundColor(imageUrl: String) {

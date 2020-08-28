@@ -7,17 +7,16 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.model.data.models.Recipe
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.news.news.NewsView
 
 class MainPresenter(
     val context: Context,
     val supportFragmentManager: FragmentManager,
-    val iMainView: IMainView,
+    val mainView: MainView,
     val interactor: MainInteractor
 ) : YouTubePlayer.OnInitializedListener {
 
@@ -29,20 +28,20 @@ class MainPresenter(
     private var firebaseUser: FirebaseUser? = null
 
     fun init() {
-        iMainView.showProgress()
-        iMainView.hideNavView()
+        mainView.showProgress()
+        mainView.hideNavView()
 
         YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
 
         firebaseUser = interactor.getFirebaseUser()
         firebaseUser?.let {
             interactor.getUserInfo(it.uid).addOnSuccessListener { userSnapshot ->
-                iMainView.setUserInfo(userSnapshot.toObject(User::class.java))
+                mainView.setUserInfo(userSnapshot.toObject(User::class.java))
 
-                val newsView = iMainView.getCurrentFragment() as NewsView
+                val newsView = mainView.getCurrentFragment() as NewsView
                 newsView.showLayout()
-                iMainView.showNavView()
-                iMainView.hideProgress()
+                mainView.showNavView()
+                mainView.hideProgress()
             }
         }
     }
@@ -78,19 +77,19 @@ class MainPresenter(
     }
 
     private fun openYoutube() {
-        iMainView.transitionBackgroundToHeight(YOUTUBE_BACKGROUND_HEIGHT)
-        iMainView.showFAB()
-        iMainView.showPlayer()
+        mainView.transitionBackgroundToHeight(YOUTUBE_BACKGROUND_HEIGHT)
+        mainView.showFAB()
+        mainView.showPlayer()
     }
 
     private fun closeYoutube() {
-        iMainView.transitionBackgroundToHeight(0)
-        iMainView.hideFAB()
-        iMainView.hidePlayer()
+        mainView.transitionBackgroundToHeight(0)
+        mainView.hideFAB()
+        mainView.hidePlayer()
     }
 
     private fun initializeYoutube() {
-        iMainView.showProgress()
+        mainView.showProgress()
         val youtubePlayerSupportFragment = YouTubePlayerSupportFragmentX.newInstance()
         supportFragmentManager.beginTransaction()
             .add(R.id.player, youtubePlayerSupportFragment).commit()
@@ -104,7 +103,7 @@ class MainPresenter(
         p1: YouTubePlayer?,
         p2: Boolean
     ) {
-        iMainView.hideProgress()
+        mainView.hideProgress()
         this.openYoutube() //---------------------------------------
         //this animation needs to be here otherwise the initialization of the youtube interface glitches the animation
 
@@ -118,12 +117,4 @@ class MainPresenter(
     ) {
         LayoutUtils().createToast(context, "Error al iniciar Youtube")
     }
-
-
-    fun suggestRecipe(recipe: Recipe) {
-        interactor.uploadRecipeSuggestion(recipe).addOnSuccessListener {
-            iMainView.makeToast(RECIPE_SENT_TEXT)
-        }
-    }
-
 }

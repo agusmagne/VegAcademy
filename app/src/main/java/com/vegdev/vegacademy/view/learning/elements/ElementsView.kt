@@ -19,7 +19,7 @@ import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.presenter.learning.elements.ElementViewHolder
 import com.vegdev.vegacademy.presenter.learning.elements.ElementsPresenter
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.elements_view.*
 import kotlinx.coroutines.launch
 
@@ -55,7 +55,7 @@ class ElementsView : Fragment(), IElementsView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IMainView) presenter =
+        if (context is MainView) presenter =
             ElementsPresenter(context, this, context, ElementsInteractor())
     }
 

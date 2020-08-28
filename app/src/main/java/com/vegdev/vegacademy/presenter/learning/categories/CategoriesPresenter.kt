@@ -5,18 +5,18 @@ import androidx.navigation.NavController
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
 import com.vegdev.vegacademy.view.learning.categories.CategoriesViewDirections
 import com.vegdev.vegacademy.view.learning.categories.ICategoriesView
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 
 class CategoriesPresenter(
     val context: Context,
     val iCategoriesView: ICategoriesView,
-    val iMainView: IMainView,
+    val mainView: MainView,
     val navController: NavController,
     val interactor: CategoriesInteractor
 ) {
 
     suspend fun fetchAndBuildRecyclerViews() {
-        iMainView.showProgress()
+        mainView.showProgress()
         iCategoriesView.hideLayout()
 
         val videoCategories = interactor.getVideoCategories()
@@ -29,7 +29,7 @@ class CategoriesPresenter(
             navController.navigate(CategoriesViewDirections.actionVideo(it))
         })
 
-        iMainView.hideProgress()
+        mainView.hideProgress()
         iCategoriesView.showLayout()
     }
 

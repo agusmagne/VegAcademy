@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.main.main.MainActivity
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {
@@ -32,7 +32,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         start_btn.setOnClickListener {
-            val intent = Intent(this, MainView::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             this.startActivity(intent)
             layoutUtils.overrideEnterAndExitTransitions(this)
         }

@@ -92,23 +92,19 @@ class RecipesInteractor {
         }
     }
 
-    fun updateFilters(byTaste: String, byMeal: String): Boolean {
-
-        var didAnyFilterChange = false
+    fun updateFilters(byTaste: String, byMeal: String) {
 
         // erase old filters and update them with new ones
         val filterByTaste = filters.filter { it.type == FILTER_TASTE }
         if (filterByTaste.isNotEmpty()) {
             if (filterByTaste[0].title != byTaste) {
                 filters.remove(filterByTaste[0])
-                didAnyFilterChange = true
                 if (byTaste != FILTER_BOTH) {
                     filters.add(Filter(byTaste, FILTER_TASTE))
                 }
             }
         } else {
             if (byTaste != FILTER_BOTH) {
-                didAnyFilterChange = true
                 filters.add(Filter(byTaste, FILTER_TASTE))
             }
         }
@@ -117,18 +113,15 @@ class RecipesInteractor {
         if (filterByMeal.isNotEmpty()) {
             if (filterByMeal[0].title != byMeal) {
                 filters.remove(filterByMeal[0])
-                didAnyFilterChange = true
                 if (byMeal != FILTER_BOTH) {
                     filters.add(Filter(byMeal, FILTER_MEAL))
                 }
             }
         } else {
             if (byMeal != FILTER_BOTH) {
-                didAnyFilterChange = true
                 filters.add(Filter(byMeal, FILTER_MEAL))
             }
         }
-        return didAnyFilterChange
     }
 
     fun removeFilter(filter: Filter) {

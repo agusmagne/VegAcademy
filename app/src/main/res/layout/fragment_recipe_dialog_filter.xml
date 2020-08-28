@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".view.main.dialogs.RecipeFilterView">
+    tools:context=".view.recipes.dialogs.filter.RecipeFilterDialogFragment">
 
     <TextView
         android:id="@+id/filter_recipe_text"

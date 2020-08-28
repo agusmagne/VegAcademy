@@ -11,5 +11,5 @@ interface IRecipesRepository {
     fun substractLike(recipeId: String)
     fun likedRecipesIdPush(userId: String, recipeId: String)
     fun likedRecipesIdRemove(userId: String, recipeId: String)
-
+    fun getSuggestionQuery(): CollectionReference
 }

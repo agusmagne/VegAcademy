@@ -14,7 +14,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
 import com.vegdev.vegacademy.presenter.learning.categories.CategoriesPresenter
 import com.vegdev.vegacademy.presenter.learning.categories.CategoryViewHolder
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.learning_view.*
 import kotlinx.coroutines.launch
 
@@ -41,7 +41,7 @@ class CategoriesView : Fragment(),
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IMainView) this.presenter =
+        if (context is MainView) this.presenter =
             CategoriesPresenter(
                 context,
                 this,

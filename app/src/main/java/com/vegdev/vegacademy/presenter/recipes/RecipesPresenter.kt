@@ -3,14 +3,14 @@ package com.vegdev.vegacademy.presenter.recipes
 import android.content.Context
 import android.view.inputmethod.EditorInfo
 import com.vegdev.vegacademy.model.domain.interactor.recipes.RecipesInteractor
-import com.vegdev.vegacademy.view.main.main.IMainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.recipes.filters.FiltersAdapter
 import com.vegdev.vegacademy.view.recipes.recipes.IRecipesView
 import com.vegdev.vegacademy.view.recipes.recipes.adapter.RecipesAdapter
 
 class RecipesPresenter(
     val context: Context,
-    val iMainView: IMainView,
+    val mainView: MainView,
     val iRecipesView: IRecipesView,
     val interactor: RecipesInteractor
 ) {
@@ -22,11 +22,11 @@ class RecipesPresenter(
     private lateinit var recipesAdapter: RecipesAdapter
 
     fun buildRecipesRecyclerView() {
-        iMainView.showProgress()
+        mainView.showProgress()
         iRecipesView.hideLayout()
 
         val options = interactor.getFilteredPaginatedRecipes()
-        val likedRecipesId = iMainView.getUserInfo()?.likedRecipesId
+        val likedRecipesId = mainView.getUserInfo()?.likedRecipesId
 
         recipesAdapter = RecipesAdapter(options, likedRecipesId, { recipe ->
             // on recipe image click
@@ -36,7 +36,7 @@ class RecipesPresenter(
         })
         iRecipesView.buildFiltersRecyclerView(recipesAdapter)
 
-        iMainView.hideProgress()
+        mainView.hideProgress()
         iRecipesView.showLayout()
     }
 
@@ -56,7 +56,7 @@ class RecipesPresenter(
 
                 val isTitleFilterTheSame = interactor.updateFilters(newTitle)
                 if (isTitleFilterTheSame) {
-                    iMainView.makeToast(ERROR_SAME_TITLE + newTitle)
+                    mainView.makeToast(ERROR_SAME_TITLE + newTitle)
                 } else {
                     // filter changed so update & notify adapters
                     val options = interactor.getFilteredPaginatedRecipes()
@@ -65,26 +65,26 @@ class RecipesPresenter(
                 }
             }
         } else {
-            iMainView.makeToast(ERROR_NEWTITLE_LENGHT)
+            mainView.makeToast(ERROR_NEWTITLE_LENGHT)
         }
     }
 
     fun updateFilters(taste: String, meal: String) {
         val didAnyFilterChange = interactor.updateFilters(taste, meal)
-        if (didAnyFilterChange) {
-            val options = interactor.getFilteredPaginatedRecipes()
-            recipesAdapter.updateOptions(options)
-            filtersAdapter.notifyDataSetChanged()
-        } else {
-            iMainView.makeToast(ERROR_SAME_FILTERS)
-        }
+//        if (didAnyFilterChange) {
+        val options = interactor.getFilteredPaginatedRecipes()
+        recipesAdapter.updateOptions(options)
+        filtersAdapter.notifyDataSetChanged()
+//        } else {
+//            mainView.makeToast(ERROR_SAME_FILTERS)
+//        }
     }
 
     fun showRecipesSearchBar() {
-        iMainView.showRecipesSearchBar()
+        mainView.showRecipesSearchBar()
     }
 
     fun hideRecipesSearchBar() {
-        iMainView.hideRecipesSearchBar()
+        mainView.hideRecipesSearchBar()
     }
 }
