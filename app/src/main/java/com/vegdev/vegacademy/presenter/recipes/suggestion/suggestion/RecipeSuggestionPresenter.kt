@@ -11,12 +11,13 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Ingredient
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
-import com.vegdev.vegacademy.presenter.recipes.suggestion.ingredientsAdapter.IngredientsAdapter
-import com.vegdev.vegacademy.presenter.recipes.suggestion.stepsAdapter.StepsAdapter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.spinner.SpinnerAdapter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
 import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.recipes.suggestion.RecipeSuggestionView
-import kotlinx.android.synthetic.main.single_ingredient.view.*
-import kotlinx.android.synthetic.main.single_step.view.*
+import kotlinx.android.synthetic.main.recipe_suggestion_ingredient.view.*
+import kotlinx.android.synthetic.main.recipe_suggestion_step.view.*
 import java.io.ByteArrayOutputStream
 
 class RecipeSuggestionPresenter(
@@ -176,7 +177,7 @@ class RecipeSuggestionPresenter(
 
     fun buildSpinner() {
         val items = listOf("cheeses", "pizzas", "pastas", "desserts")
-        val adapter = SpinnerAdapter(context, R.layout.spinner_item, items)
+        val adapter = SpinnerAdapter(context, R.layout.recipes_spinner_item, items)
         view.buildSpinner(adapter)
     }
 }

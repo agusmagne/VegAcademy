@@ -16,7 +16,7 @@ import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteract
 import com.vegdev.vegacademy.presenter.learning.categories.CategoriesPresenter
 import com.vegdev.vegacademy.presenter.learning.categories.CategoryViewHolder
 import com.vegdev.vegacademy.view.main.main.MainView
-import kotlinx.android.synthetic.main.learning_view.*
+import kotlinx.android.synthetic.main.categories.*
 import kotlinx.coroutines.launch
 
 class CategoriesFragment : Fragment(),
@@ -29,7 +29,7 @@ class CategoriesFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.learning_view, container, false)
+        return inflater.inflate(R.layout.categories, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

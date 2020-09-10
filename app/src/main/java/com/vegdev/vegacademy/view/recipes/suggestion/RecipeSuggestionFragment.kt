@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
-import com.vegdev.vegacademy.presenter.recipes.suggestion.ingredientsAdapter.IngredientsAdapter
-import com.vegdev.vegacademy.presenter.recipes.suggestion.stepsAdapter.StepsAdapter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.suggestion.RecipeSuggestionPresenter
 import com.vegdev.vegacademy.utils.LayoutUtils
 import com.vegdev.vegacademy.view.main.main.MainView
-import kotlinx.android.synthetic.main.fragment_recipe_suggestion.*
+import kotlinx.android.synthetic.main.recipe_suggestion.*
 
 class RecipeSuggestionFragment : Fragment(), RecipeSuggestionView {
 
@@ -31,7 +31,7 @@ class RecipeSuggestionFragment : Fragment(), RecipeSuggestionView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_recipe_suggestion, container, false)
+        return inflater.inflate(R.layout.recipe_suggestion, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

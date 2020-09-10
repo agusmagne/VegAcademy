@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.utils.LayoutUtils
-import kotlinx.android.synthetic.main.fragment_learning_element.view.*
+import kotlinx.android.synthetic.main.categories_single.view.*
 
 class CategoriesAdapter(
     private val videoCategories: MutableList<Category>,
@@ -17,7 +17,7 @@ class CategoriesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_learning_element, parent, false)
+            .inflate(R.layout.categories_single, parent, false)
         return CategoryViewHolder(itemView)
     }
 
@@ -27,10 +27,14 @@ class CategoriesAdapter(
         val category = videoCategories[position]
         holder.bindCategory(category)
         holder.itemView.src.transitionName = category.title + "src"
-        holder.itemView.backg.transitionName = category.title + "back"
+        holder.itemView.title.transitionName = category.title + "title"
+        holder.itemView.transitionName = category.title + "back"
         holder.itemView.setOnTouchListener(LayoutUtils().getResizerAlphaOnTouchListener(holder.itemView))
         holder.itemView.setOnClickListener {
-            clickListener(category, listOf(holder.itemView.src, holder.itemView.backg))
+            clickListener(
+                category,
+                listOf(holder.itemView.src, holder.itemView.title, holder.itemView)
+            )
         }
     }
 }

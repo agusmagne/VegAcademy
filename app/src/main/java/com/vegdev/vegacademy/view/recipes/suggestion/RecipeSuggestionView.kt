@@ -4,8 +4,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
 import android.widget.ArrayAdapter
-import com.vegdev.vegacademy.presenter.recipes.suggestion.ingredientsAdapter.IngredientsAdapter
-import com.vegdev.vegacademy.presenter.recipes.suggestion.stepsAdapter.StepsAdapter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
 
 interface RecipeSuggestionView {
     fun buildIngredientsRecyclerView(adapter: IngredientsAdapter)

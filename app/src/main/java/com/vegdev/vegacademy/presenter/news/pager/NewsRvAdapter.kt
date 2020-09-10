@@ -9,7 +9,7 @@ import com.google.firebase.Timestamp
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.LearningElement
 import com.vegdev.vegacademy.utils.GenericUtils
-import kotlinx.android.synthetic.main.fragment_news_element.view.*
+import kotlinx.android.synthetic.main.element_single.view.*
 import java.util.concurrent.TimeUnit
 
 class NewsPagerRvAdapter(
@@ -20,7 +20,7 @@ class NewsPagerRvAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_news_element, parent, false)
+                .inflate(R.layout.element_single, parent, false)
         )
     }
 

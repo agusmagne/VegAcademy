@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.vegdev.vegacademy.R
-import kotlinx.android.synthetic.main.fragment_donations.*
+import kotlinx.android.synthetic.main.donations.*
 
 class DonationsFragment : Fragment(), DonationsView {
 
@@ -18,7 +18,7 @@ class DonationsFragment : Fragment(), DonationsView {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_donations, container, false)
+        return inflater.inflate(R.layout.donations, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

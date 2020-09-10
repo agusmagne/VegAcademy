@@ -11,7 +11,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.presenter.news.NewsPagerAdapter
 import com.vegdev.vegacademy.presenter.news.NewsPresenter
 import com.vegdev.vegacademy.view.main.main.MainView
-import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.news.*
 
 class NewsFragment : Fragment(), NewsView {
 
@@ -22,7 +22,7 @@ class NewsFragment : Fragment(), NewsView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        return inflater.inflate(R.layout.news, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

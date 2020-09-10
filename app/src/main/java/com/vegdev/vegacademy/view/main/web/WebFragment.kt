@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.presenter.main.web.WebPresenter
 import com.vegdev.vegacademy.view.main.main.MainView
-import kotlinx.android.synthetic.main.fragment_web.*
+import kotlinx.android.synthetic.main.web.*
 
 
 class WebFragment : Fragment(), WebView {
@@ -23,7 +23,7 @@ class WebFragment : Fragment(), WebView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_web, container, false)
+        return inflater.inflate(R.layout.web, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
