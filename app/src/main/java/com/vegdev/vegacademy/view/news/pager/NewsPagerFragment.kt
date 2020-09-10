@@ -13,7 +13,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.domain.interactor.news.NewsPagerInteractor
 import com.vegdev.vegacademy.presenter.news.pager.NewsPagerPresenter
 import com.vegdev.vegacademy.presenter.news.pager.NewsViewHolder
-import com.vegdev.vegacademy.view.main.MainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.news.news.NewsFragment
 import kotlinx.android.synthetic.main.fragment_news_page.*
 import kotlinx.coroutines.launch
@@ -39,12 +39,7 @@ class NewsPagerFragment(private val position: Int) : Fragment(), NewsPagerView {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is MainView) presenter =
-            NewsPagerPresenter(
-                context,
-                this,
-                context,
-                NewsPagerInteractor()
-            )
+            NewsPagerPresenter(context, this, context, NewsPagerInteractor())
     }
 
     override fun onDetach() {

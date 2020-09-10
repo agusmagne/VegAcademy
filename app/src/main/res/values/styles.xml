@@ -16,11 +16,13 @@
         <item name="android:colorBackground">@color/colorAccent</item>
     </style>
 
-    <style name="DarkMode" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#000000</item>
+    <style name="DarkMode" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/blackBackground</item>
         <item name="colorAccent">@color/white</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowBackground">@color/blackBackground</item>
+        <item name="android:colorBackground">@color/blackBackground</item>
     </style>
 
     <style name="TransparentActionBar">
@@ -57,6 +59,5 @@
         <item name="fontFamily">@font/roboto</item>
         <item name="android:textSize">14sp</item>
     </style>
-
 
 </resources>

@@ -28,15 +28,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vegdev.vegacademy.view.login.WelcomeActivity"
+            android:name="com.vegdev.vegacademy.view.login.welcome.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WelcomeTheme" />
         <activity
-            android:name="com.vegdev.vegacademy.view.login.LoginActivity"
+            android:name="com.vegdev.vegacademy.view.login.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name="com.vegdev.vegacademy.view.login.CreateUserActivity"
+            android:name="com.vegdev.vegacademy.view.login.createuser.CreateUserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
@@ -44,7 +44,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.main.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>

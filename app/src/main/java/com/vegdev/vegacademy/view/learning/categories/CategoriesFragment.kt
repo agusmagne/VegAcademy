@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,7 +15,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
 import com.vegdev.vegacademy.presenter.learning.categories.CategoriesPresenter
 import com.vegdev.vegacademy.presenter.learning.categories.CategoryViewHolder
-import com.vegdev.vegacademy.view.main.MainView
+import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.learning_view.*
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,10 @@ class CategoriesFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (presenter?.videosAdapter != null) {
+            postponeEnterTransition()
+            videos_rv.doOnPreDraw { startPostponedEnterTransition() }
+        }
         lifecycleScope.launch {
             presenter?.fetchAndBuildRecyclerViews()
         }
@@ -42,18 +47,7 @@ class CategoriesFragment : Fragment(),
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is MainView) this.presenter =
-            CategoriesPresenter(
-                context,
-                this,
-                context,
-                findNavController(),
-                CategoriesInteractor()
-            )
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        this.presenter = null
+            CategoriesPresenter(context, this, context, findNavController(), CategoriesInteractor())
     }
 
     override fun hideLayout() {
@@ -66,22 +60,15 @@ class CategoriesFragment : Fragment(),
 
     override fun buildVideosRV(adapter: RecyclerView.Adapter<CategoryViewHolder>) {
         videos_rv.apply {
-            layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             this.adapter = adapter
         }
+
     }
 
     override fun buildArticlesRV(adapter: RecyclerView.Adapter<CategoryViewHolder>) {
         articles_rv.apply {
-            layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             this.adapter = adapter
         }
     }

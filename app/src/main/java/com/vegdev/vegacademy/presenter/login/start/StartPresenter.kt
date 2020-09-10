@@ -10,10 +10,10 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.utils.LayoutUtils
-import com.vegdev.vegacademy.view.login.CreateUserActivity
-import com.vegdev.vegacademy.view.login.LoginActivity
-import com.vegdev.vegacademy.view.login.WelcomeActivity
+import com.vegdev.vegacademy.view.login.createuser.CreateUserActivity
+import com.vegdev.vegacademy.view.login.login.LoginActivity
 import com.vegdev.vegacademy.view.login.start.StartView
+import com.vegdev.vegacademy.view.login.welcome.WelcomeActivity
 
 class StartPresenter(val context: Context, val activity: Activity, val view: StartView) {
 

@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.utils.LayoutUtils
 import kotlinx.android.synthetic.main.fragment_learning_element.view.*
 
 class CategoriesAdapter(
     private val videoCategories: MutableList<Category>,
-    val clickListener: (Category) -> Unit
+    private val clickListener: (Category, List<View>) -> Unit
 ) : RecyclerView.Adapter<CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -25,7 +26,12 @@ class CategoriesAdapter(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = videoCategories[position]
         holder.bindCategory(category)
-        holder.itemView.setOnClickListener { clickListener(category) }
+        holder.itemView.src.transitionName = category.title + "src"
+        holder.itemView.backg.transitionName = category.title + "back"
+        holder.itemView.setOnTouchListener(LayoutUtils().getResizerAlphaOnTouchListener(holder.itemView))
+        holder.itemView.setOnClickListener {
+            clickListener(category, listOf(holder.itemView.src, holder.itemView.backg))
+        }
     }
 }
 
@@ -34,4 +40,6 @@ class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.title.text = category.title
         Glide.with(itemView.context).load(category.icon).into(itemView.src)
     }
+
+
 }

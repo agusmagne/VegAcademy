@@ -1,36 +1,55 @@
 package com.vegdev.vegacademy.presenter.learning.categories
 
 import android.content.Context
+import android.os.Bundle
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
-import com.vegdev.vegacademy.view.learning.categories.CategoriesFragmentDirections
 import com.vegdev.vegacademy.view.learning.categories.CategoriesView
-import com.vegdev.vegacademy.view.main.MainView
+import com.vegdev.vegacademy.view.main.main.MainView
 
 class CategoriesPresenter(
-    val context: Context,
-    val iCategoriesView: CategoriesView,
-    val mainView: MainView,
-    val navController: NavController,
-    val interactor: CategoriesInteractor
+    private val context: Context,
+    private val view: CategoriesView,
+    private val iMainView: MainView,
+    private val navController: NavController,
+    private val interactor: CategoriesInteractor
 ) {
 
+    var videosAdapter: CategoriesAdapter? = null
+    private var articlesAdapter: CategoriesAdapter? = null
+
     suspend fun fetchAndBuildRecyclerViews() {
-        mainView.showProgress()
-        iCategoriesView.hideLayout()
+        iMainView.showProgress()
 
-        val videoCategories = interactor.getVideoCategories()
-        iCategoriesView.buildVideosRV(CategoriesAdapter(videoCategories) {
-            navController.navigate(CategoriesFragmentDirections.actionVideo(it))
-        })
+        if (videosAdapter == null) {
+            val videoCategories = interactor.getVideoCategories()
+            videosAdapter = buildAdapter(videoCategories)
+        }
 
-        val articlesCategories = interactor.getArticlesCategories()
-        iCategoriesView.buildArticlesRV(CategoriesAdapter(articlesCategories) {
-            navController.navigate(CategoriesFragmentDirections.actionVideo(it))
-        })
+        if (articlesAdapter == null) {
+            val articlesCategories = interactor.getArticlesCategories()
+            articlesAdapter = buildAdapter(articlesCategories)
 
-        mainView.hideProgress()
-        iCategoriesView.showLayout()
+        }
+        view.buildVideosRV(videosAdapter!!)
+        view.buildArticlesRV(articlesAdapter!!)
+        iMainView.hideProgress()
+
+    }
+
+    private fun buildAdapter(categories: MutableList<Category>): CategoriesAdapter {
+        return CategoriesAdapter(categories) { category, view ->
+            val bundle = Bundle()
+            bundle.putParcelable("category", category)
+            val extras = FragmentNavigatorExtras(
+                view[0] to (category.title + "src"),
+                view[1] to (category.title + "back")
+            )
+            navController.navigate(R.id.navigation_videos, bundle, null, extras)
+        }
     }
 
 }

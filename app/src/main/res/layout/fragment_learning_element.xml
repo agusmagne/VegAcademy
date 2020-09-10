@@ -6,18 +6,28 @@
     android:background="@color/blackBackground"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/backg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/blackBackground"
+        android:elevation="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/src"
+        app:layout_constraintLeft_toLeftOf="@id/src"
+        app:layout_constraintRight_toRightOf="@id/src"
+        app:layout_constraintTop_toTopOf="@id/src" />
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/src"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:elevation="20dp"
         android:layout_marginStart="16dp"
+        android:src="@drawable/imageapp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/imageapp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:roundPercent="0.1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView

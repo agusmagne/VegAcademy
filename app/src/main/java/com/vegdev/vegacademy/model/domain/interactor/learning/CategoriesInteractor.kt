@@ -9,7 +9,7 @@ class CategoriesInteractor {
     private val TAG_ERROR = "ERROR"
     private val MSG_ERROR = "Hubo un error al descargar las categorías"
     private val PATH_VIDEO_CATEGORIES = "learning/videos/cat"
-    private val PATH_ARTICLES_CATEGORIES = "learning/videos/"
+    private val PATH_ARTICLES_CATEGORIES = "learning/art/cat"
 
     private val repository =
         CategoriesRepositoryImpl()

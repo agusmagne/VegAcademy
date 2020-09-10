@@ -28,7 +28,6 @@ class ElementsAdapter(
     override fun onBindViewHolder(holder: ElementViewHolder, position: Int) {
         val videoElement = list[position]
         holder.bindElement(videoElement)
-        holder.itemView.isClickable = false
         holder.itemView.src.setOnClickListener { clickListener(videoElement) }
     }
 }

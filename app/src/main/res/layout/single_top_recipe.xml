@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="8dp">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/src"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="3:4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:round="25dp" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@drawable/bottom_corners_rounded"
+        app:layout_constraintBottom_toBottomOf="@id/src"
+        app:layout_constraintLeft_toLeftOf="@id/src"
+        app:layout_constraintRight_toRightOf="@id/src" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="Queso de papa"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/src"
+        app:layout_constraintLeft_toLeftOf="@id/src"
+        app:layout_constraintRight_toRightOf="@id/src" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

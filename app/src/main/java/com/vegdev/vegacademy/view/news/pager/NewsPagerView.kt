@@ -2,8 +2,8 @@ package com.vegdev.vegacademy.view.news.pager
 
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.presenter.news.pager.NewsViewHolder
-import com.vegdev.vegacademy.view.IBaseView
+import com.vegdev.vegacademy.view.BaseView
 
-interface NewsPagerView : IBaseView {
+interface NewsPagerView : BaseView {
     fun buildRv(adapter: RecyclerView.Adapter<NewsViewHolder>)
 }

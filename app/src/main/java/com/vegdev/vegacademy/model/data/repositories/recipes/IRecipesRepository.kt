@@ -1,15 +1,17 @@
 package com.vegdev.vegacademy.model.data.repositories.recipes
 
 import com.google.firebase.firestore.CollectionReference
-import com.vegdev.vegacademy.model.data.models.Recipe
+import com.google.firebase.firestore.Query
+import com.vegdev.vegacademy.model.data.models.TypesRecipe
 
 interface IRecipesRepository {
 
-    suspend fun fetchRecipes(): MutableList<Recipe>
-    fun getRecipesQuery(): CollectionReference
-    fun addLike(recipeId: String)
-    fun substractLike(recipeId: String)
+    fun getRecipesQuery(type: Any?): CollectionReference
+    fun addLike(recipeId: String, type: String)
+    fun substractLike(recipeId: String, type: String)
     fun likedRecipesIdPush(userId: String, recipeId: String)
     fun likedRecipesIdRemove(userId: String, recipeId: String)
-    fun getSuggestionQuery(): CollectionReference
+    fun getSuggestionQuery(type: String): CollectionReference
+    fun getSaltyRecipes(): Query
+    suspend fun getAllRecipeTypes(): TypesRecipe?
 }

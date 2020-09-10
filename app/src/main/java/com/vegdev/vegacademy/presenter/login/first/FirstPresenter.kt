@@ -9,9 +9,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.view.login.WelcomeActivity
 import com.vegdev.vegacademy.view.login.first.FirstView
 import com.vegdev.vegacademy.view.login.start.StartActivity
+import com.vegdev.vegacademy.view.login.welcome.WelcomeActivity
 
 class FirstPresenter(val context: Context, val activity: Activity, val view: FirstView) {
 

@@ -12,29 +12,37 @@ import com.bumptech.glide.request.transition.Transition
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.view.learning.elements.ElementsFragmentDirections
 import com.vegdev.vegacademy.view.learning.elements.ElementsView
-import com.vegdev.vegacademy.view.main.MainView
+import com.vegdev.vegacademy.view.main.main.MainView
 
 class ElementsPresenter(
     val context: Context,
-    private val iElementsView: ElementsView,
-    private val mainView: MainView,
+    private val view: ElementsView,
+    private val iMainView: MainView,
+    private val category: Category,
     private val interactor: ElementsInteractor
 ) {
 
     suspend fun fetchAndBuildRecyclerView(category: Category) {
-        iElementsView.hideLayout()
-        mainView.showProgress()
+//        view.hideLayout()
+        iMainView.showProgress()
 
         val path = "learning/${category.type}/${category.cat}"
         val list = interactor.getElements(path)
 
-        iElementsView.buildRecyclerView(ElementsAdapter(list) {
-            mainView.onVideoClicked(it.link)
+        view.buildRecyclerView(ElementsAdapter(list) {
+            if (category.type == "videos") {
+                iMainView.onVideoClicked(it.link)
+            } else {
+                val directionsToWebView =
+                    ElementsFragmentDirections.actionNavigationVideosToNavigationWebview(it.link)
+                iMainView.navigateToDirection(directionsToWebView)
+            }
         })
 
-        iElementsView.showLayout()
-        mainView.hideProgress()
+//        view.showLayout()
+        iMainView.hideProgress()
     }
 
     fun buildAndSetBackgroundColor(imageUrl: String) {
@@ -42,7 +50,7 @@ class ElementsPresenter(
             override fun onLoadCleared(placeholder: Drawable?) {}
             override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
                 val colors = LayoutUtils().getAverageColor(bitmap)
-                iElementsView.setBackgroundColor(colors, bitmap)
+                view.setBackgroundColor(colors, bitmap, category.socials, category.title)
             }
         })
     }

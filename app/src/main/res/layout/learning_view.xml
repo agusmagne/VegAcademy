@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
-    android:id="@+id/fragment_learning"
-    android:animateLayoutChanges="true"
+    android:id="@+id/fragment_learning_cl"
     android:background="@color/blackBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_learning_cl"
         android:layout_width="match_parent"
-        android:visibility="invisible"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/videos_txt"
@@ -30,7 +27,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/videos_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -52,7 +49,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/articles_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -115,6 +112,7 @@
             app:layout_constraintLeft_toLeftOf="@id/book_animalliberation"
             app:layout_constraintRight_toRightOf="@id/book_animalliberation"
             app:layout_constraintTop_toBottomOf="@id/book_animalliberation" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
