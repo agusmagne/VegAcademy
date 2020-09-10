@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:id="@+id/fragment_learning_cl"
+    android:background="@color/blackBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/videos_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Videos"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/videos_rv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/videos_txt" />
+
+        <TextView
+            android:id="@+id/articles_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Artículos y más"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/videos_rv" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/articles_rv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/articles_txt" />
+
+        <TextView
+            android:id="@+id/books_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Libros"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/articles_rv" />
+
+        <ImageView
+            android:id="@+id/book_whywelovedogs"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/book_whywelovedogs"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="@id/books_txt"
+            app:layout_constraintTop_toBottomOf="@id/books_txt" />
+
+        <TextView
+            android:id="@+id/whywelovedogs_title"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="Por qué amamos a los perros, comemos cerdos y vestimos vacas"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/book_whywelovedogs"
+            app:layout_constraintRight_toRightOf="@id/book_whywelovedogs"
+            app:layout_constraintTop_toBottomOf="@id/book_whywelovedogs" />
+
+        <ImageView
+            android:id="@+id/book_animalliberation"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/book_animalliberation"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toRightOf="@id/whywelovedogs_title"
+            app:layout_constraintTop_toBottomOf="@id/books_txt" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="Liberación animal"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/book_animalliberation"
+            app:layout_constraintRight_toRightOf="@id/book_animalliberation"
+            app:layout_constraintTop_toBottomOf="@id/book_animalliberation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

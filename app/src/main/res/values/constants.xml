@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="API_KEY">AIzaSyDvEIeukkxXciKgFB9FBiTEX20nvXq4dfA</string>
+    <string name="API_KEY" translatable="false">AIzaSyDvEIeukkxXciKgFB9FBiTEX20nvXq4dfA</string>
 
     <string-array name="videos_categories_titles">
         <item>VegAcademy introducción</item>

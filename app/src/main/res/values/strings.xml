@@ -17,12 +17,17 @@
     <string name="recetas">Recetas</string>
     <string name="logout">Cerrar sesión</string>
     <string name="settings">Configuración</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="news">Novedades</string>
     <string name="new_videos">Nuevos Videos</string>
     <string name="new_articles">Nuevos Artículos</string>
+    <string name="agregar_receta">Agregar Receta</string>
+    <string name="filter_recipe">Filtrar Receta</string>
+    <string name="donate">Donar</string>
+    <string name="pick_image_intent_text">Elige una imagen</string>
+    <string name="cheeses">Quesos y untables</string>
+    <string name="desserts">Dulces y postres</string>
+    <string name="pizzas">Pizzas</string>
+    <string name="pastas">Pastas y arroces</string>
 
 
 </resources>

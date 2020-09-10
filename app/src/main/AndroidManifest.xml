@@ -12,31 +12,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logosignedin"
+        android:icon="@drawable/ic_launcher_background"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkMode">
         <activity
-            android:name=".login.FirstActivity"
+            android:name="com.vegdev.vegacademy.view.login.first.FirstActivity"
             android:theme="@style/LoginTheme">
-        </activity>
-        <activity
-            android:name=".login.WelcomeActivity"
-            android:theme="@style/WelcomeTheme" />
-        <activity
-            android:name=".login.LoginActivity"
-            android:theme="@style/LoginTheme" />
-        <activity
-            android:name=".login.CreateUserActivity"
-            android:theme="@style/LoginTheme" />
-        <activity
-            android:name=".login.StartActivity"
-            android:theme="@style/LoginTheme"/>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden|screenSize">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,6 +27,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.vegdev.vegacademy.view.login.welcome.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeTheme" />
+        <activity
+            android:name="com.vegdev.vegacademy.view.login.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" />
+        <activity
+            android:name="com.vegdev.vegacademy.view.login.createuser.CreateUserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" />
+        <activity
+            android:name="com.vegdev.vegacademy.view.login.start.StartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" />
+        <activity
+            android:name=".view.main.main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

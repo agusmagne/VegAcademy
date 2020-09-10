@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="com.vegdev.vegacademy.ui.news.NewsFragment"
+        android:name="com.vegdev.vegacademy.view.news.news.NewsFragment"
         android:label="Novedades"
         tools:layout="@layout/fragment_news">
         <action
@@ -26,41 +26,66 @@
             app:exitAnim="@anim/fui_slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_donations"
+            app:destination="@id/navigation_donations" />
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_toprecipes"
+            app:destination="@id/navigation_toprecipes" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_learning"
-        android:name="com.vegdev.vegacademy.ui.learning.LearningFragment"
+        android:name="com.vegdev.vegacademy.view.learning.categories.CategoriesFragment"
         android:label="Aprendizaje"
-        tools:layout="@layout/fragment_learning">
+        tools:layout="@layout/learning_view">
         <action
             android:id="@+id/action_video"
-            app:destination="@id/navigation_videos"
-            app:popEnterAnim="@anim/fragment_in" />
+            app:destination="@id/navigation_videos" />
+        <action
+            android:id="@+id/action_navigation_learning_to_navigation_donations"
+            app:destination="@id/navigation_donations" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_recipes"
-        android:name="com.vegdev.vegacademy.ui.recipes.RecipesFragment"
+        android:name="com.vegdev.vegacademy.view.recipes.recipes.recipes.RecipesFragment"
         android:label="Recetas"
-        tools:layout="@layout/fragment_recipes" />
+        tools:layout="@layout/fragment_recipes">
+        <action
+            android:id="@+id/action_navigation_recipes_to_navigation_recipe_info"
+            app:destination="@id/navigation_recipe_info" />
+        <action
+            android:id="@+id/action_navigation_recipes_to_navigation_donations"
+            app:destination="@id/navigation_donations" />
+        <action
+            android:id="@+id/action_navigation_recipes_to_navigation_recipe_suggestion"
+            app:destination="@id/navigation_recipe_suggestion" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_videos"
-        android:name="com.vegdev.vegacademy.ui.learning.LearningCategoryFragment"
+        android:name="com.vegdev.vegacademy.view.learning.elements.ElementsFragment"
         android:label="Videos"
-        tools:layout="@layout/fragment_learning_category">
+        tools:layout="@layout/elements_view">
         <argument
             android:name="category"
-            app:argType="com.vegdev.vegacademy.models.Category" />
+            app:argType="com.vegdev.vegacademy.model.data.models.Category" />
         <action
             android:id="@+id/action_navigation_videos_to_navigation_webview"
-            app:destination="@id/navigation_webview" />
+            app:destination="@id/navigation_webview"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_videos_to_navigation_donations"
+            app:destination="@id/navigation_donations" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_webview"
-        android:name="com.vegdev.vegacademy.ui.WebFragment"
+        android:name="com.vegdev.vegacademy.view.main.web.WebFragment"
         android:label="WebView"
         tools:layout="@layout/fragment_web">
 
@@ -69,4 +94,49 @@
             android:defaultValue="defaultValue"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_recipe_info"
+        android:name="com.vegdev.vegacademy.view.recipes.details.RecipeDetailsFragment"
+        android:label="Receta"
+        tools:layout="@layout/fragment_recipe_info">
+        <argument
+            android:name="recipe"
+            app:argType="com.vegdev.vegacademy.model.data.models.SingleRecipe" />
+        <action
+            android:id="@+id/action_navigation_recipe_info_to_navigation_donations"
+            app:destination="@id/navigation_donations" />
+        <action
+            android:id="@+id/action_navigation_recipe_info_to_navigation_recipe_suggestion"
+            app:destination="@id/navigation_recipe_suggestion" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_donations"
+        android:name="com.vegdev.vegacademy.view.main.donations.DonationsFragment"
+        android:label="Donaciones"
+        tools:layout="@layout/fragment_donations" />
+
+    <fragment
+        android:id="@+id/navigation_recipe_suggestion"
+        android:name="com.vegdev.vegacademy.view.recipes.suggestion.RecipeSuggestionFragment"
+        android:label="Sugerir Receta"
+        tools:layout="@layout/fragment_recipe_suggestion" />
+
+    <fragment
+        android:id="@+id/navigation_toprecipes"
+        android:name="com.vegdev.vegacademy.view.recipes.recipes.TopRecipesFragment"
+        android:label="Mejores Recetas"
+        tools:layout="@layout/fragment_top_recipes">
+        <action
+            android:id="@+id/action_navigation_toprecipes_to_navigation_recipe_suggestion"
+            app:destination="@id/navigation_recipe_suggestion" />
+        <action
+            android:id="@+id/action_navigation_toprecipes_to_navigation_recipes"
+            app:destination="@id/navigation_recipes" />
+        <action
+            android:id="@+id/action_navigation_toprecipes_to_navigation_recipe_info"
+            app:destination="@id/navigation_recipe_info" />
+    </fragment>
+
 </navigation>
