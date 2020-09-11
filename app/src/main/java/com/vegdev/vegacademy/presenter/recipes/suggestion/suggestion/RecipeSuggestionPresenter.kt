@@ -35,20 +35,26 @@ class RecipeSuggestionPresenter(
 
     private var ingredientsAdapter = IngredientsAdapter(1)
     private var stepsAdapter = StepsAdapter(1)
-
+    private var recipeKeywords = mutableListOf<String>()
 
     fun suggestRecipe(recipe: SingleRecipe) {
         if (recipe.title != "" && recipe.desc != "") {
             iMainView.showProgress()
             iMainView.makeToast(RECIPE_SUGGESTION_PROGRESS)
 
+            // clear keywords property
+            recipeKeywords = mutableListOf()
+
             val ingredients = mutableListOf<Ingredient>()
             for (i in 0 until ingredientsAdapter.size) {
-                val itemView = view.getIngredientAtPosition(i)
-                itemView?.let {
-                    val ingredient = itemView.ingredient.text.toString().trim()
-                    val amount = itemView.amount.text.toString().trim()
+                val ingredientView = view.getIngredientAtPosition(i)
+                ingredientView?.let {
+                    val ingredient = ingredientView.ingredient.text.toString().trim()
+                    val amount = ingredientView.amount.text.toString().trim()
                     ingredients.add(Ingredient(ingredient, amount))
+
+                    // create keywords from each ingredient
+                    recipeKeywords.addAll(createKeywordsListFromWord(ingredient))
                 }
             }
             recipe.ing = ingredients
@@ -64,31 +70,46 @@ class RecipeSuggestionPresenter(
             recipe.steps = steps
             recipe.type = view.getRecipeTypesSpinnerSelectedItem()
 
-            val task = interactor.suggestRecipe(recipe)
-            task.addOnSuccessListener {
+            val titleWords = recipe.title.split(" ")
+            titleWords.forEach { recipeKeywords.addAll(createKeywordsListFromWord(it)) }
+            recipe.keywords = recipeKeywords
 
-                val pic = view.getRecipeImage()
-                val byteArrayOutputStream = ByteArrayOutputStream()
-                pic.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-                val picData = byteArrayOutputStream.toByteArray()
-                val uploadTask =
-                    FirebaseStorage.getInstance().getReference("recipes/recipes/${recipe.id}")
-                        .putBytes(picData)
-
-                uploadTask.addOnSuccessListener {
-                    iMainView.hideProgress()
-                    iMainView.onBackPressed()
-                    iMainView.makeToast(RECIPE_SUGGESTION_SUCCESS)
-
+            interactor.suggestRecipe(recipe)
+                .addOnSuccessListener {
+                    uploadPictureToFirebaseFirestore(view.getRecipeImage(), recipe.id)
                 }.addOnFailureListener {
                     iMainView.makeToast(RECIPE_SUGGESTION_ERROR)
                 }
-
-            }.addOnFailureListener {
-                iMainView.makeToast(RECIPE_SUGGESTION_ERROR)
-            }
         } else {
             iMainView.makeToast(RECIPE_SUGGESTION_WARNING)
+        }
+    }
+
+    private fun createKeywordsListFromWord(word: String): MutableList<String> {
+        val keywords = mutableListOf<String>()
+        var currentKeyword = ""
+        for (character in word) {
+            currentKeyword += character
+            keywords.add(currentKeyword)
+        }
+        return keywords
+    }
+
+    private fun uploadPictureToFirebaseFirestore(picture: Bitmap, recipeId: String) {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        picture.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val picData = byteArrayOutputStream.toByteArray()
+        val uploadTask =
+            FirebaseStorage.getInstance().getReference("recipes/recipes/$recipeId")
+                .putBytes(picData)
+
+        uploadTask.addOnSuccessListener {
+            iMainView.hideProgress()
+            iMainView.onBackPressed()
+            iMainView.makeToast(RECIPE_SUGGESTION_SUCCESS)
+
+        }.addOnFailureListener {
+            iMainView.makeToast(RECIPE_SUGGESTION_ERROR)
         }
     }
 

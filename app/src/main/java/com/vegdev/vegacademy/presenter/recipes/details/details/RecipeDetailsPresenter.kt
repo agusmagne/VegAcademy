@@ -21,5 +21,6 @@ class RecipeDetailsPresenter(val view: RecipeDetailsView, val iMainView: MainVie
         view.setStepsRecyclerViewAdapter(stepsAdapter)
 
         iMainView.hideProgress()
+        view.startPostponedTransition(recipe.id)
     }
 }

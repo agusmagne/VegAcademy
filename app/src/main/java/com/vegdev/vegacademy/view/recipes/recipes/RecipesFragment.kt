@@ -3,11 +3,12 @@ package com.vegdev.vegacademy.view.recipes.recipes
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.TopRecipesInteractor
+import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ParentRecipesAdapter
 import com.vegdev.vegacademy.presenter.recipes.toprecipes.RecipesPresenter
 import com.vegdev.vegacademy.view.main.main.MainView
@@ -28,6 +29,10 @@ class RecipesFragment : Fragment(), RecipesView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (presenter?.parentAdapter != null) {
+            postponeEnterTransition()
+            parent_recipes_rv.doOnPreDraw { startPostponedEnterTransition() }
+        }
         lifecycleScope.launch {
             presenter?.buildRVs()
         }
@@ -41,7 +46,7 @@ class RecipesFragment : Fragment(), RecipesView {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is MainView) presenter =
-            RecipesPresenter(context, this, this, context, TopRecipesInteractor())
+            RecipesPresenter(context, this, this, context, RecipesInteractor())
     }
 
     override fun buildRecipesParentRV(adapter: ParentRecipesAdapter) {

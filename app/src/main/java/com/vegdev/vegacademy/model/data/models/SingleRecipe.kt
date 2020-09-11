@@ -10,7 +10,8 @@ class SingleRecipe(
     var ing: MutableList<Ingredient> = mutableListOf(),
     var type: String = "",
     var likes: Int = 0,
-    var id: String = ""
+    var id: String = "",
+    var keywords: MutableList<String> = mutableListOf()
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -24,7 +25,10 @@ class SingleRecipe(
         },
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readString()!!
+        parcel.readString()!!,
+        mutableListOf<String>().apply {
+            parcel.readList(this, String::class.java.classLoader)
+        }
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -35,6 +39,7 @@ class SingleRecipe(
         parcel.writeString(type)
         parcel.writeInt(likes)
         parcel.writeString(id)
+        parcel.writeList(keywords)
     }
 
     override fun describeContents(): Int {

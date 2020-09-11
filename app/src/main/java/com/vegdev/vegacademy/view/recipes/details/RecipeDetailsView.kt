@@ -10,5 +10,6 @@ interface RecipeDetailsView {
     fun setIngredientsRecyclerViewAdapter(adapter: DetailsIngredientsAdapter)
     fun setStepsRecyclerViewAdapter(adapter: DetailsStepsAdapter)
     fun bindRecipe(recipe: SingleRecipe, src: Bitmap)
+    fun startPostponedTransition(recipeId: String)
 
 }

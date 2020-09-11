@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/recipe_details_root"
     android:layout_marginTop="?attr/actionBarSize"
     android:background="@color/blackBackground"
     tools:context=".view.recipes.details.RecipeDetailsFragment">
@@ -31,7 +32,7 @@
             android:text="Queso de papa"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/title"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/src" />
 
@@ -64,7 +65,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Descripción"
             android:textColor="@color/white"
-            android:textSize="@dimen/important"
+            android:textSize="@dimen/title"
             app:layout_constraintLeft_toLeftOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -90,7 +91,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Ingredientes"
             android:textColor="@color/white"
-            android:textSize="@dimen/important"
+            android:textSize="@dimen/title"
             app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
             app:layout_constraintTop_toBottomOf="@id/recipe_desc" />
 
@@ -98,7 +99,7 @@
             android:id="@+id/details_ing_rv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto"
             app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
             app:layout_constraintRight_toRightOf="@id/recipe_desc"
@@ -112,7 +113,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Paso a paso"
             android:textColor="@color/white"
-            android:textSize="@dimen/important"
+            android:textSize="@dimen/title"
             app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
             app:layout_constraintTop_toBottomOf="@id/details_ing_rv" />
 
@@ -120,7 +121,7 @@
             android:id="@+id/details_steps_rv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
             app:layout_constraintRight_toRightOf="@id/recipe_desc"
             app:layout_constraintTop_toBottomOf="@id/steps_text" />

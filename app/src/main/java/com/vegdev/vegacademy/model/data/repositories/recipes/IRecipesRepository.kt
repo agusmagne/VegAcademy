@@ -14,4 +14,5 @@ interface IRecipesRepository {
     fun getSuggestionQuery(type: String): CollectionReference
     fun getSaltyRecipes(): Query
     suspend fun getAllRecipeTypes(): TypesRecipe?
+    fun getFilteredRecipesQueryFromType(keywords: List<String>, type: String): Query
 }

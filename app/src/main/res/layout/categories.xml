@@ -20,7 +20,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Videos"
             android:textColor="@color/white"
-            android:textSize="@dimen/title"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Artículos y más"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/videos_rv" />
 
@@ -64,7 +64,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Libros"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/articles_rv" />
 

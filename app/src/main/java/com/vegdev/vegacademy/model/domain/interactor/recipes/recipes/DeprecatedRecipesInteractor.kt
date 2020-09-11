@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.data.repositories.recipes.RecipesRepository
 
-class RecipesInteractor {
+class DeprecatedRecipesInteractor {
 
     private val repository = RecipesRepository()
     private val firebaseUser = FirebaseAuth.getInstance().currentUser

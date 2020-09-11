@@ -2,6 +2,7 @@ package com.vegdev.vegacademy.presenter.recipes.recipes.adapter.single
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.recipes_child_single.view.*
 
 class SingleRecipeAdapter(
     options: FirestorePagingOptions<SingleRecipe>,
-    val onRecipeClick: (SingleRecipe, Drawable) -> Unit
+    val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit
 ) : FirestorePagingAdapter<SingleRecipe, SingleRecipeViewHolder>(options) {
 
     private val storage = FirebaseStorage.getInstance()
@@ -30,6 +31,13 @@ class SingleRecipeAdapter(
         model: SingleRecipe
     ) {
         holder.bindRecipe(model, storage)
-        holder.itemView.setOnClickListener { onRecipeClick(model, holder.itemView.src.drawable) }
+        holder.itemView.src.transitionName = model.id
+        holder.itemView.setOnClickListener {
+            onRecipeClick(
+                model,
+                holder.itemView.src.drawable,
+                holder.itemView.src
+            )
+        }
     }
 }

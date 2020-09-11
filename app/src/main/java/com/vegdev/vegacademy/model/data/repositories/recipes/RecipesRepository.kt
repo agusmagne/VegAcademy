@@ -52,4 +52,9 @@ class RecipesRepository : IRecipesRepository {
     override suspend fun getAllRecipeTypes(): TypesRecipe? {
         return firestore.document(RECIPES_DOCREF).get().await().toObject(TypesRecipe::class.java)
     }
+
+    override fun getFilteredRecipesQueryFromType(keywords: List<String>, type: String): Query {
+        return firestore.document(RECIPES_DOCREF).collection(type)
+            .whereArrayContainsAny("keywords", keywords)
+    }
 }
