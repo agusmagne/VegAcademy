@@ -25,7 +25,19 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         postponeEnterTransition()
-        sharedElementEnterTransition = MaterialContainerTransform()
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+
+        }
+    }
+
+    fun newInstance(recipe: SingleRecipe, src: Bitmap): RecipeDetailsFragment {
+        val args = Bundle()
+        args.putParcelable("recipe", recipe)
+        args.putParcelable("src", src)
+
+        val fragment = RecipeDetailsFragment()
+        fragment.arguments = args
+        return fragment
     }
 
     override fun onCreateView(
