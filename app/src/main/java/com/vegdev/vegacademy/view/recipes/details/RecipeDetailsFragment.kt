@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.transition.MaterialContainerTransform
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
@@ -26,18 +27,17 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsView {
         super.onCreate(savedInstanceState)
         postponeEnterTransition()
         sharedElementEnterTransition = MaterialContainerTransform().apply {
-
+            startShapeAppearanceModel = ShapeAppearanceModel().withCornerSize(60f)
+            endShapeAppearanceModel = ShapeAppearanceModel().withCornerSize(0f)
+            isElevationShadowEnabled = false
+            duration = 500
         }
-    }
-
-    fun newInstance(recipe: SingleRecipe, src: Bitmap): RecipeDetailsFragment {
-        val args = Bundle()
-        args.putParcelable("recipe", recipe)
-        args.putParcelable("src", src)
-
-        val fragment = RecipeDetailsFragment()
-        fragment.arguments = args
-        return fragment
+        sharedElementReturnTransition = MaterialContainerTransform().apply {
+            startShapeAppearanceModel = ShapeAppearanceModel().withCornerSize(0f)
+            endShapeAppearanceModel = ShapeAppearanceModel().withCornerSize(60f)
+            isElevationShadowEnabled = false
+            duration = 500
+        }
     }
 
     override fun onCreateView(

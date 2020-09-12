@@ -5,5 +5,6 @@ import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ParentReci
 interface RecipesView {
 
     fun buildRecipesParentRV(adapter: ParentRecipesAdapter)
+    fun startPostponedEnterTransition()
 
 }

@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 
 class ParentRecipesViewHolder(
     itemView: View,
-    private val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit
+    private val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
+    private val onReturnRecipeImageLoaded: () -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
 
     val interactor = RecipesInteractor()
@@ -25,9 +26,12 @@ class ParentRecipesViewHolder(
 
     fun createAdapter(type: Any?): SingleRecipeAdapter {
         val recipesOptions = interactor.getPaginatedRecipesFromType(type)
-        val childAdapter = SingleRecipeAdapter(recipesOptions) { recipe, drawable, view ->
+        val childAdapter = SingleRecipeAdapter(recipesOptions, { recipe, drawable, view ->
             onRecipeClick(recipe, drawable, view)
-        }
+        }, {
+            onReturnRecipeImageLoaded()
+        })
+        childAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
         bindAdapter(type.toString(), childAdapter)
         return childAdapter
     }

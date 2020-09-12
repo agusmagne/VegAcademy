@@ -10,7 +10,6 @@ import com.vegdev.vegacademy.view.recipes.details.RecipeDetailsView
 class RecipeDetailsPresenter(val view: RecipeDetailsView, val iMainView: MainView) {
 
     fun buildRecyclerViewsAndBindRecipeInfo(recipe: SingleRecipe, src: Bitmap) {
-        iMainView.showProgress()
 
         view.bindRecipe(recipe, src)
 
@@ -20,7 +19,6 @@ class RecipeDetailsPresenter(val view: RecipeDetailsView, val iMainView: MainVie
         val stepsAdapter = DetailsStepsAdapter(recipe.steps)
         view.setStepsRecyclerViewAdapter(stepsAdapter)
 
-        iMainView.hideProgress()
         view.startPostponedTransition(recipe.id)
     }
 }

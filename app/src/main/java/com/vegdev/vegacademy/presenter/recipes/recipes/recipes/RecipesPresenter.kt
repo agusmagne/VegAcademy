@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.vegdev.vegacademy.R
@@ -32,9 +33,11 @@ class RecipesPresenter(
             parentAdapter = ParentRecipesAdapter(
                 allRecipeTypes
                 // on child recipe click
-            ) { recipe, drawable, view ->
-                navigate(recipe, drawable, view)
-            }
+                , { recipe, drawable, view ->
+                    navigate(recipe, drawable, view)
+                }, {
+                    view.startPostponedEnterTransition()
+                })
         }
         view.buildRecipesParentRV(parentAdapter!!)
         iMainView.hideProgress()
@@ -46,7 +49,11 @@ class RecipesPresenter(
         bundle.putParcelable("src", drawable.toBitmap())
 
         val extras = FragmentNavigatorExtras(view to recipe.id)
-        fragment.findNavController().navigate(R.id.navigation_recipe_details, bundle, null, extras)
+        val options =
+            NavOptions.Builder().setEnterAnim(R.anim.fragment_in).setExitAnim(R.anim.fragment_out)
+                .build()
+        fragment.findNavController()
+            .navigate(R.id.navigation_recipe_details, bundle, options, extras)
 
 //        val directions =
 //            RecipesFragmentDirections.actionNavigationToprecipesToNavigationRecipeInfo(

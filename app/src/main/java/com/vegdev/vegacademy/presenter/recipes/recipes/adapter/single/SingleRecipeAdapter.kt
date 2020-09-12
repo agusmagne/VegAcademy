@@ -13,10 +13,13 @@ import kotlinx.android.synthetic.main.recipes_child_single.view.*
 
 class SingleRecipeAdapter(
     options: FirestorePagingOptions<SingleRecipe>,
-    val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit
+    val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
+    private val onReturnedRecipeImageLoaded: () -> Unit
 ) : FirestorePagingAdapter<SingleRecipe, SingleRecipeViewHolder>(options) {
 
     private val storage = FirebaseStorage.getInstance()
+    private var detailsModel: SingleRecipe? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRecipeViewHolder {
         val itemView =
@@ -30,9 +33,18 @@ class SingleRecipeAdapter(
         position: Int,
         model: SingleRecipe
     ) {
+
+        if (detailsModel?.id == model.id) {
+            holder.bindReturningRecipe(model, storage) {
+                onReturnedRecipeImageLoaded()
+            }
+        }
+
+        val transName = holder.itemView.src.transitionName
         holder.bindRecipe(model, storage)
         holder.itemView.src.transitionName = model.id
         holder.itemView.setOnClickListener {
+            detailsModel = model
             onRecipeClick(
                 model,
                 holder.itemView.src.drawable,

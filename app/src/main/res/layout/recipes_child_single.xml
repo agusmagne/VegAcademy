@@ -21,15 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:round="25dp" />
 
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:elevation="5dp"
-        android:src="@drawable/bottom_corners_rounded"
-        app:layout_constraintBottom_toBottomOf="@id/src"
-        app:layout_constraintLeft_toLeftOf="@id/src"
-        app:layout_constraintRight_toRightOf="@id/src" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
@@ -42,7 +33,7 @@
         android:textSize="@dimen/important"
         android:text="Queso de papa"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/src"
+        app:layout_constraintTop_toBottomOf="@id/src"
         app:layout_constraintLeft_toLeftOf="@id/src"
         app:layout_constraintRight_toRightOf="@id/src" />
 
