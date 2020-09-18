@@ -22,10 +22,6 @@ class CreateUserActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        back_btn.setOnClickListener {
-            onBackPressed()
-        }
-
         start_create_user_filled_btn.setOnClickListener {
 
             val name = name_txt.text.toString()
@@ -35,7 +31,6 @@ class CreateUserActivity : AppCompatActivity() {
 
             if (password != confPassword) {
                 layoutUtils.createToast(this, "Las contraseñas no coinciden")
-                confpassword_field.setImageResource(R.drawable.redroundborder40dp)
 
             } else {
 

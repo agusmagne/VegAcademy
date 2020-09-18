@@ -33,7 +33,6 @@ class LearningFragment : Fragment() {
     private lateinit var articlesRvAdapter: FirestoreRecyclerAdapter<Category, CategoryViewHolder>
     private var progressBar: IProgressBar? = null
     private var layoutLoaded: Boolean = false
-    private val modelsUtils = ModelsUtils()
 
     override fun onCreateView(
         inflater: LayoutInflater,
