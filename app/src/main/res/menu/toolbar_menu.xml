@@ -2,13 +2,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/ tools"
     tools:context=".MainActivity">
-    <item android:id="@+id/action_settings"
-        android:title="@string/settings"
-        android:orderInCategory="5"
-        app:showAsAction="never"/>
 
-    <item android:id="@+id/action_logout"
-        android:title="@string/logout"
+    <item
+        android:id="@+id/action_filterrecipe"
+        android:icon="@drawable/ic_filter"
+        android:orderInCategory="3"
+        android:title="@string/filter_recipe"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_addrecipe"
+        android:icon="@drawable/ic_add"
+        android:orderInCategory="4"
+        android:title="@string/agregar_receta"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_donate"
+        android:icon="@drawable/ic_donate"
+        android:orderInCategory="5"
+        android:title="@string/donate"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_settings"
         android:orderInCategory="6"
-        app:showAsAction="never"/>
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="7"
+        android:title="@string/logout"
+        app:showAsAction="never" />
 </menu>

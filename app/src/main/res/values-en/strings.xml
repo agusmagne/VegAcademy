@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VegAcademy</string>
+    <string name="cheeses">Cheeses and spreadables</string>
+    <string name="desserts">Sweets and desserts</string>
+    <string name="pizzas">Pizzas</string>
+    <string name="pastas">Pastas and rice</string>
+</resources>

@@ -1,5 +1,6 @@
 package com.vegdev.vegacademy.utils
 
+import android.animation.AnimatorInflater
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.DisplayMetrics
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -23,6 +25,68 @@ class LayoutUtils {
     fun startActivity(context: Context, activity: Any) {
         val intent = Intent(context, activity as Class<*>)
         context.startActivity(intent)
+    }
+
+    fun getResizerAlphaOnTouchListener(view: View): View.OnTouchListener {
+        return object : View.OnTouchListener {
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                p1?.let {
+                    when (it.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view.context, R.animator.resize_alpha)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
+
+                        MotionEvent.ACTION_UP -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view.context, R.animator.regain_alpha)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
+                        else -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view.context, R.animator.regain_alpha)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
+                    }
+                }
+                return false
+            }
+        }
+    }
+
+    fun getResizerOnTouchListener(view: View): View.OnTouchListener {
+        return object : View.OnTouchListener {
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                p1?.let {
+                    when (it.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view.context, R.animator.resize)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
+
+                        MotionEvent.ACTION_UP -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view.context, R.animator.regain)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
+                        else -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view.context, R.animator.regain)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
+                    }
+                }
+                return false
+            }
+        }
     }
 
     fun toDp(px: Int): Int = (px / Resources.getSystem().displayMetrics.density).toInt()

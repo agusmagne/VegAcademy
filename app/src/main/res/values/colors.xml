@@ -12,4 +12,5 @@
   <color name="navBarOff">#BABABA</color>
   <color name="navBarOn">@color/white</color>
   <color name="grey">#414141</color>
+  <color name="superAccent">#BEBAFF</color>
 </resources>

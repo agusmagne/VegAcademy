@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_details_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@color/blackBackground"
+    tools:context=".view.recipes.details.RecipeDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/src"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Queso de papa"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/src" />
+
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/darkpurpleoundfilled60dp"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="Quesos"
+            android:textAlignment="center"
+            android:textColor="@color/navBarOff"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/title"
+            app:layout_constraintLeft_toRightOf="@id/title"
+            app:layout_constraintTop_toTopOf="@id/title" />
+
+
+        <TextView
+            android:id="@+id/desc_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Descripción"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <TextView
+            android:id="@+id/recipe_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/roboto"
+            android:text="Esta es la descripción de una receta"
+            android:textColor="@color/white"
+            android:textSize="@dimen/important"
+            app:layout_constraintLeft_toLeftOf="@id/desc_txt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/desc_txt" />
+
+        <TextView
+            android:id="@+id/ingredients_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Ingredientes"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
+            app:layout_constraintTop_toBottomOf="@id/recipe_desc" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/details_ing_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
+            app:layout_constraintRight_toRightOf="@id/recipe_desc"
+            app:layout_constraintTop_toBottomOf="@id/ingredients_text" />
+
+        <TextView
+            android:id="@+id/steps_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Paso a paso"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
+            app:layout_constraintTop_toBottomOf="@id/details_ing_rv" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/details_steps_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@id/recipe_desc"
+            app:layout_constraintRight_toRightOf="@id/recipe_desc"
+            app:layout_constraintTop_toBottomOf="@id/steps_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

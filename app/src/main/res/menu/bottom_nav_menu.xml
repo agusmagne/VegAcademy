@@ -12,7 +12,7 @@
         android:title="@string/aprendizaje" />
 
     <item
-        android:id="@+id/navigation_recipes"
+        android:id="@+id/nagivation_recipes"
         android:icon="@drawable/ic_recipes"
         android:title="@string/recetas" />
 
