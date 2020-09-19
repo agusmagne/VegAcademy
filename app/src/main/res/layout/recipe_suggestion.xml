@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_suggestion_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
@@ -26,7 +27,7 @@
 
         <EditText
             android:id="@+id/title"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
@@ -37,7 +38,7 @@
             android:inputType="textCapSentences"
             android:textColor="@color/white"
             android:textColorHint="@color/navBarOff"
-            android:textSize="@dimen/title"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/src" />
 
@@ -75,7 +76,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Descripción"
             android:textColor="@color/white"
-            android:textSize="@dimen/important"
+            android:textSize="@dimen/title"
             app:layout_constraintLeft_toLeftOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -95,17 +96,38 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/desc_txt" />
 
-        <TextView
-            android:id="@+id/ingredients_text"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_ingredient_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Ingredientes"
-            android:textColor="@color/white"
-            android:textSize="@dimen/important"
+            android:background="@color/blackBackground"
+            android:elevation="10dp"
             app:layout_constraintLeft_toLeftOf="@id/desc_txt"
-            app:layout_constraintTop_toBottomOf="@id/recipe_desc" />
+            app:layout_constraintTop_toBottomOf="@id/recipe_desc">
+
+            <TextView
+                android:id="@+id/ingredients_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingVertical="4dp"
+                android:text="Ingredientes"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_add_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toRightOf="@id/ingredients_text"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredients_rv"
@@ -116,31 +138,41 @@
             android:isScrollContainer="false"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ingredients_text" />
+            app:layout_constraintTop_toBottomOf="@id/add_ingredient_btn" />
 
-        <ImageView
-            android:id="@+id/add_ingredient_btn"
-            android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="@id/ingredients_text"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintLeft_toRightOf="@id/ingredients_text"
-            app:layout_constraintTop_toTopOf="@id/ingredients_text" />
-
-        <TextView
-            android:id="@+id/steps_text"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_step_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Paso a paso"
-            android:textColor="@color/white"
-            android:textSize="@dimen/important"
-            app:layout_constraintBottom_toTopOf="@id/steps_rv"
+            android:background="@color/blackBackground"
+            android:elevation="10dp"
             app:layout_constraintLeft_toLeftOf="@id/desc_txt"
-            app:layout_constraintTop_toBottomOf="@id/ingredients_rv" />
+            app:layout_constraintTop_toBottomOf="@id/ingredients_rv">
+
+            <TextView
+                android:id="@+id/steps_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingVertical="4dp"
+                android:text="Paso a paso"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_add_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toRightOf="@id/steps_text"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/steps_rv"
@@ -150,28 +182,17 @@
             android:layout_marginVertical="8dp"
             android:layout_marginBottom="32dp"
             android:isScrollContainer="false"
-            app:layout_constraintBottom_toTopOf="@id/accept"
+            app:layout_constraintBottom_toTopOf="@id/suggest_recipe_btn"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/steps_text" />
-
-        <ImageView
-            android:id="@+id/add_step_btn"
-            android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="@id/steps_text"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintLeft_toRightOf="@id/steps_text"
-            app:layout_constraintTop_toTopOf="@id/steps_text" />
+            app:layout_constraintTop_toBottomOf="@id/add_step_btn" />
 
         <TextView
-            android:id="@+id/accept"
+            android:id="@+id/suggest_recipe_btn"
             android:layout_width="100dp"
             android:layout_height="0dp"
             android:layout_marginBottom="32dp"
-            android:background="@drawable/ripple"
+            android:background="@drawable/ripple_circle_white"
             android:elevation="10dp"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
@@ -182,6 +203,19 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/recipe_sent_confirmation"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_round_check"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/suggest_recipe_btn"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="@id/suggest_recipe_btn"
+            app:layout_constraintRight_toRightOf="@id/suggest_recipe_btn"
+            app:layout_constraintTop_toTopOf="@id/suggest_recipe_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

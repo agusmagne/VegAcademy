@@ -35,7 +35,7 @@
         android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/logounsigned"
         android:transitionName="logo"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -69,11 +69,11 @@
 
     <ImageView
         android:id="@+id/fb_login_btn"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/fbbutton"
-        android:elevation="10dp"
+        android:elevation="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/desc" />
@@ -82,7 +82,7 @@
         android:id="@+id/imageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:elevation="10dp"
+        android:elevation="5dp"
         android:src="@drawable/fblogo"
         app:layout_constraintBottom_toBottomOf="@id/fb_login_btn"
         app:layout_constraintEnd_toStartOf="@+id/textView"
@@ -94,7 +94,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="5dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Continúa con Facebook"
         android:textColor="@color/white"
@@ -107,9 +108,9 @@
     <ImageView
         android:id="@+id/create_btn"
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/purpleroundfilled"
+        android:background="@drawable/accent_round_filled"
         android:transitionName="image_slides_down"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -118,8 +119,8 @@
     <ImageView
         android:id="@+id/start_create_user_btn"
         android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:elevation="20dp"
+        android:layout_height="50dp"
+        android:elevation="10dp"
         android:background="@drawable/purpleroundborder"
         app:layout_constraintBottom_toBottomOf="@id/create_btn"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -154,20 +155,6 @@
         app:layout_constraintLeft_toLeftOf="@id/create_btn"
         app:layout_constraintRight_toRightOf="@id/create_btn"
         app:layout_constraintTop_toTopOf="@id/create_btn" />
-
-
-    <TextView
-        android:id="@+id/anonlogin_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:gravity="center"
-        android:text="@string/anon"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_btn" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

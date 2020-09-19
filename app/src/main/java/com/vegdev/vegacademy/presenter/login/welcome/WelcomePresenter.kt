@@ -30,6 +30,6 @@ class WelcomePresenter(val context: Context, val view: WelcomeView) {
     fun startMainActivity() {
         val intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
-        layoutUtils.overrideEnterAndExitTransitions(context as Activity)
+//        layoutUtils.overrideEnterAndExitTransitions(context as Activity)
     }
 }

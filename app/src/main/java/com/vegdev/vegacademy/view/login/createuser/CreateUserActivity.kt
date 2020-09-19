@@ -16,9 +16,7 @@ class CreateUserActivity : AppCompatActivity(), CreateUserView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
 
-        back_btn.setOnClickListener { onBackPressed() }
-
-        create_btn.setOnClickListener {
+        start_create_user_filled_btn.setOnClickListener {
             presenter.createUserIntent(
                 name_txt.text.toString(),
                 email_txt.text.toString(),
@@ -28,15 +26,12 @@ class CreateUserActivity : AppCompatActivity(), CreateUserView {
         }
     }
 
-    override fun changePasswordImageColor() {
-        confpassword_field.setImageResource(R.drawable.redroundborder40dp)
+    override fun showProgressbar() {
+        progress_bar.visibility = View.VISIBLE
     }
 
-    override fun startProgressBarAnimation(animation: Animation) {
-        progress_bar.startAnimation(animation)
-        progress_bar_background.startAnimation(animation)
-        progress_bar.visibility = View.VISIBLE
-        progress_bar_background.visibility = View.VISIBLE
+    override fun hideProgressbar() {
+        progress_bar.visibility = View.INVISIBLE
     }
 
 }

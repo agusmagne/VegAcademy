@@ -1,14 +1,17 @@
 package com.vegdev.vegacademy.view.main.main
 
+import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -21,11 +24,12 @@ import com.vegdev.vegacademy.presenter.main.main.MainPresenter
 import com.vegdev.vegacademy.view.login.welcome.WelcomeActivity
 import com.vegdev.vegacademy.view.news.news.NewsFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.max
+
 
 class MainActivity : AppCompatActivity(), MainView {
 
     private var userInfo: User? = null
-
     private var presenter = MainPresenter(this, supportFragmentManager, this, MainInteractor())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,12 +76,18 @@ class MainActivity : AppCompatActivity(), MainView {
             }
 
             R.id.action_addrecipe -> {
-                nav_host_fragment.findNavController().navigate(R.id.navigation_recipe_suggestion)
+                val navOptions =
+                    NavOptions.Builder().setEnterAnim(R.anim.fragment_in_slide_alpha).build()
+                nav_host_fragment.findNavController()
+                    .navigate(R.id.navigation_recipe_suggestion, null, navOptions, null)
             }
 
 
             R.id.action_donate -> {
-                nav_host_fragment.findNavController().navigate(R.id.navigation_donations)
+                val navOptions =
+                    NavOptions.Builder().setEnterAnim(R.anim.fragment_in_slide_alpha).build()
+                nav_host_fragment.findNavController()
+                    .navigate(R.id.navigation_donations, null, navOptions, null)
             }
         }
         return super.onOptionsItemSelected(item)

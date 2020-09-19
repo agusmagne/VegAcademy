@@ -50,7 +50,7 @@ class RecipesPresenter(
 
         val extras = FragmentNavigatorExtras(view to recipe.id)
         val options =
-            NavOptions.Builder().setEnterAnim(R.anim.fragment_in).setExitAnim(R.anim.fragment_out)
+            NavOptions.Builder().setEnterAnim(R.anim.fragment_in_alpha).setExitAnim(R.anim.fragment_out_slide_alpha)
                 .build()
         fragment.findNavController()
             .navigate(R.id.navigation_recipe_details, bundle, options, extras)

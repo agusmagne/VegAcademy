@@ -38,51 +38,54 @@ class RecipeSuggestionPresenter(
     private var recipeKeywords = mutableListOf<String>()
 
     fun suggestRecipe(recipe: SingleRecipe) {
-        if (recipe.title != "" && recipe.desc != "") {
-            iMainView.showProgress()
-            iMainView.makeToast(RECIPE_SUGGESTION_PROGRESS)
-
-            // clear keywords property
-            recipeKeywords = mutableListOf()
-
-            val ingredients = mutableListOf<Ingredient>()
-            for (i in 0 until ingredientsAdapter.size) {
-                val ingredientView = view.getIngredientAtPosition(i)
-                ingredientView?.let {
-                    val ingredient = ingredientView.ingredient.text.toString().trim()
-                    val amount = ingredientView.amount.text.toString().trim()
-                    ingredients.add(Ingredient(ingredient, amount))
-
-                    // create keywords from each ingredient
-                    recipeKeywords.addAll(createKeywordsListFromWord(ingredient))
-                }
-            }
-            recipe.ing = ingredients
-
-            val steps = mutableListOf<String>()
-            for (i in 0 until stepsAdapter.size) {
-                val itemView = view.getStepAtPosition(i)
-                itemView?.let {
-                    val step = itemView.single_step.text.toString().trim()
-                    steps.add(step)
-                }
-            }
-            recipe.steps = steps
-            recipe.type = view.getRecipeTypesSpinnerSelectedItem()
-
-            val titleWords = recipe.title.split(" ")
-            titleWords.forEach { recipeKeywords.addAll(createKeywordsListFromWord(it)) }
-            recipe.keywords = recipeKeywords
-
-            interactor.suggestRecipe(recipe)
-                .addOnSuccessListener {
-                    uploadPictureToFirebaseFirestore(view.getRecipeImage(), recipe.id)
-                }.addOnFailureListener {
-                    iMainView.makeToast(RECIPE_SUGGESTION_ERROR)
-                }
-        } else {
+        if (recipe.title == "" || recipe.desc == "") {
             iMainView.makeToast(RECIPE_SUGGESTION_WARNING)
+            return
         }
+
+        iMainView.showProgress()
+        iMainView.makeToast(RECIPE_SUGGESTION_PROGRESS)
+        view.makeButtonUnclickable()
+
+        // clear keywords property
+        recipeKeywords = mutableListOf()
+
+        val ingredients = mutableListOf<Ingredient>()
+        for (i in 0 until ingredientsAdapter.size) {
+            val ingredientView = view.getIngredientAtPosition(i)
+            ingredientView?.let {
+                val ingredient = ingredientView.ingredient.text.toString().trim()
+                val amount = ingredientView.amount.text.toString().trim()
+                ingredients.add(Ingredient(ingredient, amount))
+
+                // create keywords from each ingredient
+                recipeKeywords.addAll(createKeywordsListFromWord(ingredient))
+            }
+        }
+        recipe.ing = ingredients
+
+        val steps = mutableListOf<String>()
+        for (i in 0 until stepsAdapter.size) {
+            val itemView = view.getStepAtPosition(i)
+            itemView?.let {
+                val step = itemView.single_step.text.toString().trim()
+                steps.add(step)
+            }
+        }
+        recipe.steps = steps
+        recipe.type = view.getRecipeTypesSpinnerSelectedItem()
+
+        val titleWords = recipe.title.split(" ")
+        titleWords.forEach { recipeKeywords.addAll(createKeywordsListFromWord(it)) }
+        recipe.keywords = recipeKeywords
+
+        interactor.suggestRecipe(recipe)
+            .addOnSuccessListener {
+                uploadPictureToFirebaseFirestore(view.getRecipeImage(), recipe.id)
+            }.addOnFailureListener {
+                iMainView.makeToast(RECIPE_SUGGESTION_ERROR)
+            }
+
     }
 
     private fun createKeywordsListFromWord(word: String): MutableList<String> {
@@ -105,7 +108,7 @@ class RecipeSuggestionPresenter(
 
         uploadTask.addOnSuccessListener {
             iMainView.hideProgress()
-            iMainView.onBackPressed()
+            view.recipeSentConfirmation()
             iMainView.makeToast(RECIPE_SUGGESTION_SUCCESS)
 
         }.addOnFailureListener {

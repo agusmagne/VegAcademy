@@ -27,37 +27,6 @@ class LayoutUtils {
         context.startActivity(intent)
     }
 
-    fun getResizerAlphaOnTouchListener(view: View): View.OnTouchListener {
-        return object : View.OnTouchListener {
-            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                p1?.let {
-                    when (it.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            val reducer =
-                                AnimatorInflater.loadAnimator(view.context, R.animator.resize_alpha)
-                            reducer.setTarget(view)
-                            reducer.start()
-                        }
-
-                        MotionEvent.ACTION_UP -> {
-                            val reducer =
-                                AnimatorInflater.loadAnimator(view.context, R.animator.regain_alpha)
-                            reducer.setTarget(view)
-                            reducer.start()
-                        }
-                        else -> {
-                            val reducer =
-                                AnimatorInflater.loadAnimator(view.context, R.animator.regain_alpha)
-                            reducer.setTarget(view)
-                            reducer.start()
-                        }
-                    }
-                }
-                return false
-            }
-        }
-    }
-
     fun getResizerOnTouchListener(view: View): View.OnTouchListener {
         return object : View.OnTouchListener {
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {

@@ -38,10 +38,12 @@ class ElementsFragment : Fragment(), ElementsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         postponeEnterTransition()
-        val set = TransitionSet().setOrdering(TransitionSet.ORDERING_TOGETHER)
-            .addTransition(ChangeBounds()).addTransition(ChangeTransform())
-            .addTransition(ChangeImageTransform()).addTransition(ChangeClipBounds())
-        sharedElementEnterTransition = MaterialContainerTransform()
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            duration = 500
+            isElevationShadowEnabled = false
+            endElevation = 0f
+            startElevation = 0f
+        }
     }
 
     override fun onCreateView(
@@ -58,8 +60,6 @@ class ElementsFragment : Fragment(), ElementsView {
 
         lifecycleScope.launch {
             src.transitionName = cat.title + "src"
-            title.transitionName = cat.title + "title"
-//            elements_view_root.transitionName = cat.title + "back"
             Glide.with(requireContext()).load(cat.src).into(src)
             presenter?.fetchAndBuildRecyclerView(cat)
             presenter?.buildAndSetBackgroundColor(cat.src)

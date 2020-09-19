@@ -45,8 +45,7 @@ class CategoriesPresenter(
             val bundle = Bundle()
             bundle.putParcelable("category", category)
             val extras = FragmentNavigatorExtras(
-                view[0] to (category.title + "src"),
-                view[1] to (category.title + "title")
+                view[0] to (category.title + "src")
             )
             navController.navigate(R.id.navigation_element, bundle, null, extras)
         }

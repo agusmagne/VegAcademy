@@ -13,6 +13,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.recipe_suggestion.*
 class RecipeSuggestionFragment : Fragment(), RecipeSuggestionView {
 
     private var presenter: RecipeSuggestionPresenter? = null
+    private val layoutUtils = LayoutUtils()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,12 +43,15 @@ class RecipeSuggestionFragment : Fragment(), RecipeSuggestionView {
         presenter?.buildStepsRecyclerView()
         presenter?.buildSpinner()
 
+        add_ingredient_btn.setOnTouchListener(layoutUtils.getResizerOnTouchListener(add_ingredient_btn))
         add_ingredient_btn.setOnClickListener { presenter?.addIngredient() }
+
+        add_step_btn.setOnTouchListener(layoutUtils.getResizerOnTouchListener(add_step_btn))
         add_step_btn.setOnClickListener { presenter?.addStep() }
         src.setOnClickListener { presenter?.getImage() }
 
-        accept.setOnTouchListener(LayoutUtils().getResizerOnTouchListener(accept))
-        accept.setOnClickListener {
+        suggest_recipe_btn.setOnTouchListener(layoutUtils.getResizerOnTouchListener(suggest_recipe_btn))
+        suggest_recipe_btn.setOnClickListener {
             val recipe = SingleRecipe(
                 title.editableText.toString().trim(),
                 recipe_desc.editableText.toString().trim()
@@ -105,6 +110,17 @@ class RecipeSuggestionFragment : Fragment(), RecipeSuggestionView {
 
     override fun getRecipeTypesSpinnerSelectedItem(): String {
         return spinner.selectedItem.toString()
+    }
+
+    override fun makeButtonUnclickable() {
+        suggest_recipe_btn.isClickable = false
+        suggest_recipe_btn.isFocusable = false
+    }
+
+    override fun recipeSentConfirmation() {
+        TransitionManager.beginDelayedTransition(recipe_suggestion_root)
+        suggest_recipe_btn.visibility = View.INVISIBLE
+        recipe_sent_confirmation.visibility = View.VISIBLE
     }
 
 }

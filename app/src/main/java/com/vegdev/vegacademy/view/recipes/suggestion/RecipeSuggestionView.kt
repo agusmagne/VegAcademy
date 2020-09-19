@@ -18,4 +18,6 @@ interface RecipeSuggestionView {
     fun buildSpinner(adapter: ArrayAdapter<String>)
     fun setPadding(padding: Int)
     fun getRecipeTypesSpinnerSelectedItem(): String
+    fun makeButtonUnclickable()
+    fun recipeSentConfirmation()
 }
