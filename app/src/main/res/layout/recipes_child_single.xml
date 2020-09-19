@@ -2,22 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_gravity="top"
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/src"
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="8dp"
         android:background="@color/blackBackground"
-        android:scaleType="centerCrop"
         android:elevation="5dp"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="3:4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:round="25dp" />
 
@@ -26,16 +24,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="8dp"
         android:elevation="5dp"
         android:fontFamily="@font/roboto"
         android:gravity="center"
-        android:textSize="@dimen/important"
         android:text="Queso de papa"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/src"
+        android:textSize="@dimen/text"
         app:layout_constraintLeft_toLeftOf="@id/src"
-        app:layout_constraintRight_toRightOf="@id/src" />
+        app:layout_constraintRight_toRightOf="@id/src"
+        app:layout_constraintTop_toBottomOf="@id/src" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

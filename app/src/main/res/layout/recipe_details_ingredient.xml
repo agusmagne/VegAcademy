@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Bananas"
         android:textColor="@color/white"
-        android:textSize="@dimen/important"
+        android:textSize="@dimen/text"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toRightOf="@id/info_icon"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="1/4 de taza"
         android:textColor="@color/white"
-        android:textSize="@dimen/important"
+        android:textSize="@dimen/text"
         app:layout_constraintLeft_toRightOf="@id/dash"
         app:layout_constraintTop_toTopOf="@id/info_ingredient" />
 

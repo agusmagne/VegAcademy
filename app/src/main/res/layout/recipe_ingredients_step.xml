@@ -27,7 +27,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="4dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/important"
+        android:textSize="@dimen/text"
         app:layout_constraintLeft_toRightOf="@id/info_step_n"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

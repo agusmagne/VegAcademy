@@ -22,6 +22,7 @@ import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.presenter.learning.elements.ElementViewHolder
 import com.vegdev.vegacademy.presenter.learning.elements.ElementsPresenter
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.element.*
 import kotlinx.coroutines.launch
@@ -66,6 +67,7 @@ class ElementsFragment : Fragment(), ElementsView {
             startPostponedEnterTransition()
         }
 
+        who.setOnTouchListener(Utils().getResizerOnTouchListener(who))
         who.setOnClickListener { presenter?.buildAndStartInstagramIntent(cat.socials) }
 
     }

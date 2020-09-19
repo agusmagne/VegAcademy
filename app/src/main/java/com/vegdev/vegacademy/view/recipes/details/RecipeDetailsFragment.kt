@@ -16,6 +16,7 @@ import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.details.RecipeDetailsPresenter
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipe_details.*
 
@@ -49,8 +50,6 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val args: RecipeDetailsFragmentArgs by navArgs()
-//        presenter?.buildRecyclerViewsAndBindRecipeInfo(args.recipe, args.src)
 
         arguments?.let {
             presenter?.buildRecyclerViewsAndBindRecipeInfo(
@@ -82,7 +81,7 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsView {
 
     override fun bindRecipe(recipe: SingleRecipe, src: Bitmap) {
         Glide.with(requireContext()).load(src).into(this.src)
-        type.text = recipe.type
+        type.text = Utils().getStringResourceByName(recipe.type, requireContext())
         recipe_desc.text = recipe.desc
         title.text = recipe.title
     }
