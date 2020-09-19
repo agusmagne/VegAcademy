@@ -15,6 +15,7 @@ import java.util.*
 
 class ParentRecipesAdapter(
     private val types: TypesRecipe,
+    private val scrollStateHolder: ScrollStateHolder,
     private val onChildRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
     private val onReturnRecipeImageLoaded: () -> Unit
 ) :
@@ -25,7 +26,7 @@ class ParentRecipesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentRecipesViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recipes_parent_single, parent, false)
-        return ParentRecipesViewHolder(itemView, { recipe, drawable, view ->
+        return ParentRecipesViewHolder(itemView, scrollStateHolder, { recipe, drawable, view ->
             onChildRecipeClick(recipe, drawable, view)
         }, {
             onReturnRecipeImageLoaded()

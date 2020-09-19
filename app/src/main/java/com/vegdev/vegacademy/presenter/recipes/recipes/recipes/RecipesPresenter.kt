@@ -13,6 +13,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ParentRecipesAdapter
+import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ScrollStateHolder
 import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.recipes.recipes.RecipesView
 
@@ -26,14 +27,15 @@ class RecipesPresenter(
 
     var parentAdapter: ParentRecipesAdapter? = null
 
-    suspend fun buildRVs() {
+    suspend fun buildRVs(scrollStateHolder: ScrollStateHolder) {
         iMainView.showProgress()
         if (parentAdapter == null) {
             val allRecipeTypes = interactor.getAllRecipeTypes()!!
             parentAdapter = ParentRecipesAdapter(
-                allRecipeTypes
+                allRecipeTypes,
+                scrollStateHolder,
                 // on child recipe click
-                , { recipe, drawable, view ->
+                { recipe, drawable, view ->
                     navigate(recipe, drawable, view)
                 }, {
                     view.startPostponedEnterTransition()
@@ -50,7 +52,8 @@ class RecipesPresenter(
 
         val extras = FragmentNavigatorExtras(view to recipe.id)
         val options =
-            NavOptions.Builder().setEnterAnim(R.anim.fragment_in_alpha).setExitAnim(R.anim.fragment_out_slide_alpha)
+            NavOptions.Builder().setEnterAnim(R.anim.fragment_in_alpha)
+                .setExitAnim(R.anim.fragment_out_slide_alpha)
                 .build()
         fragment.findNavController()
             .navigate(R.id.navigation_recipe_details, bundle, options, extras)

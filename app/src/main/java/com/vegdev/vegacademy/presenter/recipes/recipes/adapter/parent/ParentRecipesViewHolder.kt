@@ -15,9 +15,10 @@ import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 
 class ParentRecipesViewHolder(
     itemView: View,
+    private val scrollStateHolder: ScrollStateHolder,
     private val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
     private val onReturnRecipeImageLoaded: () -> Unit
-) : RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView), ScrollStateHolder.ScrollStateKeyProvider {
 
     val interactor = RecipesInteractor()
     private lateinit var adapter: SingleRecipeAdapter
@@ -45,6 +46,8 @@ class ParentRecipesViewHolder(
                 LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
             this.adapter = adapter
         }
+        scrollStateHolder.setupRecyclerView(itemView.child_recipes_rv, this)
+        scrollStateHolder.restoreScrollState(itemView.child_recipes_rv, this)
         adapter.startListening()
     }
 
@@ -109,4 +112,6 @@ class ParentRecipesViewHolder(
             ).show()
         }
     }
+
+    override fun getScrollStateKey(): String? = type
 }
