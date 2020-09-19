@@ -38,7 +38,7 @@ class WebFragment : Fragment(), WebView {
 
     override fun onDetach() {
         super.onDetach()
-        presenter?.exitWebView()
+        presenter?.exitWebFragment()
         presenter = null
     }
 
@@ -49,9 +49,4 @@ class WebFragment : Fragment(), WebView {
     override fun setWebClient(client: WebViewClient) {
         web_view.webViewClient = client
     }
-
-    override fun hideProgressBar() {
-        progress_bar.visibility = View.INVISIBLE
-    }
-
 }

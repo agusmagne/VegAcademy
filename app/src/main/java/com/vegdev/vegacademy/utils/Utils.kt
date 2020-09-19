@@ -13,10 +13,12 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import com.google.firebase.Timestamp
 import com.vegdev.vegacademy.R
+import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
-class LayoutUtils {
+class Utils {
 
     fun overrideEnterAndExitTransitions(activity: Activity) {
         activity.overridePendingTransition(R.anim.welcome_fade_in, R.anim.welcome_fade_out)
@@ -25,6 +27,21 @@ class LayoutUtils {
     fun startActivity(context: Context, activity: Any) {
         val intent = Intent(context, activity as Class<*>)
         context.startActivity(intent)
+    }
+
+    fun getDateDifference(date1: Timestamp, date2: Timestamp, timeUnit: TimeUnit) : Long {
+        val diffInMillis = date2.seconds - date1.seconds
+        return timeUnit.convert(diffInMillis, TimeUnit.SECONDS)
+    }
+
+    fun getStringResourceByName(name: String, context: Context): String {
+        return context.getString(
+            context.resources.getIdentifier(
+                name,
+                "string",
+                context.packageName
+            )
+        )
     }
 
     fun getResizerOnTouchListener(view: View): View.OnTouchListener {

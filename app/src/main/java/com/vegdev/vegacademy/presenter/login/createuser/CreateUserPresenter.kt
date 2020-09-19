@@ -7,13 +7,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.model.data.models.User
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.login.createuser.CreateUserView
 import com.vegdev.vegacademy.view.login.welcome.WelcomeActivity
 
 class CreateUserPresenter(val context: Context, val view: CreateUserView) {
 
-    private val layoutUtils = LayoutUtils()
+    private val layoutUtils = Utils()
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     fun createUserIntent(name: String, email: String, password: String, confPassword: String) {

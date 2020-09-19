@@ -82,6 +82,7 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsView {
 
     override fun bindRecipe(recipe: SingleRecipe, src: Bitmap) {
         Glide.with(requireContext()).load(src).into(this.src)
+        type.text = recipe.type
         recipe_desc.text = recipe.desc
         title.text = recipe.title
     }

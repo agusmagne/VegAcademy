@@ -41,7 +41,7 @@ class ParentRecipesViewHolder(
         this.type = type
         this.adapter = adapter
         itemView.type_txt.text = getStringResourceByName(type)
-        itemView.child_recipes_rv.apply {
+        itemView.child_recipes_rv?.apply {
             this.layoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
             this.adapter = adapter

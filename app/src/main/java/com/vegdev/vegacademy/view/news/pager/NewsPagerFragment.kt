@@ -49,7 +49,7 @@ class NewsPagerFragment(private val position: Int) : Fragment(), NewsPagerView {
 
 
     override fun buildRv(adapter: RecyclerView.Adapter<NewsViewHolder>) {
-        news_viewpager_rv.apply {
+        news_viewpager_rv?.apply {
             this.layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }

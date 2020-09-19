@@ -58,7 +58,7 @@ class RecipesFragment : Fragment(), RecipesView {
     }
 
     override fun buildRecipesParentRV(adapter: ParentRecipesAdapter) {
-        parent_recipes_rv.apply {
+        parent_recipes_rv?.apply {
             this.layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }

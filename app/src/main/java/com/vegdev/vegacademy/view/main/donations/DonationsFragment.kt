@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.donations.*
 
 class DonationsFragment : Fragment(), DonationsView {
 
-    private val layoutUtils = LayoutUtils()
+    private val layoutUtils = Utils()
 
     private val DONATE_1_URL =
         "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=227730221-4fdf84a3-5b72-4ea6-a47f-4c5b39b8e994"

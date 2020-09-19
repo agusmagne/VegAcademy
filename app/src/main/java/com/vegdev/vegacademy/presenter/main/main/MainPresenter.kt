@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.login.start.StartActivity
 import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.news.news.NewsFragment
@@ -30,7 +30,7 @@ class MainPresenter(
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private var firebaseUser: FirebaseUser? = null
-    private val layoutUtils = LayoutUtils()
+    private val layoutUtils = Utils()
 
     fun init() {
         view.hideFAB()
@@ -71,7 +71,7 @@ class MainPresenter(
             } else {
                 // it is initialized and it's open
                 if (currentYoutubeUrl == url) {
-                    LayoutUtils().createToast(context, "Ya estás reproduciendo este video")
+                    Utils().createToast(context, "Ya estás reproduciendo este video")
                     return //exits method immediately and wont reproduce again the same video
                 }
 
@@ -121,7 +121,7 @@ class MainPresenter(
         p0: YouTubePlayer.Provider?,
         p1: YouTubeInitializationResult?
     ) {
-        LayoutUtils().createToast(context, "Error al iniciar Youtube")
+        Utils().createToast(context, "Error al iniciar Youtube")
     }
 
     fun logOut() {

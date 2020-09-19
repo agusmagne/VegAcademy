@@ -58,16 +58,16 @@ class CategoriesFragment : Fragment(),
         fragment_learning_cl.visibility = View.VISIBLE
     }
 
-    override fun buildVideosRV(adapter: RecyclerView.Adapter<CategoryViewHolder>) {
-        videos_rv.apply {
+    override fun buildVideosRV(adapter: RecyclerView.Adapter<CategoryViewHolder>?) {
+        videos_rv?.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             this.adapter = adapter
         }
 
     }
 
-    override fun buildArticlesRV(adapter: RecyclerView.Adapter<CategoryViewHolder>) {
-        articles_rv.apply {
+    override fun buildArticlesRV(adapter: RecyclerView.Adapter<CategoryViewHolder>?) {
+        articles_rv?.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             this.adapter = adapter
         }

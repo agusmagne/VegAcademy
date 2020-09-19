@@ -11,7 +11,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.learning.elements.ElementsFragmentDirections
 import com.vegdev.vegacademy.view.learning.elements.ElementsView
 import com.vegdev.vegacademy.view.main.main.MainView
@@ -49,7 +49,7 @@ class ElementsPresenter(
         Glide.with(context).asBitmap().load(imageUrl).into(object : CustomTarget<Bitmap>() {
             override fun onLoadCleared(placeholder: Drawable?) {}
             override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
-                val colors = LayoutUtils().getAverageColor(bitmap)
+                val colors = Utils().getAverageColor(bitmap)
                 view.setBackgroundColor(colors, bitmap, category.socials, category.title)
             }
         })

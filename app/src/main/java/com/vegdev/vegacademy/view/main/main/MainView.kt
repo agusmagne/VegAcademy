@@ -5,11 +5,9 @@ import androidx.navigation.NavDirections
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.view.BaseView
 
-interface MainView : BaseView {
+interface MainView {
     fun showProgress()
     fun hideProgress()
-    fun showToolbar()
-    fun hideToolbar()
     fun onVideoClicked(url: String)
     fun showFAB()
     fun hideFAB()
@@ -22,9 +20,8 @@ interface MainView : BaseView {
     fun navigateToDirection(direction: NavDirections)
     fun getUserInfo(): User?
     fun setUserInfo(userInfo: User?)
-    fun onFilterByTitleUpdate()
     fun makeToast(message: String)
-    fun showRecipesSearchBar()
-    fun hideRecipesSearchBar()
     fun onBackPressed()
+    fun showWebProgressbar()
+    fun hideWebProgressbar()
 }

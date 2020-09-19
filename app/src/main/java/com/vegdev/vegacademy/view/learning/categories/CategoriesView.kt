@@ -6,7 +6,7 @@ import com.vegdev.vegacademy.view.BaseView
 
 interface CategoriesView : BaseView {
 
-    fun buildVideosRV(adapter: RecyclerView.Adapter<CategoryViewHolder>)
-    fun buildArticlesRV(adapter: RecyclerView.Adapter<CategoryViewHolder>)
+    fun buildVideosRV(adapter: RecyclerView.Adapter<CategoryViewHolder>?)
+    fun buildArticlesRV(adapter: RecyclerView.Adapter<CategoryViewHolder>?)
 
 }

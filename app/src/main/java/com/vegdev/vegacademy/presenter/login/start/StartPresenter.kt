@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.login.createuser.CreateUserActivity
 import com.vegdev.vegacademy.view.login.login.LoginActivity
 import com.vegdev.vegacademy.view.login.start.StartView
@@ -19,7 +19,7 @@ class StartPresenter(val context: Context, val activity: Activity, val view: Sta
 
     private val RC_SIGN_IN = 1
     private val firebaseUser = FirebaseAuth.getInstance().currentUser
-    private val layoutUtils = LayoutUtils()
+    private val layoutUtils = Utils()
 
     fun createFacebookLoginIntent() {
         val providers = arrayListOf(AuthUI.IdpConfig.FacebookBuilder().build())

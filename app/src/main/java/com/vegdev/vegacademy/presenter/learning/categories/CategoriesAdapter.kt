@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.Category
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.categories_single.view.*
 
 class CategoriesAdapter(
@@ -29,7 +29,7 @@ class CategoriesAdapter(
         holder.itemView.src.transitionName = category.title + "src"
         holder.itemView.title.transitionName = category.title + "title"
         holder.itemView.transitionName = category.title + "back"
-        holder.itemView.setOnTouchListener(LayoutUtils().getResizerOnTouchListener(holder.itemView))
+        holder.itemView.setOnTouchListener(Utils().getResizerOnTouchListener(holder.itemView))
         holder.itemView.setOnClickListener {
             clickListener(
                 category,

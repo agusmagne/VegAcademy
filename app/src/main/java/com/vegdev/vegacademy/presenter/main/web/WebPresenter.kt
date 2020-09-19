@@ -12,21 +12,23 @@ class WebPresenter(
     private fun buildAndSetWebViewClient(): WebViewClient {
         return object : WebViewClient() {
             override fun onPageFinished(webView: WebView?, url: String?) {
-                super.onPageFinished(webView, url)
-                webView?.let { if (it.progress == 100) view.hideProgressBar() }
+                webView?.let {
+                    super.onPageFinished(it, url)
+                    if (it.progress == 100) iMainView.hideWebProgressbar()
+                }
             }
         }
     }
 
     fun loadUrl(link: String) {
-        iMainView.hideToolbar()
+        iMainView.showWebProgressbar()
+
         val client = this.buildAndSetWebViewClient()
         view.setWebClient(client)
         view.loadUrl(link)
     }
 
-    fun exitWebView() {
-        iMainView.showToolbar()
+    fun exitWebFragment() {
+        iMainView.hideWebProgressbar()
     }
-
 }

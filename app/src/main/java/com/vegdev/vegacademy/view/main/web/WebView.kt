@@ -6,6 +6,4 @@ interface WebView {
 
     fun loadUrl(url: String)
     fun setWebClient(client: WebViewClient)
-    fun hideProgressBar()
-
 }

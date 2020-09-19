@@ -47,8 +47,10 @@ class NewsFragment : Fragment(), NewsView {
     }
 
     override fun showLayout() {
-        TransitionManager.beginDelayedTransition(fragment_news)
-        news_viewPager.visibility = View.VISIBLE
+        if (fragment_news != null) {
+            TransitionManager.beginDelayedTransition(fragment_news)
+            news_viewPager.visibility = View.VISIBLE
+        }
     }
 }
 

@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.Timestamp
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.LearningElement
-import com.vegdev.vegacademy.utils.GenericUtils
+import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.element_single.view.*
 import java.util.concurrent.TimeUnit
 
@@ -39,7 +39,7 @@ class ElementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         Glide.with(itemView.context).load(learningElement.icon).into(itemView.cat)
 
         val days =
-            GenericUtils().getDateDifference(
+            Utils().getDateDifference(
                 learningElement.date,
                 Timestamp.now(),
                 TimeUnit.DAYS

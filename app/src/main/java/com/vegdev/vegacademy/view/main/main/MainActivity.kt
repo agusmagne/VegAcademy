@@ -1,12 +1,10 @@
 package com.vegdev.vegacademy.view.main.main
 
-import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewAnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,8 +22,6 @@ import com.vegdev.vegacademy.presenter.main.main.MainPresenter
 import com.vegdev.vegacademy.view.login.welcome.WelcomeActivity
 import com.vegdev.vegacademy.view.news.news.NewsFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.math.max
-
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -98,20 +94,14 @@ class MainActivity : AppCompatActivity(), MainView {
             0
         )
 
-    override fun hideLayout() {}
-    override fun showLayout() {}
-
     override fun navigateToDirection(direction: NavDirections) {
         findNavController(R.id.nav_host_fragment).navigate(direction)
     }
 
     override fun getUserInfo(): User? = userInfo
+
     override fun setUserInfo(userInfo: User?) {
         this.userInfo = userInfo
-    }
-
-    override fun onFilterByTitleUpdate() {
-        TODO("Not yet implemented")
     }
 
     override fun makeToast(message: String) {
@@ -129,6 +119,14 @@ class MainActivity : AppCompatActivity(), MainView {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun showWebProgressbar() {
+        web_progressbar.visibility = View.VISIBLE
+    }
+
+    override fun hideWebProgressbar() {
+        web_progressbar.visibility = View.INVISIBLE
     }
 
     override fun onVideoClicked(url: String) {
@@ -164,27 +162,11 @@ class MainActivity : AppCompatActivity(), MainView {
         nav_view.visibility = View.INVISIBLE
     }
 
-    override fun showRecipesSearchBar() {
-        recipes_search.visibility = View.VISIBLE
-    }
-
-    override fun hideRecipesSearchBar() {
-        recipes_search.visibility = View.INVISIBLE
-    }
-
     override fun showProgress() {
         main_progressbar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
         main_progressbar.visibility = View.INVISIBLE
-    }
-
-    override fun showToolbar() {
-        main_toolbar.visibility = View.VISIBLE
-    }
-
-    override fun hideToolbar() {
-        main_toolbar.visibility = View.INVISIBLE
     }
 }

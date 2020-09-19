@@ -20,14 +20,14 @@ import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggesti
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.suggestion.RecipeSuggestionPresenter
-import com.vegdev.vegacademy.utils.LayoutUtils
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipe_suggestion.*
 
 class RecipeSuggestionFragment : Fragment(), RecipeSuggestionView {
 
     private var presenter: RecipeSuggestionPresenter? = null
-    private val layoutUtils = LayoutUtils()
+    private val layoutUtils = Utils()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

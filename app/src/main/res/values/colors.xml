@@ -8,6 +8,7 @@
   <color name="transparent_purple">#E9E9FF</color>
   <color name="error">#FF0009</color>
   <color name="blackBackground">#262359</color>
+  <color name="darkButtons">#3A3865</color>
   <color name="nearBlack">#373378</color>
   <color name="navBarOff">#BABABA</color>
   <color name="navBarOn">@color/white</color>

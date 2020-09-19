@@ -34,8 +34,8 @@ class CategoriesPresenter(
             articlesAdapter = buildAdapter(articlesCategories)
 
         }
-        view.buildVideosRV(videosAdapter!!)
-        view.buildArticlesRV(articlesAdapter!!)
+        view.buildVideosRV(videosAdapter)
+        view.buildArticlesRV(articlesAdapter)
         iMainView.hideProgress()
 
     }
