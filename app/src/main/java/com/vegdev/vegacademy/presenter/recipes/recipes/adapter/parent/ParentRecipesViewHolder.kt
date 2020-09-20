@@ -8,13 +8,18 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
+import com.vegdev.vegacademy.contract.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.single.SingleRecipeAdapter
+import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.recipes.recipes.RecipesView
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 
 class ParentRecipesViewHolder(
     itemView: View,
+    private val iRecipesView: RecipesContract.View,
+    private val iMainView: MainView,
     private val scrollStateHolder: ScrollStateHolder,
     private val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
     private val onReturnRecipeImageLoaded: () -> Unit
@@ -27,7 +32,7 @@ class ParentRecipesViewHolder(
 
     fun createAdapter(type: Any?): SingleRecipeAdapter {
         val recipesOptions = interactor.getPaginatedRecipesFromType(type)
-        val childAdapter = SingleRecipeAdapter(recipesOptions, { recipe, drawable, view ->
+        val childAdapter = SingleRecipeAdapter(recipesOptions, iRecipesView, iMainView, { recipe, drawable, view ->
             onRecipeClick(recipe, drawable, view)
         }, {
             onReturnRecipeImageLoaded()

@@ -57,7 +57,6 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsView {
                 it.getParcelable("src")!!
             )
         }
-
     }
 
     override fun onAttach(context: Context) {

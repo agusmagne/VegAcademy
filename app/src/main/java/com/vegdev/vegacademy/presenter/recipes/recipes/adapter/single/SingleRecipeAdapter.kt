@@ -6,19 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
-import com.google.firebase.storage.FirebaseStorage
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipes_child_single.view.*
 
 class SingleRecipeAdapter(
     options: FirestorePagingOptions<SingleRecipe>,
+    iRecipesView: RecipesContract.View,
+    iMainView: MainView,
     val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
     private val onReturnedRecipeImageLoaded: () -> Unit
 ) : FirestorePagingAdapter<SingleRecipe, SingleRecipeViewHolder>(options) {
 
-    private val storage = FirebaseStorage.getInstance()
     private var detailsModel: SingleRecipe? = null
+    private val presenter = SingleRecipePresenter(iRecipesView, iMainView)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRecipeViewHolder {
@@ -31,25 +35,19 @@ class SingleRecipeAdapter(
     override fun onBindViewHolder(
         holder: SingleRecipeViewHolder,
         position: Int,
-        model: SingleRecipe
+        recipe: SingleRecipe
     ) {
+        presenter.bindRecipe(recipe, holder)
 
-        if (detailsModel?.id == model.id) {
-            holder.bindReturningRecipe(model, storage) {
-                onReturnedRecipeImageLoaded()
-            }
+        holder.itemView.likes.setOnTouchListener(Utils().getResizerOnTouchListener(holder.itemView.likes))
+        holder.itemView.likes.setOnClickListener {
+            holder.onRecipeLikesClick()
         }
 
-        val transName = holder.itemView.src.transitionName
-        holder.bindRecipe(model, storage)
-        holder.itemView.src.transitionName = model.id
-        holder.itemView.setOnClickListener {
-            detailsModel = model
-            onRecipeClick(
-                model,
-                holder.itemView.src.drawable,
-                holder.itemView.src
-            )
+        holder.itemView.src.transitionName = recipe.id
+        holder.itemView.src.setOnClickListener {
+            presenter.onSingleRecipeClick(recipe, holder.itemView.src.drawable, holder.itemView.src)
+            //holder.itemView.src.drawable must not be null
         }
     }
 }

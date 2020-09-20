@@ -6,14 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.data.models.TypesRecipe
 import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.single.SingleRecipeAdapter
+import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.view.recipes.recipes.RecipesView
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 import java.util.*
 
 
 class ParentRecipesAdapter(
+    private val iRecipesView: RecipesContract.View,
+    private val iMainView: MainView,
     private val types: TypesRecipe,
     private val scrollStateHolder: ScrollStateHolder,
     private val onChildRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
@@ -26,7 +31,7 @@ class ParentRecipesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentRecipesViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recipes_parent_single, parent, false)
-        return ParentRecipesViewHolder(itemView, scrollStateHolder, { recipe, drawable, view ->
+        return ParentRecipesViewHolder(itemView, iRecipesView, iMainView, scrollStateHolder, { recipe, drawable, view ->
             onChildRecipeClick(recipe, drawable, view)
         }, {
             onReturnRecipeImageLoaded()

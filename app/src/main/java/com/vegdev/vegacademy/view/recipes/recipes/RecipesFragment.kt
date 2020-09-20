@@ -1,6 +1,7 @@
 package com.vegdev.vegacademy.view.recipes.recipes
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.doOnPreDraw
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.RecipesContract
+import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ParentRecipesAdapter
 import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ScrollStateHolder
@@ -16,7 +19,7 @@ import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipes.*
 import kotlinx.coroutines.launch
 
-class RecipesFragment : Fragment(), RecipesView {
+class RecipesFragment : Fragment(), RecipesView, RecipesContract.View {
 
     private var presenter: RecipesPresenter? = null
     private lateinit var scrollStateHolder: ScrollStateHolder
@@ -63,4 +66,10 @@ class RecipesFragment : Fragment(), RecipesView {
             this.adapter = adapter
         }
     }
+
+    override fun openRecipeDetails(recipe: SingleRecipe, drawable: Drawable, view: View) {
+        presenter?.openRecipeDetails(recipe, drawable, view)
+    }
+
+    override fun getSelectedRecipeDrawable(): Drawable? = presenter?.getCurrentRecipeDrawable()
 }

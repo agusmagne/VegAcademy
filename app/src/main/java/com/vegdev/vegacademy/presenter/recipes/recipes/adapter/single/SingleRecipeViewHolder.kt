@@ -1,5 +1,7 @@
 package com.vegdev.vegacademy.presenter.recipes.recipes.adapter.single
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -9,24 +11,49 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.firebase.storage.FirebaseStorage
+import com.vegdev.vegacademy.contract.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import kotlinx.android.synthetic.main.recipes_child_single.view.*
 
-class SingleRecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bindRecipe(recipe: SingleRecipe, storage: FirebaseStorage) {
-        storage.getReference("recipes/recipes/").child(recipe.id).downloadUrl.addOnSuccessListener {
-            Glide.with(itemView.context).load(it).into(itemView.src)
-        }.addOnFailureListener { }
-        itemView.title.text = recipe.title
+class SingleRecipeViewHolder(
+    itemView: View
+) : RecyclerView.ViewHolder(itemView),
+    RecipesContract.View.SingleRecipeView {
+
+    fun onRecipeLikesClick() {
+        itemView.isClickable = false
+//
+//        val recipeId = recipe.id
+//        isItLiked = if (!isItLiked) {
+//            this.addLikeToView(holder.itemView.likes)
+//            holder.colorRecipeAsLiked()
+//            onLikeBtnClick(true, recipeId)
+//            likedRecipesId?.add(recipeId)
+//            true
+//        } else {
+//            this.substractLikeToView(holder.itemView.likes)
+//            holder.colorRecipeAsRegular()
+//            onLikeBtnClick(false, recipeId)
+//            likedRecipesId?.remove(recipeId)
+//            false
+//        }
+//        it.isClickable = true
     }
 
-    fun bindReturningRecipe(
-        recipe: SingleRecipe,
-        storage: FirebaseStorage,
-        onReturnedRecipeImageLoaded: () -> Unit
-    ) {
-        storage.getReference("recipes/recipes/").child(recipe.id).downloadUrl.addOnSuccessListener {
-            Glide.with(itemView.context).load(it).listener(object : RequestListener<Drawable?> {
+    override fun bindRecipe(title: String, likes: String, bitmap: Bitmap) {
+        itemView.title.text = title
+        itemView.likes.text = likes
+        Glide.with(itemView.context)
+            .load(bitmap)
+            .into(itemView.src)
+    }
+
+    override fun bindReturningRecipe(title: String, likes: String, bitmap: Bitmap?, iRecipeView: RecipesContract.View) {
+        itemView.title.text = title
+        itemView.likes.text = likes
+        Glide.with(itemView.context)
+            .load(bitmap)
+            .listener(object : RequestListener<Drawable?> {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
@@ -43,11 +70,20 @@ class SingleRecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    onReturnedRecipeImageLoaded()
+                    iRecipeView.startPostponedEnterTransition()
                     return false
                 }
-            }).into(itemView.src)
-        }.addOnFailureListener { }
-        itemView.title.text = recipe.title
+            })
+            .into(itemView.src)
     }
+
+    override fun checkRecipeAsLiked() {
+        TODO("Not yet implemented")
+    }
+
+    override fun uncheckRecipeAsLiked() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getContext(): Context = itemView.context
 }
