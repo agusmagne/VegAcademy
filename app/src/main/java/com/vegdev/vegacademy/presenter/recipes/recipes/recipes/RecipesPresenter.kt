@@ -1,6 +1,7 @@
 package com.vegdev.vegacademy.presenter.recipes.toprecipes
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
@@ -37,13 +38,8 @@ class RecipesPresenter(
                 view,
                 iMainView,
                 allRecipeTypes,
-                scrollStateHolder,
+                scrollStateHolder)
                 // on child recipe click
-                { recipe, drawable, view ->
-                    navigate(recipe, drawable, view)
-                }, {
-                    view.startPostponedEnterTransition()
-                })
         }
         view.buildRecipesParentRV(parentAdapter!!)
         iMainView.hideProgress()
@@ -79,12 +75,11 @@ class RecipesPresenter(
         return drawable
     }
 
-    fun openRecipeDetails(recipe: SingleRecipe, drawable: Drawable, view: View) {
-        this.selectedRecipeDrawable = drawable
+    fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: View) {
 
         val bundle = Bundle()
         bundle.putParcelable("recipe", recipe)
-        bundle.putParcelable("src", drawable.toBitmap())
+        bundle.putParcelable("src", bitmap)
 
         val extras = FragmentNavigatorExtras(view to recipe.id)
         val options =

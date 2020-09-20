@@ -16,12 +16,9 @@ import kotlinx.android.synthetic.main.recipes_child_single.view.*
 class SingleRecipeAdapter(
     options: FirestorePagingOptions<SingleRecipe>,
     iRecipesView: RecipesContract.View,
-    iMainView: MainView,
-    val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
-    private val onReturnedRecipeImageLoaded: () -> Unit
+    iMainView: MainView
 ) : FirestorePagingAdapter<SingleRecipe, SingleRecipeViewHolder>(options) {
 
-    private var detailsModel: SingleRecipe? = null
     private val presenter = SingleRecipePresenter(iRecipesView, iMainView)
 
 

@@ -1,6 +1,7 @@
 package com.vegdev.vegacademy.view.recipes.recipes
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
@@ -67,8 +68,8 @@ class RecipesFragment : Fragment(), RecipesView, RecipesContract.View {
         }
     }
 
-    override fun openRecipeDetails(recipe: SingleRecipe, drawable: Drawable, view: View) {
-        presenter?.openRecipeDetails(recipe, drawable, view)
+    override fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: View) {
+        presenter?.openRecipeDetails(recipe, bitmap, view)
     }
 
     override fun getSelectedRecipeDrawable(): Drawable? = presenter?.getCurrentRecipeDrawable()

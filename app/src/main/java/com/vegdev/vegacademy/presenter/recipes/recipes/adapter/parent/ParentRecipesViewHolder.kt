@@ -20,9 +20,7 @@ class ParentRecipesViewHolder(
     itemView: View,
     private val iRecipesView: RecipesContract.View,
     private val iMainView: MainView,
-    private val scrollStateHolder: ScrollStateHolder,
-    private val onRecipeClick: (SingleRecipe, Drawable, View) -> Unit,
-    private val onReturnRecipeImageLoaded: () -> Unit
+    private val scrollStateHolder: ScrollStateHolder
 ) : RecyclerView.ViewHolder(itemView), ScrollStateHolder.ScrollStateKeyProvider {
 
     val interactor = RecipesInteractor()
@@ -32,12 +30,7 @@ class ParentRecipesViewHolder(
 
     fun createAdapter(type: Any?): SingleRecipeAdapter {
         val recipesOptions = interactor.getPaginatedRecipesFromType(type)
-        val childAdapter = SingleRecipeAdapter(recipesOptions, iRecipesView, iMainView, { recipe, drawable, view ->
-            onRecipeClick(recipe, drawable, view)
-        }, {
-            onReturnRecipeImageLoaded()
-        })
-        childAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+        val childAdapter = SingleRecipeAdapter(recipesOptions, iRecipesView, iMainView)
         bindAdapter(type.toString(), childAdapter)
         return childAdapter
     }

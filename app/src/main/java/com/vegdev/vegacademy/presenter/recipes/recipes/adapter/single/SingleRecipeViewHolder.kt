@@ -3,6 +3,7 @@ package com.vegdev.vegacademy.presenter.recipes.recipes.adapter.single
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,11 +41,11 @@ class SingleRecipeViewHolder(
 //        it.isClickable = true
     }
 
-    override fun bindRecipe(title: String, likes: String, bitmap: Bitmap) {
+    override fun bindRecipe(title: String, likes: String, uri: Uri) {
         itemView.title.text = title
         itemView.likes.text = likes
         Glide.with(itemView.context)
-            .load(bitmap)
+            .load(uri)
             .into(itemView.src)
     }
 

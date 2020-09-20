@@ -4,9 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.graphics.drawable.toBitmap
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.google.firebase.storage.FirebaseStorage
 import com.vegdev.vegacademy.contract.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
@@ -20,6 +17,7 @@ class SingleRecipePresenter(
     private val firebaseStorage =
         FirebaseStorage.getInstance()
 
+    private var selectedBitmap: Bitmap? = null
     private var selectedRecipe: SingleRecipe? = null
 
     fun bindRecipe(recipe: SingleRecipe, iHolder: RecipesContract.View.SingleRecipeView) {
@@ -30,7 +28,7 @@ class SingleRecipePresenter(
             iHolder.bindReturningRecipe(
                 title,
                 likes,
-                iRecipesView.getSelectedRecipeDrawable()?.toBitmap(),
+                selectedBitmap,
                 iRecipesView
             )
         } else {
@@ -49,18 +47,7 @@ class SingleRecipePresenter(
             .child(recipeId)
             .downloadUrl
             .addOnSuccessListener {
-                Glide.with(iHolder.getContext())
-                    .asBitmap()
-                    .load(it)
-                    .into(object : CustomTarget<Bitmap>() {
-                        override fun onLoadCleared(placeholder: Drawable?) {}
-                        override fun onResourceReady(
-                            bitmap: Bitmap,
-                            transition: Transition<in Bitmap>?
-                        ) {
-                            iHolder.bindRecipe(title, likes, bitmap)
-                        }
-                    })
+                iHolder.bindRecipe(title, likes, it)
             }.addOnFailureListener {
                 iMainView.makeToast("Error al cargar imagen de la receta $title")
             }
@@ -68,6 +55,7 @@ class SingleRecipePresenter(
 
     fun onSingleRecipeClick(recipe: SingleRecipe, drawable: Drawable, view: View) {
         this.selectedRecipe = recipe
-        iRecipesView.openRecipeDetails(recipe, drawable, view)
+        this.selectedBitmap = drawable.toBitmap()
+        iRecipesView.openRecipeDetails(recipe, this.selectedBitmap, view)
     }
 }
