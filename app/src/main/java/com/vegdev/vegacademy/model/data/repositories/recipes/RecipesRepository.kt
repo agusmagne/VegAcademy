@@ -1,5 +1,6 @@
 package com.vegdev.vegacademy.model.data.repositories.recipes
 
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
@@ -18,8 +19,8 @@ class RecipesRepository : IRecipesRepository {
 
     val firestore = Firebase.firestore
 
-    override fun getRecipesQuery(type: Any?): CollectionReference =
-        firestore.document(RECIPES_DOCREF).collection(type.toString())
+    override fun getRecipesQuery(type: Any?): Query =
+        firestore.document(RECIPES_DOCREF).collection(type.toString()).orderBy("likes", Query.Direction.DESCENDING)
 
     override fun addLike(recipeId: String, type: String) {
         firestore.document(RECIPES_DOCREF).collection(type).document(recipeId)
@@ -27,17 +28,17 @@ class RecipesRepository : IRecipesRepository {
     }
 
     override fun substractLike(recipeId: String, type: String) {
-        firestore.collection(RECIPES_DOCREF).document(recipeId)
-            .update(LIKES_FIELD, FieldValue.increment(1), FieldValue.increment(-1))
+        firestore.document(RECIPES_DOCREF).collection(type).document(recipeId)
+            .update(LIKES_FIELD, FieldValue.increment(-1))
     }
 
-    override fun likedRecipesIdPush(userId: String, recipeId: String) {
-        firestore.collection(USERS_COLLECTION).document(userId)
+    override fun likedRecipesIdPush(userId: String, recipeId: String): Task<Void> {
+        return firestore.collection(USERS_COLLECTION).document(userId)
             .update(LIKED_RECIPES_ID_FIELD, FieldValue.arrayUnion(recipeId))
     }
 
-    override fun likedRecipesIdRemove(userId: String, recipeId: String) {
-        firestore.collection(USERS_COLLECTION).document(userId)
+    override fun likedRecipesIdRemove(userId: String, recipeId: String): Task<Void> {
+        return firestore.collection(USERS_COLLECTION).document(userId)
             .update(LIKED_RECIPES_ID_FIELD, FieldValue.arrayRemove(recipeId))
     }
 

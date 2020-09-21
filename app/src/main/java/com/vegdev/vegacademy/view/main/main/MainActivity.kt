@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    private var userInfo: User? = null
+    private lateinit var userInfo: User
     private var presenter = MainPresenter(this, supportFragmentManager, this, MainInteractor())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,9 +98,9 @@ class MainActivity : AppCompatActivity(), MainView {
         findNavController(R.id.nav_host_fragment).navigate(direction)
     }
 
-    override fun getUserInfo(): User? = userInfo
+    override fun getUserInfo(): User = userInfo
 
-    override fun setUserInfo(userInfo: User?) {
+    override fun setUserInfo(userInfo: User) {
         this.userInfo = userInfo
     }
 

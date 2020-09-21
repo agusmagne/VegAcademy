@@ -40,10 +40,12 @@ class MainPresenter(
         YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
 
         firebaseUser = interactor.getFirebaseUser()
-        firebaseUser?.let {
-            interactor.getUserInfo(it.uid).addOnSuccessListener { userSnapshot ->
-                view.setUserInfo(userSnapshot.toObject(User::class.java))
-
+        firebaseUser?.let { firebaseUser ->
+            interactor.getUserInfo(firebaseUser.uid).addOnSuccessListener { userSnapshot ->
+                val user = userSnapshot.toObject(User::class.java)
+                user?.let {
+                    view.setUserInfo(it)
+                }
                 val newsView = view.getCurrentFragment() as NewsFragment
                 newsView.showLayout()
                 view.showNavView()

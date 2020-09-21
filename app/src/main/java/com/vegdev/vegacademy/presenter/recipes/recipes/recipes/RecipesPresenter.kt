@@ -11,13 +11,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.contract.RecipesContract
+import com.vegdev.vegacademy.contract.recipes.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
-import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ParentRecipesAdapter
-import com.vegdev.vegacademy.presenter.recipes.recipes.adapter.parent.ScrollStateHolder
+import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
+import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ScrollStateHolder
 import com.vegdev.vegacademy.view.main.main.MainView
-import com.vegdev.vegacademy.view.recipes.recipes.RecipesView
 
 class RecipesPresenter(
     private val context: Context,

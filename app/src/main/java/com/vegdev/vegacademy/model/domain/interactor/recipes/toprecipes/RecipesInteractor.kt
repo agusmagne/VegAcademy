@@ -2,6 +2,8 @@ package com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes
 
 import androidx.paging.PagedList
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.data.models.TypesRecipe
@@ -26,6 +28,20 @@ class RecipesInteractor {
     ): FirestorePagingOptions<SingleRecipe> {
         val query = repository.getFilteredRecipesQueryFromType(string.split(" "), type)
         return buildFirestorePagingOptions(query)
+    }
+
+    fun addOrSubstractLikeFromFirestore(shouldAdd: Boolean, recipe: SingleRecipe): Task<Void>? {
+        FirebaseAuth.getInstance().currentUser?.let { user ->
+            // adds/remove like to recipe document & adds/remove recipe from user favorites recipes
+            return if (shouldAdd) {
+                repository.addLike(recipe.id, recipe.type)
+                repository.likedRecipesIdPush(user.uid, recipe.id)
+            } else {
+                repository.substractLike(recipe.id, recipe.type)
+                repository.likedRecipesIdRemove(user.uid, recipe.id)
+            }
+        }
+        return null
     }
 
     private fun buildFirestorePagingOptions(query: Query): FirestorePagingOptions<SingleRecipe> {

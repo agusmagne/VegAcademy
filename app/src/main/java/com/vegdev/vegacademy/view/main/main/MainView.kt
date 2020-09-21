@@ -18,8 +18,8 @@ interface MainView {
     fun hideNavView()
     fun getCurrentFragment(): Fragment?
     fun navigateToDirection(direction: NavDirections)
-    fun getUserInfo(): User?
-    fun setUserInfo(userInfo: User?)
+    fun getUserInfo(): User
+    fun setUserInfo(userInfo: User)
     fun makeToast(message: String)
     fun onBackPressed()
     fun showWebProgressbar()
