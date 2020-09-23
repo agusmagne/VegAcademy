@@ -18,7 +18,6 @@ class SingleRecipeAdapter(
 
     private val presenter = SingleRecipePresenter(iRecipesView)
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRecipeViewHolder {
         val itemView =
             LayoutInflater.from(parent.context)

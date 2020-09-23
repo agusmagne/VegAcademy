@@ -15,6 +15,7 @@ object UserDataHolder {
 
     suspend fun getUserData(): User? {
         return if (!initialized) {
+            initialized = true
             val user = fetchUser()
             user?.let {
                 firstName = it.firstName
@@ -22,7 +23,6 @@ object UserDataHolder {
                 likedRecipesId = it.likedRecipesId
             }
             user
-
         } else {
             User(firstName, lastName, likedRecipesId)
         }

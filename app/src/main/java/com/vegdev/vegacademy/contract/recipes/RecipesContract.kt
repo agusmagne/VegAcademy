@@ -9,7 +9,6 @@ interface RecipesContract {
 
     interface View {
 
-        fun getSelectedRecipeDrawable(): Drawable?
         fun startPostponedEnterTransition()
         fun buildRecipesParentRV(parentAdapter: ParentRecipesAdapter)
         fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: android.view.View)

@@ -15,7 +15,7 @@ import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ScrollStateHolder
-import com.vegdev.vegacademy.presenter.recipes.toprecipes.RecipesPresenter
+import com.vegdev.vegacademy.presenter.recipes.recipes.recipes.RecipesPresenter
 import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipes.*
 import kotlinx.coroutines.launch
@@ -58,7 +58,7 @@ class RecipesFragment : Fragment(), RecipesView, RecipesContract.View {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is MainView) presenter =
-            RecipesPresenter(context, this, this, context, RecipesInteractor())
+            RecipesPresenter(this, context, RecipesInteractor())
     }
 
     override fun buildRecipesParentRV(adapter: ParentRecipesAdapter) {
@@ -71,6 +71,4 @@ class RecipesFragment : Fragment(), RecipesView, RecipesContract.View {
     override fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: View) {
         presenter?.openRecipeDetails(recipe, bitmap, view)
     }
-
-    override fun getSelectedRecipeDrawable(): Drawable? = presenter?.getCurrentRecipeDrawable()
 }

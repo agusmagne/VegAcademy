@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -131,6 +132,15 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun hideWebProgressbar() {
         web_progressbar.visibility = View.INVISIBLE
+    }
+
+    override fun navigateWithOptions(
+        navigationId: Int,
+        bundle: Bundle,
+        options: NavOptions,
+        extras: FragmentNavigator.Extras
+    ) {
+        findNavController(R.id.nav_host_fragment).navigate(navigationId, bundle, options, extras)
     }
 
     override fun onVideoClicked(url: String) {
