@@ -10,6 +10,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
 import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
 import com.vegdev.vegacademy.utils.Utils
@@ -32,10 +33,12 @@ class MainPresenter(
     private var firebaseUser: FirebaseUser? = null
     private val layoutUtils = Utils()
 
-    fun init() {
+    suspend fun init() {
         view.hideFAB()
         view.showProgress()
         view.hideNavView()
+
+        UserDataHolder.getUserData()
 
         YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
 

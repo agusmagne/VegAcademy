@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -36,7 +37,10 @@ class MainActivity : AppCompatActivity(), MainView {
         nav_view.setupWithNavController(navController)
         nav_view.setOnNavigationItemReselectedListener {}
 
-        presenter.init()
+        lifecycleScope.launchWhenCreated {
+            presenter.init()
+        }
+
 
 
         setSupportActionBar(main_toolbar)

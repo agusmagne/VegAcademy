@@ -11,20 +11,20 @@ import com.bumptech.glide.request.target.Target
 import com.google.firebase.storage.FirebaseStorage
 import com.vegdev.vegacademy.contract.recipes.RecipesContract
 import com.vegdev.vegacademy.contract.recipes.SingleRecipeContract
+import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.view.main.main.MainView
 
 class SingleRecipePresenter(
-    private val iRecipesView: RecipesContract.View,
-    private val iMainView: MainView,
-    private val likedRecipes: MutableList<String>
+    private val iRecipesView: RecipesContract.View
 ) : SingleRecipeContract.Actions {
 
     private val firebaseStorage = FirebaseStorage.getInstance()
     private var selectedBitmap: Bitmap? = null
     private var selectedRecipe: SingleRecipe? = null
     private val interactor = RecipesInteractor()
+    private val likedRecipes = UserDataHolder.likedRecipesId
 
     override fun handleSingleRecipeLoading(
         recipe: SingleRecipe,

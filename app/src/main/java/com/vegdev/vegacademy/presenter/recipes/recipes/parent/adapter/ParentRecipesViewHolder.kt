@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 class ParentRecipesViewHolder(
     itemView: View,
     private val iRecipesView: RecipesContract.View,
-    private val iMainView: MainView,
     private val scrollStateHolder: ScrollStateHolder
 ) : RecyclerView.ViewHolder(itemView), ScrollStateHolder.ScrollStateKeyProvider {
 
@@ -27,7 +26,7 @@ class ParentRecipesViewHolder(
 
     fun createAdapter(type: Any?): SingleRecipeAdapter {
         val recipesOptions = interactor.getPaginatedRecipesFromType(type)
-        val childAdapter = SingleRecipeAdapter(recipesOptions, iRecipesView, iMainView)
+        val childAdapter = SingleRecipeAdapter(recipesOptions, iRecipesView)
         bindAdapter(type.toString(), childAdapter)
         return childAdapter
     }

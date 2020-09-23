@@ -13,11 +13,10 @@ import kotlinx.android.synthetic.main.recipes_child_single.view.*
 
 class SingleRecipeAdapter(
     options: FirestorePagingOptions<SingleRecipe>,
-    iRecipesView: RecipesContract.View,
-    iMainView: MainView
+    iRecipesView: RecipesContract.View
 ) : FirestorePagingAdapter<SingleRecipe, SingleRecipeViewHolder>(options) {
 
-    private val presenter = SingleRecipePresenter(iRecipesView, iMainView, iMainView.getUserInfo().likedRecipesId)
+    private val presenter = SingleRecipePresenter(iRecipesView)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRecipeViewHolder {

@@ -16,6 +16,7 @@ class RecipesRepository : IRecipesRepository {
     private val LIKED_RECIPES_ID_FIELD = "likedRecipesId"
     private val LIKES_FIELD = "likes"
     private val PATH_SUGGESTION = "recipes/recipes/" //should be recipes/suggestions
+    private val FIELD_LIKED_RECIPES_ID = "likedRecipesId"
 
     val firestore = Firebase.firestore
 

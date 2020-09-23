@@ -1,3 +1,3 @@
 package com.vegdev.vegacademy.model.data.models
 
-class User(val likedRecipesId: MutableList<String> = mutableListOf(), val recipesPatch: Int = 0)
+class User(val firstName: String = "", val lastName: String = "", val likedRecipesId: MutableList<String> = mutableListOf())

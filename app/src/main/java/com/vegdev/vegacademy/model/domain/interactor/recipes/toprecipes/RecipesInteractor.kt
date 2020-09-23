@@ -12,6 +12,7 @@ import com.vegdev.vegacademy.model.data.repositories.recipes.RecipesRepository
 class RecipesInteractor {
 
     private val repository = RecipesRepository()
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     suspend fun getAllRecipeTypes(): TypesRecipe? {
         return repository.getAllRecipeTypes()
@@ -31,7 +32,7 @@ class RecipesInteractor {
     }
 
     fun addOrSubstractLikeFromFirestore(shouldAdd: Boolean, recipe: SingleRecipe): Task<Void>? {
-        FirebaseAuth.getInstance().currentUser?.let { user ->
+        firebaseAuth.currentUser?.let { user ->
             // adds/remove like to recipe document & adds/remove recipe from user favorites recipes
             return if (shouldAdd) {
                 repository.addLike(recipe.id, recipe.type)
@@ -42,6 +43,13 @@ class RecipesInteractor {
             }
         }
         return null
+    }
+
+    fun getUserLikedRecipes(): MutableList<String> {
+        firebaseAuth.currentUser?.let {
+            val userId = it.uid
+        }
+        return mutableListOf()
     }
 
     private fun buildFirestorePagingOptions(query: Query): FirestorePagingOptions<SingleRecipe> {

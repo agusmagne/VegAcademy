@@ -12,6 +12,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.recipes.RecipesContract
+import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
@@ -30,12 +31,12 @@ class RecipesPresenter(
     private var selectedRecipeDrawable: Drawable? = null
 
     suspend fun buildRVs(scrollStateHolder: ScrollStateHolder) {
+
         iMainView.showProgress()
         if (parentAdapter == null) {
             val allRecipeTypes = interactor.getAllRecipeTypes()!!
             parentAdapter = ParentRecipesAdapter(
                 view,
-                iMainView,
                 allRecipeTypes,
                 scrollStateHolder)
                 // on child recipe click

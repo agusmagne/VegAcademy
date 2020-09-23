@@ -14,7 +14,6 @@ import java.util.*
 
 class ParentRecipesAdapter(
     private val iRecipesView: RecipesContract.View,
-    private val iMainView: MainView,
     private val types: TypesRecipe,
     private val scrollStateHolder: ScrollStateHolder
 ) :
@@ -25,7 +24,7 @@ class ParentRecipesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentRecipesViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recipes_parent_single, parent, false)
-        return ParentRecipesViewHolder(itemView, iRecipesView, iMainView, scrollStateHolder)
+        return ParentRecipesViewHolder(itemView, iRecipesView, scrollStateHolder)
     }
 
     override fun getItemCount(): Int = types.types.size
