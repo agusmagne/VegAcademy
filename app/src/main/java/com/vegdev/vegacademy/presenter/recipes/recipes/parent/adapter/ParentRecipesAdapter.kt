@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.recipes.RecipesContract
 import com.vegdev.vegacademy.model.data.models.TypesRecipe
+import com.vegdev.vegacademy.presenter.recipes.recipes.parent.ParentRecipesPresenter
 import com.vegdev.vegacademy.presenter.recipes.recipes.single.adapter.SingleRecipeAdapter
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 import java.util.*
 
@@ -20,6 +21,7 @@ class ParentRecipesAdapter(
     RecyclerView.Adapter<ParentRecipesViewHolder>() {
 
     private val adapters: MutableList<SingleRecipeAdapter> = mutableListOf()
+    private val presenter = ParentRecipesPresenter(iRecipesView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentRecipesViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -32,11 +34,11 @@ class ParentRecipesAdapter(
     override fun onBindViewHolder(holder: ParentRecipesViewHolder, position: Int) {
         val type: String = types.types[position]
 
-        if (adapters.size >= position + 1) {
-            holder.bindAdapter(type, adapters[position])
-        } else {
-            adapters.add(holder.createAdapter(type))
-        }
+        presenter.bindViewHolder(
+            type,
+            position,
+            holder
+        )
 
         holder.itemView.recipe_parent_searchbar.setOnEditorActionListener { textView, i, keyEvent ->
             holder.onParentSearchBarAction(textView.text.toString().toLowerCase(Locale.ROOT).trim())

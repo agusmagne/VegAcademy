@@ -7,34 +7,30 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
+import com.google.android.gms.common.util.Strings
+import com.vegdev.vegacademy.contract.recipes.ParentRecipeContract
 import com.vegdev.vegacademy.contract.recipes.RecipesContract
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.single.adapter.SingleRecipeAdapter
-import com.vegdev.vegacademy.view.main.main.MainView
+import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 
 class ParentRecipesViewHolder(
     itemView: View,
     private val iRecipesView: RecipesContract.View,
     private val scrollStateHolder: ScrollStateHolder
-) : RecyclerView.ViewHolder(itemView), ScrollStateHolder.ScrollStateKeyProvider {
+) : RecyclerView.ViewHolder(itemView), ScrollStateHolder.ScrollStateKeyProvider, ParentRecipeContract.View {
 
     val interactor = RecipesInteractor()
     private lateinit var adapter: SingleRecipeAdapter
     private lateinit var type: String
     private var isCurrentOptionsBasic = true
+    private val utils = Utils()
 
-    fun createAdapter(type: Any?): SingleRecipeAdapter {
-        val recipesOptions = interactor.getPaginatedRecipesFromType(type)
-        val childAdapter = SingleRecipeAdapter(recipesOptions, iRecipesView)
-        bindAdapter(type.toString(), childAdapter)
-        return childAdapter
-    }
-
-    fun bindAdapter(type: String, adapter: SingleRecipeAdapter) {
+    override fun bindViewAndBindAdapter(type: String, adapter: SingleRecipeAdapter) {
         this.type = type
         this.adapter = adapter
-        itemView.type_txt.text = getStringResourceByName(type)
+        itemView.type_txt.text = utils.getStringResourceByName(type, itemView.context)
         itemView.child_recipes_rv?.apply {
             this.layoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
@@ -45,24 +41,14 @@ class ParentRecipesViewHolder(
         adapter.startListening()
     }
 
-    private fun getStringResourceByName(name: String): String {
-        return itemView.context.getString(
-            itemView.context.resources.getIdentifier(
-                name,
-                "string",
-                itemView.context.packageName
-            )
-        )
-    }
-
-    fun showSearchBar() {
+    override fun showSearchBar() {
         TransitionManager.beginDelayedTransition(itemView.recipe_child_root)
         itemView.recipe_parent_searchbar.visibility = View.VISIBLE
         itemView.type_txt.visibility = View.INVISIBLE
         itemView.recipe_parent_search_icon.visibility = View.INVISIBLE
     }
 
-    fun hideSearchBar() {
+    override fun hideSearchBar() {
         TransitionManager.beginDelayedTransition(itemView.recipe_child_root)
         itemView.recipe_parent_searchbar.visibility = View.GONE
         itemView.recipe_parent_searchbar.editableText.clear()
@@ -75,7 +61,7 @@ class ParentRecipesViewHolder(
         }
     }
 
-    fun onTouchSearchBarIcon(): View.OnTouchListener? {
+    override fun onTouchSearchBarIcon(): View.OnTouchListener? {
         return View.OnTouchListener { v, e ->
             val DRAWABLE_LEFT = 0
             val DRAWABLE_TOP = 1
@@ -94,7 +80,7 @@ class ParentRecipesViewHolder(
     }
 
     fun onParentSearchBarAction(string: String) {
-        if (string != "") {
+        if (!Strings.isEmptyOrWhitespace(string)) {
             this.isCurrentOptionsBasic = false
             val options = interactor.getPaginatedFilteredRecipesFromType(string, type)
             adapter.updateOptions(options)

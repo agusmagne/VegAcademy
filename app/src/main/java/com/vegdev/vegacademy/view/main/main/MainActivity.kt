@@ -18,8 +18,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.transition.TransitionManager
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.model.data.models.User
-import com.vegdev.vegacademy.model.domain.interactor.main.main.MainInteractor
 import com.vegdev.vegacademy.presenter.main.main.MainPresenter
 import com.vegdev.vegacademy.view.login.welcome.WelcomeActivity
 import com.vegdev.vegacademy.view.news.news.NewsFragment
@@ -27,8 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    private lateinit var userInfo: User
-    private var presenter = MainPresenter(this, supportFragmentManager, this, MainInteractor())
+    private var presenter = MainPresenter(this, supportFragmentManager, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +39,6 @@ class MainActivity : AppCompatActivity(), MainView {
             presenter.init()
         }
 
-
-
         setSupportActionBar(main_toolbar)
         supportActionBar?.title = ""
 
@@ -51,14 +46,6 @@ class MainActivity : AppCompatActivity(), MainView {
         // set FAB click listener allowing to close youtube player interface
         fab_closeyoutube.setOnClickListener {
             presenter.closeYouTubePlayer()
-        }
-
-        // search recipes toolbar logic
-        edtxt_recipes_search.setOnEditorActionListener { textView, actionId, keyEvent ->
-            false
-        }
-
-        btn_recipe_search.setOnClickListener {
         }
     }
 
@@ -70,20 +57,16 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.action_logout -> {
                 presenter.logOut()
             }
-
             R.id.action_addrecipe -> {
                 val navOptions =
                     NavOptions.Builder().setEnterAnim(R.anim.fragment_in_slide_alpha).build()
                 nav_host_fragment.findNavController()
                     .navigate(R.id.navigation_recipe_suggestion, null, navOptions, null)
             }
-
-
             R.id.action_donate -> {
                 val navOptions =
                     NavOptions.Builder().setEnterAnim(R.anim.fragment_in_slide_alpha).build()
@@ -95,24 +78,12 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun getCurrentFragment(): Fragment? =
-        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)?.childFragmentManager?.fragments?.get(
-            0
-        )
-
-    override fun navigateToDirection(direction: NavDirections) {
-        findNavController(R.id.nav_host_fragment).navigate(direction)
-    }
-
-    override fun getUserInfo(): User = userInfo
-
-    override fun setUserInfo(userInfo: User) {
-        this.userInfo = userInfo
-    }
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)
+            ?.childFragmentManager?.fragments?.get(0)
 
     override fun makeToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
-
 
     override fun onBackPressed() {
         val currentFragment = getCurrentFragment()
@@ -126,12 +97,9 @@ class MainActivity : AppCompatActivity(), MainView {
         }
     }
 
-    override fun showWebProgressbar() {
-        web_progressbar.visibility = View.VISIBLE
-    }
 
-    override fun hideWebProgressbar() {
-        web_progressbar.visibility = View.INVISIBLE
+    override fun navigateToDirection(direction: NavDirections) {
+        findNavController(R.id.nav_host_fragment).navigate(direction)
     }
 
     override fun navigateWithOptions(
@@ -147,25 +115,18 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter.playVideo(url, fab_closeyoutube.isOrWillBeShown)
     }
 
-    override fun showFAB() {
+    override fun openYoutubePlayer(minHeight: Int) {
+        TransitionManager.beginDelayedTransition(container)
+        player_background.minHeight = minHeight
+        player.visibility = View.VISIBLE
         fab_closeyoutube.show()
     }
 
-    override fun hideFAB() {
-        fab_closeyoutube.hide()
-    }
-
-    override fun transitionBackgroundToHeight(minHeight: Int) {
+    override fun closeYoutubePlayer() {
         TransitionManager.beginDelayedTransition(container)
-        player_background.minHeight = minHeight
-    }
-
-    override fun showPlayer() {
-        player.visibility = View.VISIBLE
-    }
-
-    override fun hidePlayer() {
+        player_background.minHeight = 0
         player.visibility = View.INVISIBLE
+        fab_closeyoutube.hide()
     }
 
     override fun showNavView() {
@@ -182,5 +143,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun hideProgress() {
         main_progressbar.visibility = View.INVISIBLE
+    }
+
+    override fun showWebProgressbar() {
+        web_progressbar.visibility = View.VISIBLE
+    }
+
+    override fun hideWebProgressbar() {
+        web_progressbar.visibility = View.INVISIBLE
     }
 }

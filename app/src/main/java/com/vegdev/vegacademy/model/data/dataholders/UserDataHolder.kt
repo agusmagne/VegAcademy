@@ -9,8 +9,7 @@ object UserDataHolder {
 
     private var initialized: Boolean = false
 
-    var firstName: String = ""
-    var lastName: String = ""
+    var uesrname: String = ""
     var likedRecipesId: MutableList<String> = mutableListOf()
 
     suspend fun getUserData(): User? {
@@ -18,13 +17,12 @@ object UserDataHolder {
             initialized = true
             val user = fetchUser()
             user?.let {
-                firstName = it.firstName
-                lastName = it.lastName
+                uesrname = user.username
                 likedRecipesId = it.likedRecipesId
             }
             user
         } else {
-            User(firstName, lastName, likedRecipesId)
+            User(uesrname, likedRecipesId)
         }
     }
 
