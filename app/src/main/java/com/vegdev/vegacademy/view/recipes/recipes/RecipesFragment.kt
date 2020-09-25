@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -70,5 +71,9 @@ class RecipesFragment : Fragment(), RecipesView, RecipesContract.View {
 
     override fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: View) {
         presenter?.openRecipeDetails(recipe, bitmap, view)
+    }
+
+    override fun makeToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

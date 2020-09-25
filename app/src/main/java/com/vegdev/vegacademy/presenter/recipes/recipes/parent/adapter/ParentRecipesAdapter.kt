@@ -7,10 +7,7 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.recipes.RecipesContract
 import com.vegdev.vegacademy.model.data.models.TypesRecipe
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.ParentRecipesPresenter
-import com.vegdev.vegacademy.presenter.recipes.recipes.single.adapter.SingleRecipeAdapter
-import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
-import java.util.*
 
 
 class ParentRecipesAdapter(
@@ -20,7 +17,6 @@ class ParentRecipesAdapter(
 ) :
     RecyclerView.Adapter<ParentRecipesViewHolder>() {
 
-    private val adapters: MutableList<SingleRecipeAdapter> = mutableListOf()
     private val presenter = ParentRecipesPresenter(iRecipesView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentRecipesViewHolder {
@@ -34,26 +30,23 @@ class ParentRecipesAdapter(
     override fun onBindViewHolder(holder: ParentRecipesViewHolder, position: Int) {
         val type: String = types.types[position]
 
-        presenter.bindViewHolder(
-            type,
-            position,
-            holder
-        )
+        presenter.bindViewHolder(type, position, holder)
 
-        holder.itemView.recipe_parent_searchbar.setOnEditorActionListener { textView, i, keyEvent ->
-            holder.onParentSearchBarAction(textView.text.toString().toLowerCase(Locale.ROOT).trim())
-            false
+        holder.itemView.recipe_parent_searchbar.setOnEditorActionListener { textView, _, _ ->
+            presenter.handleSearchBarAction(textView.text.toString(), type, position, holder)
         }
 
         holder.itemView.recipe_parent_searchbar.setOnTouchListener(
-            holder.onTouchSearchBarIcon()
+            presenter.onTouchSearchBarIcon(type, position, holder)
         )
 
         holder.itemView.recipe_parent_search_icon.setOnClickListener {
+            presenter.showSearchBar(holder)
             holder.showSearchBar()
         }
 
         holder.itemView.recipe_parent_close_searchbar.setOnClickListener {
+            presenter.hideSearchBar(position, holder)
             holder.hideSearchBar()
         }
 

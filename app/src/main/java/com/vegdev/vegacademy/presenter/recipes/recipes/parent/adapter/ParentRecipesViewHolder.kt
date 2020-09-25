@@ -61,37 +61,5 @@ class ParentRecipesViewHolder(
         }
     }
 
-    override fun onTouchSearchBarIcon(): View.OnTouchListener? {
-        return View.OnTouchListener { v, e ->
-            val DRAWABLE_LEFT = 0
-            val DRAWABLE_TOP = 1
-            val DRAWABLE_RIGHT = 2
-            val DRAWABLE_BOTTOM = 3
-            if (e.action == MotionEvent.ACTION_UP) {
-                if (e.rawX >= v.right - (v as EditText).compoundDrawables[DRAWABLE_RIGHT].bounds.width()
-                ) {
-                    onParentSearchBarAction(v.editableText.toString().trim())
-                    return@OnTouchListener true
-                }
-            }
-            v.performClick()
-            false
-        }
-    }
-
-    fun onParentSearchBarAction(string: String) {
-        if (!Strings.isEmptyOrWhitespace(string)) {
-            this.isCurrentOptionsBasic = false
-            val options = interactor.getPaginatedFilteredRecipesFromType(string, type)
-            adapter.updateOptions(options)
-        } else {
-            Toast.makeText(
-                itemView.context,
-                "Debes ingresar un nombre o ingrediente",
-                Toast.LENGTH_LONG
-            ).show()
-        }
-    }
-
     override fun getScrollStateKey(): String? = type
 }
