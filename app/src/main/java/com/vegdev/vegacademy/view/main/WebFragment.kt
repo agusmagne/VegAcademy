@@ -9,9 +9,9 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.main.WebContract
 import com.vegdev.vegacademy.presenter.main.WebPresenter
-import com.vegdev.vegacademy.view.main.web.WebFragmentArgs
 import kotlinx.android.synthetic.main.web.*
 
 
@@ -34,7 +34,7 @@ class WebFragment : Fragment(), WebContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is MainView) presenter = WebPresenter(this, context)
+        if (context is MainContract.View) presenter = WebPresenter(this, context)
     }
 
     override fun onDetach() {

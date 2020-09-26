@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.transition.MaterialContainerTransform
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.details.RecipeDetailsContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
@@ -61,7 +62,7 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is MainView) presenter = RecipeDetailsPresenter(this, context)
+        if (context is MainContract.View) presenter = RecipeDetailsPresenter(this, context)
     }
 
     override fun setIngredientsRecyclerViewAdapter(adapter: DetailsIngredientsAdapter) {

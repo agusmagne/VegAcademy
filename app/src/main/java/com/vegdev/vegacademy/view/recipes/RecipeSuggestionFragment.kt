@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.suggestion.RecipeSuggestionContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
@@ -62,7 +63,7 @@ class RecipeSuggestionFragment : Fragment(), RecipeSuggestionContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is MainView) presenter =
+        if (context is MainContract.View) presenter =
             RecipeSuggestionPresenter(context, this, context, this, RecipeSuggestionInteractor())
     }
 

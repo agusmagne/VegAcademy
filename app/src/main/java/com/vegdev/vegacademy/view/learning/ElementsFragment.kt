@@ -17,11 +17,11 @@ import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialContainerTransform
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.learning.ElementsContract
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.presenter.learning.elements.ElementViewHolder
 import com.vegdev.vegacademy.presenter.learning.elements.ElementsPresenter
 import com.vegdev.vegacademy.utils.Utils
-import com.vegdev.vegacademy.view.learning.elements.ElementsFragmentArgs
 import kotlinx.android.synthetic.main.element.*
 import kotlinx.coroutines.launch
 
@@ -72,7 +72,7 @@ class ElementsFragment : Fragment(), ElementsContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is MainView) presenter =
+        if (context is MainContract.View) presenter =
             ElementsPresenter(context, this, context, args.category)
     }
 

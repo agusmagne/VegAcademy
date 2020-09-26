@@ -10,15 +10,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.vegdev.vegacademy.contract.learning.ElementsContract
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.utils.Utils
-import com.vegdev.vegacademy.view.learning.elements.ElementsFragmentDirections
+import com.vegdev.vegacademy.view.learning.ElementsFragmentDirections
 
 class ElementsPresenter(
     private val context: Context,
     private val iView: ElementsContract.View,
-    private val iMainView: MainView,
+    private val iMainView: MainContract.View,
     private val category: Category
 ) : ElementsContract.Actions {
 

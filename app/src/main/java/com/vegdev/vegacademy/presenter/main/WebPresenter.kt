@@ -2,11 +2,12 @@ package com.vegdev.vegacademy.presenter.main
 
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.main.WebContract
 
 class WebPresenter(
     private val iView: WebContract.View,
-    private val iMainView: MainView
+    private val iMainView: MainContract.View
 ) : WebContract.Actions {
 
     private fun buildAndSetWebViewClient(): WebViewClient {

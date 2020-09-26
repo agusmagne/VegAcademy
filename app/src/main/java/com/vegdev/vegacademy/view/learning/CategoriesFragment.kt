@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.learning.CategoriesContract
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.presenter.learning.categories.CategoriesPresenter
 import com.vegdev.vegacademy.presenter.learning.categories.CategoryViewHolder
 import kotlinx.android.synthetic.main.categories.*
@@ -43,7 +44,7 @@ class CategoriesFragment : Fragment(), CategoriesContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is MainView) this.presenter =
+        if (context is MainContract.View) this.presenter =
             CategoriesPresenter(this, context)
     }
 

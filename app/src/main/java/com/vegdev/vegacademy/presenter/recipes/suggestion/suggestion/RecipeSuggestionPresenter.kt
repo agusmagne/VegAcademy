@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import com.google.firebase.storage.FirebaseStorage
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.suggestion.RecipeSuggestionContract
 import com.vegdev.vegacademy.model.data.models.Ingredient
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
@@ -22,7 +23,7 @@ import java.io.ByteArrayOutputStream
 class RecipeSuggestionPresenter(
     private val context: Context,
     private val fragment: Fragment,
-    private val iMainView: MainView,
+    private val iMainView: MainContract.View,
     private val iView: RecipeSuggestionContract.View,
     private val interactor: RecipeSuggestionInteractor
 ) : RecipeSuggestionContract.Actions {

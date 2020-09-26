@@ -6,6 +6,7 @@ import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
@@ -14,7 +15,7 @@ import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ScrollStat
 
 class RecipesPresenter(
     private val iView: RecipesContract.View,
-    private val iMainView: MainView,
+    private val iMainView: MainContract.View,
     private val interactor: RecipesInteractor
 ) : RecipesContract.Actions {
 

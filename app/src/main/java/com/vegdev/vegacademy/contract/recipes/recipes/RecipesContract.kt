@@ -11,7 +11,7 @@ interface RecipesContract {
     interface View {
 
         fun startPostponedEnterTransition()
-        fun buildRecipesParentRV(parentAdapter: ParentRecipesAdapter)
+        fun buildRecipesParentRV(adapter: ParentRecipesAdapter)
         fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: android.view.View)
         fun makeToast(message: String)
 
