@@ -1,37 +1,37 @@
 package com.vegdev.vegacademy.presenter.news.pager
 
-import android.content.Context
+import com.vegdev.vegacademy.contract.main.MainContract
+import com.vegdev.vegacademy.contract.news.NewsContract
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.news.NewsPagerInteractor
-import com.vegdev.vegacademy.view.main.main.MainView
 import com.vegdev.vegacademy.view.news.news.NewsFragmentDirections
-import com.vegdev.vegacademy.view.news.pager.NewsPagerView
 
 class NewsPagerPresenter(
-    val context: Context,
-    private val newsPagerView: NewsPagerView,
-    private val mainView: MainView,
-    private val interactor: NewsPagerInteractor
-) {
+    private val iNewsView: NewsContract.View,
+    private val iNewsPagerView: NewsContract.PagerView,
+    private val iMainView: MainContract.View
+) : NewsContract.PagerActions {
 
     private val POSITION_VIDEOS = 0
     private val POSITION_ARTICLES = 1
     private val PATH_VIDEOS_CATEGORIES = "learning/videos/cat/"
     private val PATH_ARTICLES_CATEGORIES = "learning/art/cat/"
+    private val interactor = NewsPagerInteractor()
 
-    suspend fun fetchNewsAndBuildRecyclerViews(position: Int) {
+
+    override suspend fun fetchNewsAndBuildRecyclerViews(position: Int) {
         if (position == POSITION_VIDEOS) {
-            newsPagerView.hideLayout()
-            mainView.showProgress()
+            iNewsView.hideLayout()
+            iMainView.showProgress()
             val newVideos = interactor.getNewVideos()
-            newsPagerView.buildRv(NewsPagerRvAdapter(newVideos, {
+            iNewsPagerView.buildRv(NewsPagerRvAdapter(newVideos, {
                 //on element click
                     video ->
-                mainView.onVideoClicked(video.link)
+                iMainView.onVideoClicked(video.link)
             }, {
                 //on category click
                     video ->
-                mainView.showProgress()
+                iMainView.showProgress()
                 val path = PATH_VIDEOS_CATEGORIES + video.cat
                 this.navigateToCategory(path)
             }))
@@ -39,12 +39,12 @@ class NewsPagerPresenter(
 
         if (position == POSITION_ARTICLES) {
             val newArticles = interactor.getNewArticles()
-            newsPagerView.buildRv(NewsPagerRvAdapter(newArticles, {
+            iNewsPagerView.buildRv(NewsPagerRvAdapter(newArticles, {
                 //on element click
                     article ->
                 val directions =
                     NewsFragmentDirections.actionNavigationNewsToNavigationWebview(article.link)
-                mainView.navigateToDirection(directions)
+                iMainView.navigateToDirection(directions)
             }, {
                 //on category click
                     article ->
@@ -52,8 +52,8 @@ class NewsPagerPresenter(
                 this.navigateToCategory(path)
             }))
 
-            mainView.hideProgress()
-            newsPagerView.showLayout()
+            iMainView.hideProgress()
+            iNewsView.showLayout()
         }
     }
 
@@ -61,7 +61,7 @@ class NewsPagerPresenter(
         interactor.getElementCategory(path).addOnSuccessListener {
             val category = it.toObject(Category::class.java)!!
             val directions = NewsFragmentDirections.actionNavigationNewsToNavigationVideos(category)
-            mainView.navigateToDirection(directions)
+            iMainView.navigateToDirection(directions)
         }
     }
 }

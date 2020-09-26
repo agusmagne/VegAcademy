@@ -1,27 +1,22 @@
 package com.vegdev.vegacademy.presenter.learning.categories
 
-import android.content.Context
 import android.os.Bundle
-import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.learning.CategoriesContract
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
-import com.vegdev.vegacademy.view.learning.categories.CategoriesView
-import com.vegdev.vegacademy.view.main.main.MainView
 
 class CategoriesPresenter(
-    private val context: Context,
-    private val view: CategoriesView,
-    private val iMainView: MainView,
-    private val navController: NavController,
-    private val interactor: CategoriesInteractor
-) {
+    private val iView: CategoriesContract.View,
+    private val iMainView: MainView
+) : CategoriesContract.Actions {
 
     var videosAdapter: CategoriesAdapter? = null
     private var articlesAdapter: CategoriesAdapter? = null
+    private val interactor = CategoriesInteractor()
 
-    suspend fun fetchAndBuildRecyclerViews() {
+    override suspend fun fetchAndBuildRecyclerViews() {
         iMainView.showProgress()
 
         if (videosAdapter == null) {
@@ -34,8 +29,8 @@ class CategoriesPresenter(
             articlesAdapter = buildAdapter(articlesCategories)
 
         }
-        view.buildVideosRV(videosAdapter)
-        view.buildArticlesRV(articlesAdapter)
+        iView.buildVideosRV(videosAdapter)
+        iView.buildArticlesRV(articlesAdapter)
         iMainView.hideProgress()
 
     }
@@ -47,7 +42,7 @@ class CategoriesPresenter(
             val extras = FragmentNavigatorExtras(
                 view[0] to (category.title + "src")
             )
-            navController.navigate(R.id.navigation_element, bundle, null, extras)
+            iMainView.navigateWithOptions(R.id.navigation_element, bundle, null, extras)
         }
     }
 

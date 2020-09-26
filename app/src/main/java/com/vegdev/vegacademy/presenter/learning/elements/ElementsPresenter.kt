@@ -9,29 +9,28 @@ import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.vegdev.vegacademy.contract.learning.ElementsContract
 import com.vegdev.vegacademy.model.data.models.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.ElementsInteractor
 import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.learning.elements.ElementsFragmentDirections
-import com.vegdev.vegacademy.view.learning.elements.ElementsView
-import com.vegdev.vegacademy.view.main.main.MainView
 
 class ElementsPresenter(
-    val context: Context,
-    private val view: ElementsView,
+    private val context: Context,
+    private val iView: ElementsContract.View,
     private val iMainView: MainView,
-    private val category: Category,
-    private val interactor: ElementsInteractor
-) {
+    private val category: Category
+) : ElementsContract.Actions {
 
-    suspend fun fetchAndBuildRecyclerView(category: Category) {
-//        view.hideLayout()
+    private val interactor = ElementsInteractor()
+
+    override suspend fun fetchAndBuildRecyclerView(category: Category) {
         iMainView.showProgress()
 
         val path = "learning/${category.type}/${category.cat}"
         val list = interactor.getElements(path)
 
-        view.buildRecyclerView(ElementsAdapter(list) {
+        iView.buildRecyclerView(ElementsAdapter(list) {
             if (category.type == "videos") {
                 iMainView.onVideoClicked(it.link)
             } else {
@@ -41,21 +40,20 @@ class ElementsPresenter(
             }
         })
 
-//        view.showLayout()
         iMainView.hideProgress()
     }
 
-    fun buildAndSetBackgroundColor(imageUrl: String) {
+    override fun buildAndSetBackgroundColor(imageUrl: String) {
         Glide.with(context).asBitmap().load(imageUrl).into(object : CustomTarget<Bitmap>() {
             override fun onLoadCleared(placeholder: Drawable?) {}
             override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
                 val colors = Utils().getAverageColor(bitmap)
-                view.setBackgroundColor(colors, bitmap, category.socials, category.title)
+                iView.setBackgroundColor(colors, bitmap, category.socials, category.title)
             }
         })
     }
 
-    fun buildAndStartInstagramIntent(instagramUrl: String) {
+    override fun buildAndStartInstagramIntent(instagramUrl: String) {
 
         val url = "http://instagram.com/_u/$instagramUrl"
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).setPackage("com.instagram.android")

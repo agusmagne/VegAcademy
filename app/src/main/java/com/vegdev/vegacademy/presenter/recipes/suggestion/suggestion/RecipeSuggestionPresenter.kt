@@ -15,7 +15,6 @@ import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggesti
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.spinner.SpinnerAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
-import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipe_suggestion_ingredient.view.*
 import kotlinx.android.synthetic.main.recipe_suggestion_step.view.*
 import java.io.ByteArrayOutputStream

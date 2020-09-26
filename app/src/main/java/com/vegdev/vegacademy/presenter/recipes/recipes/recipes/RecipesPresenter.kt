@@ -11,7 +11,6 @@ import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ScrollStateHolder
-import com.vegdev.vegacademy.view.main.main.MainView
 
 class RecipesPresenter(
     private val iView: RecipesContract.View,

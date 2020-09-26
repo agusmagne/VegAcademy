@@ -16,7 +16,6 @@ import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesI
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ScrollStateHolder
 import com.vegdev.vegacademy.presenter.recipes.recipes.recipes.RecipesPresenter
-import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipes.*
 import kotlinx.coroutines.launch
 

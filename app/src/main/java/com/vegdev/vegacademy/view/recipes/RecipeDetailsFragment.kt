@@ -18,7 +18,6 @@ import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.Detai
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.details.RecipeDetailsPresenter
 import com.vegdev.vegacademy.utils.Utils
-import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipe_details.*
 
 class RecipeDetailsFragment : Fragment(), RecipeDetailsContract.View {
