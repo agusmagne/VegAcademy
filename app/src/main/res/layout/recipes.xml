@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
     android:animateLayoutChanges="true"
-    tools:context=".view.recipes.recipes.RecipesFragment">
+    tools:context=".view.recipes.RecipesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/parent_recipes_rv"

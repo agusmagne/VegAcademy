@@ -1,14 +1,12 @@
 package com.vegdev.vegacademy.presenter.recipes.recipes.recipes
 
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.contract.recipes.RecipesContract
-import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
+import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
@@ -19,11 +17,11 @@ class RecipesPresenter(
     private val iView: RecipesContract.View,
     private val iMainView: MainView,
     private val interactor: RecipesInteractor
-) {
+) : RecipesContract.Actions {
 
     var parentAdapter: ParentRecipesAdapter? = null
 
-    suspend fun buildRVs(scrollStateHolder: ScrollStateHolder) {
+    override suspend fun buildRVs(scrollStateHolder: ScrollStateHolder) {
         iMainView.showProgress()
         if (parentAdapter == null) {
             val allRecipeTypes = interactor.getAllRecipeTypes()
@@ -35,7 +33,7 @@ class RecipesPresenter(
         iMainView.hideProgress()
     }
 
-    fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: View) {
+    override fun openRecipeDetails(recipe: SingleRecipe, bitmap: Bitmap?, view: View) {
 
         // send model and bitmap as bundle to details fragment
         val bundle = Bundle()

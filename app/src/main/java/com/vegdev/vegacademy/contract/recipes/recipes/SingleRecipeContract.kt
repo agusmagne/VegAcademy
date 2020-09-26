@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.contract.recipes
+package com.vegdev.vegacademy.contract.recipes.recipes
 
 import android.content.Context
 import android.graphics.Bitmap

@@ -1,8 +1,7 @@
-package com.vegdev.vegacademy.view.recipes.recipes
+package com.vegdev.vegacademy.view.recipes
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -11,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.contract.recipes.RecipesContract
+import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
@@ -21,7 +20,7 @@ import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipes.*
 import kotlinx.coroutines.launch
 
-class RecipesFragment : Fragment(), RecipesView, RecipesContract.View {
+class RecipesFragment : Fragment(), RecipesContract.View {
 
     private var presenter: RecipesPresenter? = null
     private lateinit var scrollStateHolder: ScrollStateHolder

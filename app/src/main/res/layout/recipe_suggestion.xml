@@ -8,7 +8,7 @@
     android:layout_marginTop="?attr/actionBarSize"
     android:background="@color/blackBackground"
     android:fitsSystemWindows="true"
-    tools:context=".view.recipes.suggestion.RecipeSuggestionFragment">
+    tools:context=".view.recipes.RecipeSuggestionFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

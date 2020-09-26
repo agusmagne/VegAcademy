@@ -4,8 +4,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import com.google.android.gms.common.util.Strings
-import com.vegdev.vegacademy.contract.recipes.ParentRecipeContract
-import com.vegdev.vegacademy.contract.recipes.RecipesContract
+import com.vegdev.vegacademy.contract.recipes.recipes.ParentRecipeContract
+import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesViewHolder
 import com.vegdev.vegacademy.presenter.recipes.recipes.single.adapter.SingleRecipeAdapter
@@ -41,9 +41,9 @@ class ParentRecipesPresenter(
         holder: ParentRecipesViewHolder
     ): Boolean {
         if (!Strings.isEmptyOrWhitespace(text)) {
-            isOptionsBasic[position] = false
             val options = interactor.getPaginatedFilteredRecipesFromType(text, type)
             adapters[position].updateOptions(options)
+            isOptionsBasic[position] = false
         } else {
             iRecipesView.makeToast("Debes ingresar un nombre o ingrediente")
         }
@@ -73,10 +73,15 @@ class ParentRecipesPresenter(
     }
 
     override fun showSearchBar(holder: ParentRecipesViewHolder) {
-
+        holder.showSearchBar()
     }
 
-    override fun hideSearchBar(position: Int, holder: ParentRecipesViewHolder) {
-
+    override fun hideSearchBar(type: String, position: Int, holder: ParentRecipesViewHolder) {
+        holder.hideSearchBar()
+        if (!isOptionsBasic[position]) {
+            val basicOptions = interactor.getPaginatedRecipesFromType(type)
+            adapters[position].updateOptions(basicOptions)
+            isOptionsBasic[position] = true
+        }
     }
 }

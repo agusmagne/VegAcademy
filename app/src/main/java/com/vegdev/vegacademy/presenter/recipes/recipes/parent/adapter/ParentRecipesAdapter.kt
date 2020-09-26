@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.contract.recipes.RecipesContract
+import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
 import com.vegdev.vegacademy.model.data.models.TypesRecipe
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.ParentRecipesPresenter
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 
 
 class ParentRecipesAdapter(
-    private val iRecipesView: RecipesContract.View,
+    iRecipesView: RecipesContract.View,
     private val types: TypesRecipe,
     private val scrollStateHolder: ScrollStateHolder
 ) :
@@ -22,7 +22,7 @@ class ParentRecipesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentRecipesViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recipes_parent_single, parent, false)
-        return ParentRecipesViewHolder(itemView, iRecipesView, scrollStateHolder)
+        return ParentRecipesViewHolder(itemView, scrollStateHolder)
     }
 
     override fun getItemCount(): Int = types.types.size
@@ -42,12 +42,10 @@ class ParentRecipesAdapter(
 
         holder.itemView.recipe_parent_search_icon.setOnClickListener {
             presenter.showSearchBar(holder)
-            holder.showSearchBar()
         }
 
         holder.itemView.recipe_parent_close_searchbar.setOnClickListener {
-            presenter.hideSearchBar(position, holder)
-            holder.hideSearchBar()
+            presenter.hideSearchBar(type, position, holder)
         }
 
     }

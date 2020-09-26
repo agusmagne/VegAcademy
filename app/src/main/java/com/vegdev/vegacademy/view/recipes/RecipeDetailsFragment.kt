@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.recipes.details
+package com.vegdev.vegacademy.view.recipes
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.transition.MaterialContainerTransform
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.recipes.details.RecipeDetailsContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
@@ -20,7 +21,7 @@ import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipe_details.*
 
-class RecipeDetailsFragment : Fragment(), RecipeDetailsView {
+class RecipeDetailsFragment : Fragment(), RecipeDetailsContract.View {
 
     private var presenter: RecipeDetailsPresenter? = null
 

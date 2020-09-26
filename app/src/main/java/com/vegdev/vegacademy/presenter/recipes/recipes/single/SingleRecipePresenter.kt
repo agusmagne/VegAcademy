@@ -9,12 +9,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.firebase.storage.FirebaseStorage
-import com.vegdev.vegacademy.contract.recipes.RecipesContract
-import com.vegdev.vegacademy.contract.recipes.SingleRecipeContract
+import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
+import com.vegdev.vegacademy.contract.recipes.recipes.SingleRecipeContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
-import com.vegdev.vegacademy.view.main.main.MainView
 
 class SingleRecipePresenter(
     private val iRecipesView: RecipesContract.View

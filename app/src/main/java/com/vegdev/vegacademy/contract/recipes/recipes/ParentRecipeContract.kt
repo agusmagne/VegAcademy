@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.contract.recipes
+package com.vegdev.vegacademy.contract.recipes.recipes
 
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesViewHolder
 import com.vegdev.vegacademy.presenter.recipes.recipes.single.adapter.SingleRecipeAdapter
@@ -25,7 +25,7 @@ interface ParentRecipeContract {
             holder: ParentRecipesViewHolder): android.view.View.OnTouchListener?
 
         fun showSearchBar(holder: ParentRecipesViewHolder)
-        fun hideSearchBar(position: Int, holder: ParentRecipesViewHolder)
+        fun hideSearchBar(type: String, position: Int, holder: ParentRecipesViewHolder)
     }
 
 }

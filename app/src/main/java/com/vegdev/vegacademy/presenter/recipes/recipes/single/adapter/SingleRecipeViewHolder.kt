@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.contract.recipes.SingleRecipeContract
+import com.vegdev.vegacademy.contract.recipes.recipes.SingleRecipeContract
 import kotlinx.android.synthetic.main.recipes_child_single.view.*
 
 class SingleRecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),

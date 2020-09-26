@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.recipes.suggestion
+package com.vegdev.vegacademy.view.recipes
 
 import android.content.Context
 import android.content.Intent
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.vegdev.vegacademy.R
+import com.vegdev.vegacademy.contract.recipes.suggestion.RecipeSuggestionContract
 import com.vegdev.vegacademy.model.data.models.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
@@ -24,7 +25,7 @@ import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.main.main.MainView
 import kotlinx.android.synthetic.main.recipe_suggestion.*
 
-class RecipeSuggestionFragment : Fragment(), RecipeSuggestionView {
+class RecipeSuggestionFragment : Fragment(), RecipeSuggestionContract.View {
 
     private var presenter: RecipeSuggestionPresenter? = null
     private val layoutUtils = Utils()
