@@ -27,6 +27,7 @@ interface MainContract {
             options: NavOptions?,
             extras: FragmentNavigator.Extras
         )
+        fun hideKeyboard()
     }
     interface Actions {
         suspend fun init()

@@ -44,6 +44,7 @@ class RecipeSuggestionPresenter(
         }
 
         iMainView.showProgress()
+        iMainView.hideKeyboard()
         iMainView.makeToast(RECIPE_SUGGESTION_PROGRESS)
         iView.makeButtonUnclickable()
 
