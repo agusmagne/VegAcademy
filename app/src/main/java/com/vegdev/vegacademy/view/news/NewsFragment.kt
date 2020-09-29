@@ -38,6 +38,7 @@ class NewsFragment : Fragment(), NewsContract.View {
     override fun showLayout() {
         viewPager?.visibility = View.VISIBLE
     }
+
 }
 
 

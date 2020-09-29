@@ -36,8 +36,8 @@ class MainPresenter(
         // calculate the height that youtube player's going to have
         YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
 
-        val newsView = iView.getCurrentFragment() as NewsFragment
-        newsView.showLayout()
+        val newsView = iView.getCurrentFragment() as NewsFragment?
+        newsView?.showLayout()
         iView.showNavView()
         iView.hideProgress()
     }

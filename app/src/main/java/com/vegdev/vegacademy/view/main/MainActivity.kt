@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private var presenter = MainPresenter(this, supportFragmentManager, this)
+    private var presenter: MainPresenter? = MainPresenter(this, supportFragmentManager, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         nav_view.setOnNavigationItemReselectedListener {}
 
         lifecycleScope.launchWhenCreated {
-            presenter.init()
+            presenter?.init()
         }
 
         setSupportActionBar(main_toolbar)
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         // set FAB click listener allowing to close youtube player interface
         fab_closeyoutube.setOnClickListener {
-            presenter.closeYouTubePlayer()
+            presenter?.closeYouTubePlayer()
         }
     }
 
@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> {
-                presenter.logOut()
+                presenter?.logOut()
+                presenter = null
             }
             R.id.action_addrecipe -> {
                 val navOptions =
@@ -81,9 +82,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun getCurrentFragment(): Fragment? =
-        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)
-            ?.childFragmentManager?.fragments?.get(0)
+    override fun getCurrentFragment(): Fragment? {
+        val fragments = supportFragmentManager.fragments.last()?.childFragmentManager?.fragments
+        fragments?.let {
+            if (it.isNotEmpty()) {
+                return it[0]
+            }
+        }
+        return null
+    }
 
     override fun makeToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
@@ -116,7 +123,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun onVideoClicked(url: String) {
-        presenter.playVideo(url, fab_closeyoutube.isOrWillBeShown)
+        presenter?.playVideo(url, fab_closeyoutube.isOrWillBeShown)
     }
 
     override fun openYoutubePlayer(minHeight: Int) {
