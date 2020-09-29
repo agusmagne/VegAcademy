@@ -1,167 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/login_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto_bold"
-        android:gravity="center"
-        android:text="Iniciar sesión"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:transitionName="login_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/start_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/login_btn"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:transitionName="login_image"
-        app:layout_constraintBottom_toBottomOf="@id/login_txt"
-        app:layout_constraintLeft_toLeftOf="@id/login_txt"
-        app:layout_constraintRight_toRightOf="@id/login_txt"
-        app:layout_constraintTop_toTopOf="@id/login_txt" />
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/logo"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ripple_logo_white"
+            android:transitionName="logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/logounsigned"
-        android:transitionName="logo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="Academia Animal"
+            android:textColor="@color/colorAccent"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="@+id/logo"
+            app:layout_constraintStart_toStartOf="@+id/logo"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Veg Academy"
-        android:textColor="@color/colorAccent"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="@+id/logo"
-        app:layout_constraintStart_toStartOf="@+id/logo"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Únete a nuestra comunidad de activistas"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/textView3"
+            app:layout_constraintStart_toStartOf="@id/textView3"
+            app:layout_constraintTop_toBottomOf="@id/textView3" />
 
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Únete a nuestra comunidad de activistas"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/fb_login_btn"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        <TextView
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto"
+            android:text="Ingresa tus datos"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/desc" />
 
-    <ImageView
-        android:id="@+id/fb_login_btn"
-        android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/fbbutton"
-        android:elevation="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/desc" />
+        <EditText
+            android:id="@+id/email_txt"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/blackroundborder40dp"
+            android:drawableEnd="@drawable/email"
+            android:fontFamily="@font/roboto"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/important"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:elevation="5dp"
-        android:src="@drawable/fblogo"
-        app:layout_constraintBottom_toBottomOf="@id/fb_login_btn"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="@+id/fb_login_btn"
-        app:layout_constraintTop_toTopOf="@id/fb_login_btn" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:background="@color/white"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="8dp"
+            android:text="Email"
+            app:layout_constraintBottom_toTopOf="@+id/email_txt"
+            app:layout_constraintLeft_toLeftOf="@id/email_txt"
+            app:layout_constraintTop_toTopOf="@id/email_txt" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:elevation="5dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Continúa con Facebook"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/fb_login_btn"
-        app:layout_constraintEnd_toEndOf="@+id/fb_login_btn"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@id/fb_login_btn" />
+        <EditText
+            android:id="@+id/password_txt"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/blackroundborder40dp"
+            android:drawableEnd="@drawable/password"
+            android:fontFamily="@font/roboto"
+            android:inputType="textPassword"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/important"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_txt" />
 
-    <ImageView
-        android:id="@+id/create_btn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/accent_round_filled"
-        android:transitionName="image_slides_down"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fb_login_btn" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:background="@color/white"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="8dp"
+            android:text="Contraseña"
+            app:layout_constraintBottom_toTopOf="@+id/password_txt"
+            app:layout_constraintLeft_toLeftOf="@id/password_txt"
+            app:layout_constraintTop_toTopOf="@id/password_txt" />
 
-    <ImageView
-        android:id="@+id/start_create_user_btn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:elevation="10dp"
-        android:background="@drawable/purpleroundborder"
-        app:layout_constraintBottom_toBottomOf="@id/create_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/create_btn" />
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/ripple_round_white"
+            android:elevation="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:stateListAnimator="@null"
+            android:text="Iniciar sesión"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text"
+            android:transitionName="login_image"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/create_btn"
+            app:layout_constraintTop_toBottomOf="@id/password_txt" />
 
-    <TextView
-        android:id="@+id/start_create_user_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:elevation="20dp"
-        android:text="@string/crear_usuario"
-        android:textColor="@color/colorAccent"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/start_create_user_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/start_create_user_btn" />
+        <Button
+            android:id="@+id/create_btn"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/ripple_round_accent"
+            android:elevation="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:stateListAnimator="@null"
+            android:text="Crear usuario"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text"
+            app:layout_constraintLeft_toRightOf="@id/login_btn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/login_btn" />
 
+        <ImageView
+            android:id="@+id/google_login_btn"
+            android:layout_width="75dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/google_login_background"
+            android:elevation="5dp"
+            android:src="@mipmap/ic_google"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/fb_login_btn"
+            app:layout_constraintTop_toBottomOf="@id/login_btn" />
 
-    <TextView
-        android:id="@+id/start_create_user_filled_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/crear_usuario"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:transitionName="text_slides_down"
-        app:layout_constraintBottom_toBottomOf="@id/create_btn"
-        app:layout_constraintLeft_toLeftOf="@id/create_btn"
-        app:layout_constraintRight_toRightOf="@id/create_btn"
-        app:layout_constraintTop_toTopOf="@id/create_btn" />
+        <ImageView
+            android:id="@+id/fb_login_btn"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/fb_login_background"
+            android:elevation="5dp"
+            android:paddingBottom="6dp"
+            android:src="@mipmap/ic_fb"
+            app:layout_constraintLeft_toRightOf="@id/google_login_btn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/google_login_btn" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.50" />
+        <ProgressBar
+            android:id="@+id/start_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/colorAccent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

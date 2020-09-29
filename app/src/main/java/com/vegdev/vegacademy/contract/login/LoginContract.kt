@@ -15,18 +15,14 @@ interface LoginContract {
             fun hideRlUnsigned()
             fun animateRlUnsigned(animation: Animation)
         }
-        interface Start {
+        interface Login {
             fun onCreateUserClickBuildAnimationOptions(): Bundle
-            fun onCreateUserClickStartAnimations(animation: Animation)
-            fun onLoginClickBuildAnimationOptions(): Bundle
-            fun changeButtonsAlpha()
+            fun showProgress()
+            fun hideProgress()
         }
         interface CreateUser {
             fun showProgressbar()
             fun hideProgressbar()
-        }
-        interface Login {
-            fun beginDelayedTransition()
         }
         interface Welcome {
             fun setText(text: String)
@@ -41,18 +37,14 @@ interface LoginContract {
         interface First {
             fun onInitAnimate()
         }
-        interface Start {
+        interface Login {
             fun createFacebookLoginIntent()
-            fun buildAnimationAndStartCreateUserActivity()
-            fun buildAnimationAndStartLoginActivity()
             fun onActivityResult(requestCode: Int, resultCode: Int)
-            fun onRestartAnimateColor()
+            fun signInIntent(email: String, password: String)
+            fun goToCreateUserActivity()
         }
         interface CreateUser {
             fun createUserIntent(name: String, email: String, password: String, confPassword: String)
-        }
-        interface Login {
-            fun signInIntent(email: String, password: String)
         }
         interface Welcome {
             fun setUserName()

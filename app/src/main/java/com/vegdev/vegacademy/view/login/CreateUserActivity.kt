@@ -6,22 +6,28 @@ import androidx.appcompat.app.AppCompatActivity
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.presenter.login.CreateUserPresenter
+import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity : AppCompatActivity(), LoginContract.View.CreateUser {
 
     private val presenter = CreateUserPresenter(this, this)
+    private val utils = Utils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
 
-        start_create_user_filled_btn.setOnClickListener {
+        logo.setOnTouchListener(utils.getResizerOnTouchListener(logo))
+        logo.setOnClickListener {  }
+
+        create_btn.setOnTouchListener(utils.getResizerOnTouchListener(create_btn))
+        create_btn.setOnClickListener {
             presenter.createUserIntent(
-                name_txt.text.toString(),
-                email_txt.text.toString(),
-                password_txt.text.toString(),
-                confpassword_txt.text.toString()
+                name_txt.text.toString().trim(),
+                email_txt.text.toString().trim(),
+                password_txt.text.toString().trim(),
+                confpassword_txt.text.toString().trim()
             )
         }
     }

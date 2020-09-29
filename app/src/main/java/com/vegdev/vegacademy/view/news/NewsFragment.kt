@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.news.NewsContract
 import com.vegdev.vegacademy.presenter.news.NewsPagerAdapter
@@ -12,12 +13,16 @@ import kotlinx.android.synthetic.main.news.*
 
 class NewsFragment : Fragment(), NewsContract.View {
 
+    private var viewPager: ViewPager? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.news, container, false)
+        val root = inflater.inflate(R.layout.news, container, false)
+        viewPager = root.findViewById(R.id.news_viewPager)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,11 +32,11 @@ class NewsFragment : Fragment(), NewsContract.View {
     }
 
     override fun hideLayout() {
-        news_viewPager.visibility = View.INVISIBLE
+        viewPager?.visibility = View.INVISIBLE
     }
 
     override fun showLayout() {
-        news_viewPager.visibility = View.VISIBLE
+        viewPager?.visibility = View.VISIBLE
     }
 }
 
