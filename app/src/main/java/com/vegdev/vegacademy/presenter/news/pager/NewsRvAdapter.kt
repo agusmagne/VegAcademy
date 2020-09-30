@@ -45,7 +45,7 @@ class NewsViewHolder(itemView: View) :
         itemView.desc.text = learningElement.desc
 
         val days =
-            Utils().getDateDifference(
+            Utils.getDateDifference(
                 learningElement.date,
                 Timestamp.now(),
                 TimeUnit.DAYS

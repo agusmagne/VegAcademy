@@ -39,7 +39,7 @@ class ElementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         Glide.with(itemView.context).load(learningElement.icon).into(itemView.cat)
 
         val days =
-            Utils().getDateDifference(
+            Utils.getDateDifference(
                 learningElement.date,
                 Timestamp.now(),
                 TimeUnit.DAYS

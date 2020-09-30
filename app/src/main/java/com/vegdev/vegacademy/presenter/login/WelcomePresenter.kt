@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.contract.login.LoginContract
+import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
+import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.main.MainActivity
 
 class WelcomePresenter(
@@ -11,11 +13,9 @@ class WelcomePresenter(
     private val iView: LoginContract.View.Welcome
 ) : LoginContract.Actions.Welcome {
 
-    private val firebaseUser = FirebaseAuth.getInstance().currentUser
-
     override fun setUserName() {
         val text =
-            "Hola, " + firebaseUser?.displayName?.split(" ", ignoreCase = true, limit = 2)?.first()
+            "Hola, " + Utils.getFirstWord(FirebaseAuth.getInstance().currentUser?.displayName)
         iView.setText(text)
     }
 

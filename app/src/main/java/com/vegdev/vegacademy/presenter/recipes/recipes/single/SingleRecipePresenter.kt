@@ -23,7 +23,7 @@ class SingleRecipePresenter(
     private var selectedBitmap: Bitmap? = null
     private var selectedRecipe: SingleRecipe? = null
     private val interactor = RecipesInteractor()
-    private val likedRecipes = UserDataHolder.likedRecipesId
+    private val likedRecipes = UserDataHolder.currentUser.likedRecipesId
 
     override fun handleSingleRecipeLoading(
         recipe: SingleRecipe,

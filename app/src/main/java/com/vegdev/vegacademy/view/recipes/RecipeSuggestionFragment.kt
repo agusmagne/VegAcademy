@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.recipe_suggestion.*
 class RecipeSuggestionFragment : Fragment(), RecipeSuggestionContract.View {
 
     private var presenter: RecipeSuggestionPresenter? = null
-    private val utils = Utils()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,15 +43,15 @@ class RecipeSuggestionFragment : Fragment(), RecipeSuggestionContract.View {
         presenter?.buildStepsRecyclerView()
         presenter?.buildSpinner()
 
-        add_ingredient_btn.setOnTouchListener(utils.getResizerOnTouchListener(add_ingredient_btn))
+        add_ingredient_btn.setOnTouchListener(Utils.getResizerOnTouchListener(add_ingredient_btn))
         add_ingredient_btn.setOnClickListener { presenter?.addIngredient() }
 
-        add_step_btn.setOnTouchListener(utils.getResizerOnTouchListener(add_step_btn))
+        add_step_btn.setOnTouchListener(Utils.getResizerOnTouchListener(add_step_btn))
         add_step_btn.setOnClickListener { presenter?.addStep() }
 
         src.setOnClickListener { presenter?.getImage() }
 
-        suggest_recipe_btn.setOnTouchListener(utils.getResizerOnTouchListener(suggest_recipe_btn))
+        suggest_recipe_btn.setOnTouchListener(Utils.getResizerOnTouchListener(suggest_recipe_btn))
         suggest_recipe_btn.setOnClickListener {
             val recipe = SingleRecipe(
                 title.editableText.toString().trim(),

@@ -65,7 +65,7 @@ class ElementsFragment : Fragment(), ElementsContract.View {
             startPostponedEnterTransition()
         }
 
-        who.setOnTouchListener(Utils().getResizerOnTouchListener(who))
+        who.setOnTouchListener(Utils.getResizerOnTouchListener(who))
         who.setOnClickListener { presenter?.buildAndStartInstagramIntent(cat.socials) }
 
     }

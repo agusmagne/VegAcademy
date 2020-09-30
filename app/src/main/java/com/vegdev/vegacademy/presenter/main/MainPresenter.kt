@@ -24,7 +24,6 @@ class MainPresenter(
     private var currentYoutubeUrl: String = ""
     private var YOUTUBE_BACKGROUND_HEIGHT = 0
 
-
     override suspend fun init() {
         iView.closeYoutubePlayer()
         iView.showProgress()
@@ -61,7 +60,7 @@ class MainPresenter(
             } else {
                 // it is initialized and it's open
                 if (currentYoutubeUrl == url) {
-                    Utils().createToast(context, "Ya estás reproduciendo este video")
+                    Utils.createToast(context, "Ya estás reproduciendo este video")
                     return //exits method immediately and wont reproduce again the same video
                 }
             }
@@ -71,6 +70,7 @@ class MainPresenter(
     }
 
     override fun logOut() {
+        UserDataHolder.resetUser()
         FirebaseAuth.getInstance().signOut()
         val intent = Intent(context, StartActivity::class.java)
         context.startActivity(intent)
@@ -93,7 +93,7 @@ class MainPresenter(
         p0: YouTubePlayer.Provider?,
         p1: YouTubeInitializationResult?
     ) {
-        Utils().createToast(context, "Error al iniciar Youtube")
+        Utils.createToast(context, "Error al iniciar Youtube")
     }
 
     private fun initializeYoutube() {

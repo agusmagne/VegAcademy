@@ -10,20 +10,18 @@ import com.vegdev.vegacademy.utils.Utils
 class SpinnerAdapter(context: Context, resource: Int, private val types: List<String>) :
     ArrayAdapter<String>(context, resource) {
 
-    private val layoutUtils = Utils()
-
     override fun getCount(): Int = types.size
     override fun getItem(position: Int): String? = types[position]
     override fun getItemId(position: Int): Long = position.toLong()
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent) as TextView
-        view.text = layoutUtils.getStringResourceByName(types[position], context)
+        view.text = Utils.getStringResourceByName(types[position], context)
         return view
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getDropDownView(position, convertView, parent) as TextView
-        view.text = layoutUtils.getStringResourceByName(types[position], context)
+        view.text = Utils.getStringResourceByName(types[position], context)
         return view
     }
 }

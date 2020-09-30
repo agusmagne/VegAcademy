@@ -48,7 +48,7 @@ class ElementsPresenter(
         Glide.with(context).asBitmap().load(imageUrl).into(object : CustomTarget<Bitmap>() {
             override fun onLoadCleared(placeholder: Drawable?) {}
             override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
-                val colors = Utils().getAverageColor(bitmap)
+                val colors = Utils.getAverageColor(bitmap)
                 iView.setBackgroundColor(colors, bitmap, category.socials, category.title)
             }
         })

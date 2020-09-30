@@ -12,16 +12,15 @@ import kotlinx.android.synthetic.main.activity_create_user.*
 class CreateUserActivity : AppCompatActivity(), LoginContract.View.CreateUser {
 
     private val presenter = CreateUserPresenter(this, this)
-    private val utils = Utils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
 
-        logo.setOnTouchListener(utils.getResizerOnTouchListener(logo))
+        logo.setOnTouchListener(Utils.getResizerOnTouchListener(logo))
         logo.setOnClickListener {  }
 
-        create_btn.setOnTouchListener(utils.getResizerOnTouchListener(create_btn))
+        create_btn.setOnTouchListener(Utils.getResizerOnTouchListener(create_btn))
         create_btn.setOnClickListener {
             presenter.createUserIntent(
                 name_txt.text.toString().trim(),

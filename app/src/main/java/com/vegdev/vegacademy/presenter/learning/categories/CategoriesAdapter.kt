@@ -29,7 +29,7 @@ class CategoriesAdapter(
         holder.itemView.src.transitionName = category.title + "src"
         holder.itemView.title.transitionName = category.title + "title"
         holder.itemView.transitionName = category.title + "back"
-        holder.itemView.setOnTouchListener(Utils().getResizerOnTouchListener(holder.itemView))
+        holder.itemView.setOnTouchListener(Utils.getResizerOnTouchListener(holder.itemView))
         holder.itemView.setOnClickListener {
             clickListener(
                 category,

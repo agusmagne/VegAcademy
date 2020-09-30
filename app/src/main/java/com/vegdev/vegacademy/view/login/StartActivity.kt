@@ -16,25 +16,24 @@ import android.util.Pair as UtilPair
 class StartActivity : AppCompatActivity(), LoginContract.View.Login {
 
     private val presenter = StartPresenter(this, this)
-    private val utils = Utils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        logo.setOnTouchListener(utils.getResizerOnTouchListener(logo))
-        logo.setOnClickListener {  }
+        logo.setOnTouchListener(Utils.getResizerOnTouchListener(logo))
+        logo.setOnClickListener { }
 
 
-        fb_login_btn.setOnTouchListener(utils.getResizerOnTouchListener(fb_login_btn))
+        fb_login_btn.setOnTouchListener(Utils.getResizerOnTouchListener(fb_login_btn))
         fb_login_btn.setOnClickListener { presenter.createFacebookLoginIntent() }
 
-        google_login_btn.setOnTouchListener(utils.getResizerOnTouchListener(google_login_btn))
+        google_login_btn.setOnTouchListener(Utils.getResizerOnTouchListener(google_login_btn))
         google_login_btn.setOnClickListener { }
 
         create_btn.setOnClickListener { presenter.goToCreateUserActivity() }
 
-        login_btn.setOnTouchListener(utils.getResizerOnTouchListener(login_btn))
+        login_btn.setOnTouchListener(Utils.getResizerOnTouchListener(login_btn))
         login_btn.setOnClickListener {
             presenter.signInIntent(
                 email_txt.text.toString().trim(),

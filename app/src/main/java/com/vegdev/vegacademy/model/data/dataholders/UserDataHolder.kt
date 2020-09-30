@@ -7,29 +7,43 @@ import kotlinx.coroutines.tasks.await
 
 object UserDataHolder {
 
-    private var initialized: Boolean = false
+    lateinit var currentUser: User
+    private var isInitialized = false
 
-    var uesrname: String = ""
-    var likedRecipesId: MutableList<String> = mutableListOf()
-
-    suspend fun getUserData(): User? {
-        return if (!initialized) {
-            initialized = true
-            val user = fetchUser()
-            user?.let {
-                uesrname = user.username
-                likedRecipesId = it.likedRecipesId
-            }
-            user
-        } else {
-            User(uesrname, likedRecipesId)
+    suspend fun getUserData(): User {
+        if (!isInitialized) {
+            isInitialized = true
+            currentUser = fetchUser()
         }
+        return currentUser
     }
 
-    private suspend fun fetchUser(): User? {
+    fun grantUserRole() {
+        currentUser.isUser = true
+    }
+
+    fun grantOrganizationRole() {
+        currentUser.isOrganization = true
+    }
+
+    fun grantAdminRole() {
+        currentUser.isAdmin = true
+    }
+
+    fun resetUser() {
+        isInitialized = false
+        currentUser = User()
+    }
+
+    private suspend fun fetchUser(): User {
         FirebaseAuth.getInstance().currentUser?.let {
             val uid = it.uid
-            return FirebaseFirestore.getInstance().collection("users").document(uid).get().await().toObject(User::class.java)
+            val user =
+                FirebaseFirestore.getInstance().collection("users").document(uid).get().await()
+                    .toObject(User::class.java)
+            user?.let {
+                return it
+            }
         }
         return User()
     }
