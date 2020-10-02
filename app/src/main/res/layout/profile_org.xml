@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.profile.ProfileOrgFragment">
+    android:layout_marginTop="?attr/actionBarSize"
+    tools:context=".view.profiles.ProfileOrgFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profile_org_root"
@@ -53,7 +54,7 @@
             android:id="@+id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="32dp"
             android:background="@color/blackBackground"
             android:fontFamily="@font/roboto"
             android:inputType="none"
@@ -91,6 +92,45 @@
             app:layout_constraintRight_toRightOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/place" />
 
+        <Button
+            android:id="@+id/members_btn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Ver miembros"
+            android:paddingHorizontal="12dp"
+            android:layout_marginTop="32dp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/roboto_bold"
+            android:elevation="5dp"
+            android:stateListAnimator="@null"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintRight_toLeftOf="@id/contact_btn"
+            android:textSize="@dimen/text"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/location_txt"
+            app:layout_constraintLeft_toLeftOf="@id/location_txt"
+            android:background="@drawable/bg_accent_corners_filled" />
+
+
+        <Button
+            android:id="@+id/contact_btn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Ver contacto"
+            android:paddingHorizontal="12dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="8dp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/roboto_bold"
+            android:elevation="5dp"
+            android:stateListAnimator="@null"
+            android:textSize="@dimen/text"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/members_btn"
+            app:layout_constraintTop_toBottomOf="@id/location_txt"
+            app:layout_constraintRight_toRightOf="@id/location_txt"
+            android:background="@drawable/bg_accent_corners_filled" />
+
 
         <Button
             android:id="@+id/action_btn"
@@ -108,7 +148,7 @@
             android:textSize="@dimen/text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/location_txt" />
+            app:layout_constraintTop_toBottomOf="@id/members_btn" />
 
 
         <Button

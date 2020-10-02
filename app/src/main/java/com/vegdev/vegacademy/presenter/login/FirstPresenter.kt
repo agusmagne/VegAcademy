@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -13,7 +12,8 @@ import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.view.login.StartActivity
 import com.vegdev.vegacademy.view.login.WelcomeActivity
 
-class FirstPresenter(val context: Context, val view: LoginContract.View.First) : LoginContract.Actions.First {
+class FirstPresenter(val context: Context, val view: LoginContract.View.First) :
+    LoginContract.Actions.First {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
 
@@ -26,14 +26,11 @@ class FirstPresenter(val context: Context, val view: LoginContract.View.First) :
             view.animateRlUnsigned(animation)
         } else {
 
-            val handler = Handler()
-            handler.postDelayed({
-                val p1 = android.util.Pair.create(view.getLogo(), "logo")
-                val options =
-                    ActivityOptions.makeSceneTransitionAnimation((context as Activity), p1)
-                val intent = Intent(context, StartActivity::class.java)
-                context.startActivity(intent, options.toBundle())
-            }, 1000)
+            val p1 = android.util.Pair.create(view.getLogo(), "logo")
+            val options =
+                ActivityOptions.makeSceneTransitionAnimation((context as Activity), p1)
+            val intent = Intent(context, StartActivity::class.java)
+            context.startActivity(intent, options.toBundle())
         }
     }
 

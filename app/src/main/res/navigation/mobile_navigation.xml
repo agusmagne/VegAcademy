@@ -121,7 +121,7 @@
 
     <fragment
         android:id="@+id/navigation_org_profile"
-        android:name="com.vegdev.vegacademy.view.profile.ProfileOrgFragment"
+        android:name="com.vegdev.vegacademy.view.profiles.ProfileOrgFragment"
         android:label="Organización"
         tools:layout="@layout/profile_org"/>
 

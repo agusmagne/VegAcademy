@@ -27,7 +27,7 @@ interface LoginContract {
             fun toCreateOrgActivity()
         }
         interface Welcome {
-            fun setText(text: String)
+            fun bindTexts(title: String, subtitle: String)
             fun onBackPressed()
         }
 
@@ -56,7 +56,7 @@ interface LoginContract {
             fun createUserIntent(name: String, email: String, password: String, confPassword: String)
         }
         interface Welcome {
-            fun setUserName()
+            suspend fun buildAndBindTexts()
             fun shouldExit(intent: Intent?)
             fun startMainActivity()
         }
