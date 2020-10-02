@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionManager
@@ -29,6 +30,8 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
     private var locationEdtxt: EditText? = null
     private var membersBtn: Button? = null
     private var contactBtn: Button? = null
+    private var membersChkBox: CheckBox? = null
+    private var contactChkBox: CheckBox? = null
 
     private var presenter: ProfileOrgPresenter? = null
 
@@ -45,6 +48,7 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         setButtonResizers()
         setClickListeners()
         setEditTexts(org.description, org.location)
+        enableDisableBtns(org.showMembers, org.showContact)
     }
 
 
@@ -79,7 +83,24 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
             org.location = it
             UserDataHolder.currentUser.organization.location = it
         }
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    override fun enableDisableBtns(showMembers: Boolean, showContact: Boolean) {
+        membersBtn?.isSelected = showMembers
+        membersChkBox?.isChecked = showMembers
+        contactBtn?.isSelected = showContact
+        contactChkBox?.isChecked = showContact
+        setViewTouchListener(membersBtn, showMembers)
+        setViewTouchListener(contactBtn, showContact)
+    }
+
+    private fun setViewTouchListener(view: View?, enableResizer: Boolean) {
+        if (!enableResizer) {
+            view?.setOnTouchListener(null)
+        } else {
+            view?.setOnTouchListener(Utils.getResizerOnTouchListener(view))
+        }
     }
 
     private fun bindViews(view: View) {
@@ -91,6 +112,8 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         locationEdtxt = view.findViewById(R.id.location_txt)
         membersBtn = view.findViewById(R.id.members_btn)
         contactBtn = view.findViewById(R.id.contact_btn)
+        membersChkBox = view.findViewById(R.id.checkbox_members)
+        contactChkBox = view.findViewById(R.id.checkbox_contact)
     }
 
     private fun changeButtonsVisibility(editMode: Boolean) {
@@ -98,11 +121,15 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
             enterEditModeBtn?.visibility = View.INVISIBLE
             cancelEditModeBtn?.visibility = View.VISIBLE
             saveEditModeBtn?.visibility = View.VISIBLE
+            membersChkBox?.visibility = View.VISIBLE
+            contactChkBox?.visibility = View.VISIBLE
 
         } else {
             enterEditModeBtn?.visibility = View.VISIBLE
             cancelEditModeBtn?.visibility = View.INVISIBLE
             saveEditModeBtn?.visibility = View.INVISIBLE
+            membersChkBox?.visibility = View.INVISIBLE
+            contactChkBox?.visibility = View.INVISIBLE
         }
     }
 
@@ -132,11 +159,13 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         }
         saveEditModeBtn?.setOnClickListener {
             presenter?.saveChanges(
+                org,
                 getTxt(descriptionEdtxt),
-                getTxt(locationEdtxt)
+                getTxt(locationEdtxt),
+                membersChkBox?.isChecked!!,
+                contactChkBox?.isChecked!!
             )
         }
-
     }
 
     private fun getTxt(editText: EditText?): String? {

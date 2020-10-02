@@ -10,16 +10,23 @@ interface ProfileOrgContract {
         fun exitEditMode()
         fun setEditTexts(description: String?, location: String?)
         fun updateOrg(description: String?, location: String?)
+        fun enableDisableBtns(showMembers: Boolean, showContact: Boolean)
     }
 
     interface Actions {
         fun discardChanges(description: String?, location: String?)
-        fun saveChanges(description: String?, location: String?)
+        fun saveChanges(
+            org: Org,
+            description: String?,
+            location: String?,
+            showMembers: Boolean,
+            showContact: Boolean
+        )
 
     }
 
     interface Data {
-        fun updateOrg(description: String?, location: String?): Task<Void>
+        fun updateOrg(org: Org): Task<Void>
     }
 
 }

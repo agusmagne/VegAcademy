@@ -4,15 +4,15 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.contract.profiles.ProfileOrgContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
+import com.vegdev.vegacademy.model.data.models.users.Org
 
 class OrgRepository : ProfileOrgContract.Data {
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    override fun updateOrg(description: String?, location: String?) : Task<Void> {
+    override fun updateOrg(org: Org) : Task<Void> {
         return firestore.collection("users").document(UserDataHolder.currentUser.id).update(mapOf(
-            "organization.description" to description,
-            "organization.location" to location
+            "organization" to org
         ))
     }
 }

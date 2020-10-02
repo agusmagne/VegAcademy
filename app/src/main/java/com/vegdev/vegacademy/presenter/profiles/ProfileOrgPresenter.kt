@@ -2,6 +2,7 @@ package com.vegdev.vegacademy.presenter.profiles
 
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.profiles.ProfileOrgContract
+import com.vegdev.vegacademy.model.data.models.users.Org
 import com.vegdev.vegacademy.model.data.repositories.users.OrgRepository
 
 class ProfileOrgPresenter(private val iView: ProfileOrgContract.View, private val iMainView: MainContract.View) : ProfileOrgContract.Actions {
@@ -18,14 +19,27 @@ class ProfileOrgPresenter(private val iView: ProfileOrgContract.View, private va
         iMainView.hideKeyboard()
     }
 
-    override fun saveChanges(description: String?, location: String?) {
+    override fun saveChanges(
+        org: Org,
+        description: String?,
+        location: String?,
+        showMembers: Boolean,
+        showContact: Boolean
+    ) {
         iMainView.hideKeyboard()
         iMainView.makeToast("Actualizando tu organización")
         iView.exitEditMode()
+
+        iView.enableDisableBtns(showMembers, showContact)
+
+        description?.let { org.description = it }
+        location?.let { org.location = it }
+        org.showMembers = showMembers
+        org.showContact = showContact
+
         iView.updateOrg(description, location)
-        repository.updateOrg(description, location).addOnSuccessListener {
+        repository.updateOrg(org).addOnSuccessListener {
             iMainView.makeToast("¡Organización actualizada!")
         }
     }
-
 }

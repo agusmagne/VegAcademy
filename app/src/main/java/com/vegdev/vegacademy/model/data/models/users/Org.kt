@@ -5,5 +5,7 @@ class Org(
     var location: String = "",
     var members: MutableList<User> = mutableListOf(),
     var videos: String = "",
-    var articles: String = ""
+    var articles: String = "",
+    var showMembers: Boolean = true,
+    var showContact: Boolean = true
 )
