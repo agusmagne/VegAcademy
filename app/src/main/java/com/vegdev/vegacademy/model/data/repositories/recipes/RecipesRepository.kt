@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vegdev.vegacademy.model.data.models.TypesRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.TypesRecipe
 import kotlinx.coroutines.tasks.await
 
 class RecipesRepository : IRecipesRepository {

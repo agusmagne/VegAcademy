@@ -2,7 +2,7 @@ package com.vegdev.vegacademy.model.data.repositories.learning.categories
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.model.data.models.learning.Category
 import kotlinx.coroutines.tasks.await
 
 class CategoriesRepositoryImpl :

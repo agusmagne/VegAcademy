@@ -1,5 +1,6 @@
 package com.vegdev.vegacademy.contract.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -23,10 +24,18 @@ interface LoginContract {
         interface CreateUser {
             fun showProgressbar()
             fun hideProgressbar()
+            fun toCreateOrgActivity()
         }
         interface Welcome {
             fun setText(text: String)
             fun onBackPressed()
+        }
+
+        interface CreateOrg {
+            fun makeToast(message: String)
+            fun startWelcomeActivity()
+            fun showProgressbar()
+            fun hideProgressbar()
         }
 
     }
@@ -50,6 +59,11 @@ interface LoginContract {
             fun setUserName()
             fun shouldExit(intent: Intent?)
             fun startMainActivity()
+        }
+
+        interface CreateOrg {
+            fun createOrgIntent(name: String, email: String, password: String, confPassword: String)
+
         }
 
 

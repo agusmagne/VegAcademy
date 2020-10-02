@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.profile.ProfileOrgFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_org_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/portrait_src"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_twotone_camera_alt_24"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/src"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_border_100dp_white"
+            android:padding="24dp"
+            android:src="@drawable/ic_twotone_camera_alt_24"
+            app:layout_constraintBottom_toBottomOf="@id/portrait_src"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="@id/portrait_src"
+            app:layout_constraintRight_toRightOf="@id/portrait_src"
+            app:layout_constraintTop_toBottomOf="@id/portrait_src"
+            app:roundPercent="1" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="64dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Coding for Animals"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            app:layout_constraintLeft_toLeftOf="@id/portrait_src"
+            app:layout_constraintRight_toRightOf="@id/portrait_src"
+            app:layout_constraintTop_toBottomOf="@id/src" />
+
+        <EditText
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/blackBackground"
+            android:fontFamily="@font/roboto"
+            android:inputType="none"
+            android:text="@string/desc_test"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text"
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintRight_toRightOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Lugar"
+            android:textColor="@color/white"
+            android:textSize="@dimen/subtitle"
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/desc" />
+
+        <EditText
+            android:id="@+id/location_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/blackBackground"
+            android:fontFamily="@font/roboto"
+            android:inputType="none"
+            android:text="Cualquiera"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text"
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintRight_toRightOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/place" />
+
+
+        <Button
+            android:id="@+id/action_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/ripple_round_white"
+            android:elevation="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:minWidth="150dp"
+            android:stateListAnimator="@null"
+            android:text="Call to action"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/location_txt" />
+
+
+        <Button
+            android:id="@+id/edit_mode_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="64dp"
+            android:background="@drawable/ripple_round_accent"
+            android:fontFamily="@font/roboto_bold"
+            android:minWidth="150dp"
+            android:paddingHorizontal="24dp"
+            android:text="Activar Modo Edición"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/action_btn" />
+
+
+        <Button
+            android:id="@+id/cancel_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ripple_round_white"
+            android:elevation="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:minWidth="150dp"
+            android:paddingHorizontal="24dp"
+            android:stateListAnimator="@null"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/save_edit_btn"
+            app:layout_constraintTop_toBottomOf="@id/action_btn" />
+
+
+        <Button
+            android:id="@+id/save_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ripple_round_accent"
+            android:elevation="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:minWidth="150dp"
+            android:paddingHorizontal="24dp"
+            android:stateListAnimator="@null"
+            android:text="Guardar"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/cancel_edit_btn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/action_btn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

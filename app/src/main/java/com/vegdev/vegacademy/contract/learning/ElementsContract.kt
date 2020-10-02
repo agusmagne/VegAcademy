@@ -2,7 +2,7 @@ package com.vegdev.vegacademy.contract.learning
 
 import android.graphics.Bitmap
 import androidx.recyclerview.widget.RecyclerView
-import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.model.data.models.learning.Category
 import com.vegdev.vegacademy.presenter.learning.elements.ElementViewHolder
 
 interface ElementsContract {

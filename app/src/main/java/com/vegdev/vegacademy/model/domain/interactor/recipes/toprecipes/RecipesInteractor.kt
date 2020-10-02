@@ -5,8 +5,8 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
-import com.vegdev.vegacademy.model.data.models.TypesRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.TypesRecipe
 import com.vegdev.vegacademy.model.data.repositories.recipes.RecipesRepository
 
 class RecipesInteractor {

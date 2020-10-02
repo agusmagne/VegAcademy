@@ -2,7 +2,7 @@ package com.vegdev.vegacademy.model.data.dataholders
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vegdev.vegacademy.model.data.models.User
+import com.vegdev.vegacademy.model.data.models.users.User
 import kotlinx.coroutines.tasks.await
 
 object UserDataHolder {
@@ -18,12 +18,17 @@ object UserDataHolder {
         return currentUser
     }
 
+    fun setUser(user: User) {
+        isInitialized = true
+        currentUser = user
+    }
+
     fun grantUserRole() {
         currentUser.isUser = true
     }
 
     fun grantOrganizationRole() {
-        currentUser.isOrganization = true
+        currentUser.isOrg = true
     }
 
     fun grantAdminRole() {

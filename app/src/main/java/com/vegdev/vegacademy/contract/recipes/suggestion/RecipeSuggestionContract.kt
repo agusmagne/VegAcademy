@@ -4,7 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ArrayAdapter
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
 

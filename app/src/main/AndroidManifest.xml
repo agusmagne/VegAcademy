@@ -17,10 +17,10 @@
         android:roundIcon="@drawable/logosignedin"
         android:supportsRtl="true"
         android:theme="@style/DarkMode">
+        <activity android:name=".view.login.CreateOrgActivity"></activity>
         <activity
-            android:name="com.vegdev.vegacademy.view.login.FirstActivity"
+            android:name=".view.login.FirstActivity"
             android:theme="@style/LoginTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,26 +28,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vegdev.vegacademy.view.login.WelcomeActivity"
+            android:name=".view.login.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WelcomeTheme" />
         <activity
-            android:name="com.vegdev.vegacademy.view.login.LoginActivity"
+            android:name=".view.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name="com.vegdev.vegacademy.view.login.CreateUserActivity"
+            android:name=".view.login.CreateUserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name="com.vegdev.vegacademy.view.login.StartActivity"
+            android:name=".view.login.StartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
             android:name=".view.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

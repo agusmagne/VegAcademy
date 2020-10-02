@@ -12,7 +12,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
 import com.vegdev.vegacademy.contract.recipes.recipes.SingleRecipeContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 
 class SingleRecipePresenter(

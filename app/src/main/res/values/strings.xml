@@ -28,6 +28,10 @@
     <string name="desserts">Dulces y postres</string>
     <string name="pizzas">Pizzas</string>
     <string name="pastas">Pastas y arroces</string>
+    <string name="organization">Organización</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="desc_test">Somos una organización compuesta por desarrolladores de software interesados en contribuir al avance de los derechos de los animales. Construimos aplicaciones web y móviles para nuestros queridos clientes al precio de coste sin perder cuidado en la calidad.</string>
 
 
 </resources>

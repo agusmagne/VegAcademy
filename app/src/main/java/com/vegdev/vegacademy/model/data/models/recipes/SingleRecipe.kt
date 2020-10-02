@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.model.data.models
+package com.vegdev.vegacademy.model.data.models.recipes
 
 import android.os.Parcel
 import android.os.Parcelable

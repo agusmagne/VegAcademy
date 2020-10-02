@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     android:isScrollContainer="true">
 
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/roboto"
-            android:text="Ingresa tus datos"
+            android:text="Únete a nuestra comunidad de activistas"
             android:textColor="@color/black"
             android:textSize="@dimen/text"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -48,7 +49,7 @@
             android:id="@+id/name_txt"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/blackroundborder40dp"
             android:drawableEnd="@drawable/person"
             android:fontFamily="@font/roboto"
@@ -164,7 +165,6 @@
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
             android:background="@drawable/ripple_round_accent"
             android:elevation="10dp"
             android:fontFamily="@font/roboto_bold"
@@ -175,10 +175,23 @@
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/text"
             android:transitionName="image_slides_down"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/confpassword_txt" />
+
+        <TextView
+            android:id="@+id/create_org_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Crear organización"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/create_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

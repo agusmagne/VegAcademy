@@ -2,7 +2,7 @@ package com.vegdev.vegacademy.presenter.news.pager
 
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.news.NewsContract
-import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.model.data.models.learning.Category
 import com.vegdev.vegacademy.model.domain.interactor.news.NewsPagerInteractor
 import com.vegdev.vegacademy.view.news.NewsFragmentDirections
 

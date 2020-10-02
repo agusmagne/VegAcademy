@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.model.data.models
+package com.vegdev.vegacademy.model.data.models.learning
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -6,8 +6,11 @@ import android.os.Parcelable
 class Category(
     var type: String = "",
     var socials: String = "",
-    var icon: String = ""
-) : Data(), Parcelable {
+    var icon: String = "",
+    var title: String = "",
+    var src: String = "",
+    var cat: String = ""
+) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

@@ -8,7 +8,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.recipes.toprecipes.RecipesInteractor
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ParentRecipesAdapter
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.adapter.ScrollStateHolder

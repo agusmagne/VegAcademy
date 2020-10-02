@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.model.domain.interactor.learning
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vegdev.vegacademy.model.data.models.LearningElement
+import com.vegdev.vegacademy.model.data.models.learning.LearningElement
 import kotlinx.coroutines.tasks.await
 
 class ElementsInteractor {

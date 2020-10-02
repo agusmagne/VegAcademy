@@ -35,47 +35,22 @@
             app:layout_constraintStart_toStartOf="@+id/logo"
             app:layout_constraintTop_toBottomOf="@+id/logo" />
 
-        <TextView
-            android:id="@+id/desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text="Únete a nuestra comunidad de activistas"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@id/textView3"
-            app:layout_constraintStart_toStartOf="@id/textView3"
-            app:layout_constraintTop_toBottomOf="@id/textView3" />
-
-        <TextView
-            android:id="@+id/view1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/roboto"
-            android:text="Ingresa tus datos"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/desc" />
-
         <EditText
             android:id="@+id/email_txt"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="44dp"
             android:background="@drawable/blackroundborder40dp"
             android:drawableEnd="@drawable/email"
             android:fontFamily="@font/roboto"
             android:inputType="textEmailAddress"
             android:paddingHorizontal="16dp"
-            android:text="usuario@gmail.com"
+            android:text="org@test.com"
             android:textColor="@color/black"
-            android:textSize="@dimen/important"
+            android:textSize="@dimen/text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view1" />
+            app:layout_constraintTop_toBottomOf="@id/textView3" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -101,7 +76,7 @@
             android:inputType="textPassword"
             android:paddingHorizontal="16dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/important"
+            android:textSize="@dimen/text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_txt" />

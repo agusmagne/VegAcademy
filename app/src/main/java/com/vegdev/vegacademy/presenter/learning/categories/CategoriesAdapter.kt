@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.model.data.models.learning.Category
 import com.vegdev.vegacademy.utils.Utils
 import kotlinx.android.synthetic.main.categories_single.view.*
 

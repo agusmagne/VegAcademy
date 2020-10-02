@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GetTokenResult
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
-import com.vegdev.vegacademy.model.data.models.User
 import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.login.CreateUserActivity
 import com.vegdev.vegacademy.view.login.WelcomeActivity

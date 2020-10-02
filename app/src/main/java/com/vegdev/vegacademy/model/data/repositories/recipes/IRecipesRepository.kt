@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.model.data.repositories.recipes
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
-import com.vegdev.vegacademy.model.data.models.TypesRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.TypesRecipe
 
 interface IRecipesRepository {
 

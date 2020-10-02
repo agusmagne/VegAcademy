@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.recipes.recipes.RecipesContract
-import com.vegdev.vegacademy.model.data.models.TypesRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.TypesRecipe
 import com.vegdev.vegacademy.presenter.recipes.recipes.parent.ParentRecipesPresenter
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 

@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.model.domain.interactor.recipes.recipes
 import androidx.paging.PagedList
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.model.data.repositories.recipes.RecipesRepository
 
 class DeprecatedRecipesInteractor {

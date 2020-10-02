@@ -1,7 +1,7 @@
 package com.vegdev.vegacademy.model.domain.interactor.main.dialogs
 
 import com.google.android.gms.tasks.Task
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.model.data.repositories.recipes.RecipesRepository
 
 class RecipeSuggestionInteractor {

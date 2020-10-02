@@ -18,7 +18,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.learning.ElementsContract
 import com.vegdev.vegacademy.contract.main.MainContract
-import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.model.data.models.learning.Category
 import com.vegdev.vegacademy.presenter.learning.elements.ElementViewHolder
 import com.vegdev.vegacademy.presenter.learning.elements.ElementsPresenter
 import com.vegdev.vegacademy.utils.Utils

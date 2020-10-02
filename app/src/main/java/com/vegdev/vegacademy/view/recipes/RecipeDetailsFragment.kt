@@ -14,7 +14,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.details.RecipeDetailsContract
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.details.RecipeDetailsPresenter

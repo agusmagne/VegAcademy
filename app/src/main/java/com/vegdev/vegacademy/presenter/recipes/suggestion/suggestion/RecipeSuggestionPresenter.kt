@@ -10,8 +10,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.suggestion.RecipeSuggestionContract
-import com.vegdev.vegacademy.model.data.models.Ingredient
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.Ingredient
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.spinner.SpinnerAdapter

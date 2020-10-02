@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.model.data.models.Ingredient
+import com.vegdev.vegacademy.model.data.models.recipes.Ingredient
 
 class DetailsIngredientsAdapter(val ingredients: MutableList<Ingredient>) :
     RecyclerView.Adapter<DetailsIngredientsViewHolder>() {

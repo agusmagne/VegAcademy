@@ -1,5 +1,6 @@
 package com.vegdev.vegacademy.view.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,8 @@ class CreateUserActivity : AppCompatActivity(), LoginContract.View.CreateUser {
         logo.setOnTouchListener(Utils.getResizerOnTouchListener(logo))
         logo.setOnClickListener {  }
 
+        create_org_btn.setOnClickListener { toCreateOrgActivity() }
+
         create_btn.setOnTouchListener(Utils.getResizerOnTouchListener(create_btn))
         create_btn.setOnClickListener {
             presenter.createUserIntent(
@@ -37,6 +40,10 @@ class CreateUserActivity : AppCompatActivity(), LoginContract.View.CreateUser {
 
     override fun hideProgressbar() {
         progress_bar.visibility = View.INVISIBLE
+    }
+
+    override fun toCreateOrgActivity() {
+        startActivity(Intent(this, CreateOrgActivity::class.java))
     }
 
 }

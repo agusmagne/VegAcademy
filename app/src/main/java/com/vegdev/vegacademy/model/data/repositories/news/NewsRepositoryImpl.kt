@@ -4,7 +4,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vegdev.vegacademy.model.data.models.LearningElement
+import com.vegdev.vegacademy.model.data.models.learning.LearningElement
 import kotlinx.coroutines.tasks.await
 
 class NewsRepositoryImpl : NewsRepository {

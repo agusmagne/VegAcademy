@@ -1,7 +1,7 @@
 package com.vegdev.vegacademy.model.domain.interactor.learning
 
 import android.util.Log
-import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.model.data.models.learning.Category
 import com.vegdev.vegacademy.model.data.repositories.learning.categories.CategoriesRepositoryImpl
 
 class CategoriesInteractor {

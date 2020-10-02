@@ -16,6 +16,10 @@
         android:icon="@drawable/ic_recipes"
         android:title="@string/recetas" />
 
-
+    <item
+        android:id="@+id/navigation_org_profile"
+        android:icon="@drawable/person"
+        android:visible="false"
+        android:title="@string/organization"/>
 
 </menu>

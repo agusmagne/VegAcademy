@@ -3,7 +3,7 @@ package com.vegdev.vegacademy.presenter.recipes.details.details
 import android.graphics.Bitmap
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.details.RecipeDetailsContract
-import com.vegdev.vegacademy.model.data.models.SingleRecipe
+import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
 

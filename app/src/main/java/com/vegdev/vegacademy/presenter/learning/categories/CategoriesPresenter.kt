@@ -5,7 +5,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.learning.CategoriesContract
 import com.vegdev.vegacademy.contract.main.MainContract
-import com.vegdev.vegacademy.model.data.models.Category
+import com.vegdev.vegacademy.model.data.models.learning.Category
 import com.vegdev.vegacademy.model.domain.interactor.learning.CategoriesInteractor
 
 class CategoriesPresenter(

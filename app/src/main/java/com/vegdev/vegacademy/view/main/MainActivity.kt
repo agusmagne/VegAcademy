@@ -3,7 +3,6 @@ package com.vegdev.vegacademy.view.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.transition.TransitionManager
@@ -172,7 +170,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 0
             )
         }
+    }
 
-
+    override fun enableOrgNavigation() {
+        nav_view.menu.findItem(R.id.navigation_org_profile).isVisible = true
     }
 }

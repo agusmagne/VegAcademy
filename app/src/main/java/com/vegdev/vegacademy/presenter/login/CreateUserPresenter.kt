@@ -8,7 +8,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
-import com.vegdev.vegacademy.model.data.models.User
+import com.vegdev.vegacademy.model.data.models.users.User
 import com.vegdev.vegacademy.utils.Utils
 import com.vegdev.vegacademy.view.login.WelcomeActivity
 
@@ -37,32 +37,41 @@ class CreateUserPresenter(
 
         iView.showProgressbar()
         firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener { auth ->
-                auth.user?.updateProfile(
-                    // update firebase user displayName
-                    UserProfileChangeRequest.Builder().setDisplayName(name).build()
-                )
+            .addOnSuccessListener {
+                it.user?.let { firebaseUser ->
+                    firebaseUser.updateProfile(
+                        UserProfileChangeRequest.Builder().setDisplayName(name).build()
+                    )
 
-                // create new user with username and email
-                val newUser = User()
-                newUser.username = name
-                newUser.email = email
-                FirebaseFirestore.getInstance().collection("users")
-                    .document(auth.user?.uid!!)
-                    .set(newUser)
+                    FirebaseFirestore.getInstance().collection("users")
+                        .document(firebaseUser.uid)
+                        .set(createUser(firebaseUser.uid, name, email))
 
-                // set current user in UserDataHolder
-                UserDataHolder.currentUser = newUser
+                    startWelcomeActivity()
 
-                // start welcome activity
-                iView.hideProgressbar()
-                val intent = Intent(context, WelcomeActivity::class.java)
-                context.startActivity(intent)
-                Utils.overrideEnterAndExitTransitions(context as Activity)
-
+                }
             }.addOnFailureListener {
                 iView.hideProgressbar()
                 Utils.createToast(context, "Error al crear usuario")
             }
+    }
+
+    private fun startWelcomeActivity() {
+        iView.hideProgressbar()
+        val intent = Intent(context, WelcomeActivity::class.java)
+        context.startActivity(intent)
+        Utils.overrideEnterAndExitTransitions(context as Activity)
+    }
+
+    private fun createUser(id: String, username: String, email: String): User {
+        val newUser = User()
+        newUser.id = id
+        newUser.username = username
+        newUser.email = email
+        newUser.isUser = true
+
+        UserDataHolder.setUser(newUser)
+
+        return newUser
     }
 }

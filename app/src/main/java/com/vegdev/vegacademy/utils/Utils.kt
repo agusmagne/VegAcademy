@@ -1,6 +1,7 @@
 package com.vegdev.vegacademy.utils
 
 import android.animation.AnimatorInflater
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -48,34 +49,29 @@ class Utils {
 
         fun getFirstWord(string: String?): String? = string?.split(" ", ignoreCase = true, limit = 2)?.first()
 
-        fun getResizerOnTouchListener(view: View): View.OnTouchListener {
-            return object : View.OnTouchListener {
-                override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                    p1?.let {
-                        when (it.action) {
-                            MotionEvent.ACTION_DOWN -> {
-                                val reducer =
-                                    AnimatorInflater.loadAnimator(view.context, R.animator.resize)
-                                reducer.setTarget(view)
-                                reducer.start()
-                            }
+        @SuppressLint("ClickableViewAccessibility")
+        fun getResizerOnTouchListener(view: View?): View.OnTouchListener {
+            return View.OnTouchListener { p0, p1 ->
+                p1?.let {
+                    when (it.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view?.context, R.animator.resize)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
 
-                            MotionEvent.ACTION_UP -> {
-                                val reducer =
-                                    AnimatorInflater.loadAnimator(view.context, R.animator.regain)
-                                reducer.setTarget(view)
-                                reducer.start()
-                            }
-                            else -> {
-                                val reducer =
-                                    AnimatorInflater.loadAnimator(view.context, R.animator.regain)
-                                reducer.setTarget(view)
-                                reducer.start()
-                            }
+                        MotionEvent.ACTION_UP -> {
+                            val reducer =
+                                AnimatorInflater.loadAnimator(view?.context, R.animator.regain)
+                            reducer.setTarget(view)
+                            reducer.start()
+                        }
+                        else -> {
                         }
                     }
-                    return false
                 }
+                false
             }
         }
 

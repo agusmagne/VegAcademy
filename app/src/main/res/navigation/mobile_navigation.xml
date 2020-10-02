@@ -51,7 +51,7 @@
         tools:layout="@layout/element">
         <argument
             android:name="category"
-            app:argType="com.vegdev.vegacademy.model.data.models.Category" />
+            app:argType="com.vegdev.vegacademy.model.data.models.learning.Category" />
         <action
             android:id="@+id/action_navigation_videos_to_navigation_webview"
             app:destination="@id/navigation_webview"
@@ -82,7 +82,7 @@
         tools:layout="@layout/recipe_details">
         <argument
             android:name="recipe"
-            app:argType="com.vegdev.vegacademy.model.data.models.SingleRecipe" />
+            app:argType="com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe" />
         <argument
             android:name="src"
             app:argType="android.graphics.Bitmap" />
@@ -118,5 +118,11 @@
             android:id="@+id/action_navigation_toprecipes_to_navigation_recipe_info"
             app:destination="@id/navigation_recipe_details" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_org_profile"
+        android:name="com.vegdev.vegacademy.view.profile.ProfileOrgFragment"
+        android:label="Organización"
+        tools:layout="@layout/profile_org"/>
 
 </navigation>

@@ -29,8 +29,7 @@ class MainPresenter(
         iView.showProgress()
         iView.hideNavView()
 
-        // get user information
-        UserDataHolder.getUserData()
+        handleNavigationPermission()
 
         // calculate the height that youtube player's going to have
         YOUTUBE_BACKGROUND_HEIGHT = context.resources.displayMetrics.widthPixels * 9 / 16
@@ -67,6 +66,12 @@ class MainPresenter(
             currentYoutubeUrl = url
             youtubeInterface?.loadVideo(url) // if currentYoutubeUrl == url -> this line is unreachable
         }
+    }
+
+    private suspend fun handleNavigationPermission() {
+        val user = UserDataHolder.getUserData()
+        if (user.isOrg) iView.enableOrgNavigation()
+
     }
 
     override fun logOut() {
