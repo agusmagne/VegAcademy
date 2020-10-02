@@ -44,7 +44,6 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         bindViews(view)
         setButtonResizers()
         setClickListeners()
-        exitEditMode()
         setEditTexts(org.description, org.location)
     }
 
@@ -55,11 +54,13 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
     }
 
     override fun enterEditMode() {
+        rootLayout?.let { TransitionManager.beginDelayedTransition(it) }
         changeButtonsVisibility(true)
         changeClickabilty(listOf(descriptionEdtxt, locationEdtxt), true)
     }
 
     override fun exitEditMode() {
+        rootLayout?.let { TransitionManager.beginDelayedTransition(it) }
         changeButtonsVisibility(false)
         changeClickabilty(listOf(descriptionEdtxt, locationEdtxt), false)
     }
@@ -93,11 +94,11 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
     }
 
     private fun changeButtonsVisibility(editMode: Boolean) {
-        rootLayout?.let { TransitionManager.beginDelayedTransition(it) }
         if (editMode) {
             enterEditModeBtn?.visibility = View.INVISIBLE
             cancelEditModeBtn?.visibility = View.VISIBLE
             saveEditModeBtn?.visibility = View.VISIBLE
+
         } else {
             enterEditModeBtn?.visibility = View.VISIBLE
             cancelEditModeBtn?.visibility = View.INVISIBLE
@@ -108,6 +109,7 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
     private fun changeClickabilty(views: List<View?>, editMode: Boolean) =
         views.forEach {
             it?.isEnabled = editMode
+            it?.isSelected = editMode
         }
 
 
