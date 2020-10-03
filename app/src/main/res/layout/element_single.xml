@@ -60,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto"
-        android:text="@string/anon"
         android:textColor="@color/navBarOff"
         android:textSize="@dimen/text"
         android:layout_marginBottom="48dp"

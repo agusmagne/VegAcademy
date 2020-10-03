@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.profiles.ProfileOrgContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
+import com.vegdev.vegacademy.model.data.models.users.User
 import com.vegdev.vegacademy.presenter.profiles.ProfileOrgPresenter
 import com.vegdev.vegacademy.utils.Utils
 
@@ -35,10 +37,22 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
 
     private var presenter: ProfileOrgPresenter? = null
 
+    private fun mockMembers(): MutableList<User> {
+        val memb = mutableListOf<User>()
+        for (i in 0 until 5) {
+            val user = User()
+            user.username = "Usuario Mock"
+            user.email = "EmailMock@gmail.com"
+            memb.add(user)
+        }
+        return memb
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        org.members = mockMembers()
         return inflater.inflate(R.layout.profile_org, container, false)
     }
 
@@ -91,14 +105,18 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         membersChkBox?.isChecked = showMembers
         contactBtn?.isSelected = showContact
         contactChkBox?.isChecked = showContact
-        setViewTouchListener(membersBtn, showMembers)
-        setViewTouchListener(contactBtn, showContact)
+        enableDisableBtnTouch(membersBtn, showMembers)
+        enableDisableBtnTouch(contactBtn, showContact)
     }
 
-    private fun setViewTouchListener(view: View?, enableResizer: Boolean) {
-        if (!enableResizer) {
+    private fun enableDisableBtnTouch(view: View?, enableTouch: Boolean) {
+        if (!enableTouch) {
+            view?.background =
+                ResourcesCompat.getDrawable(resources, R.drawable.bg_accentoff_corners_filled, null)
             view?.setOnTouchListener(null)
         } else {
+            view?.background =
+                ResourcesCompat.getDrawable(resources, R.drawable.bg_accent_corners_filled, null)
             view?.setOnTouchListener(Utils.getResizerOnTouchListener(view))
         }
     }
@@ -166,6 +184,11 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
                 contactChkBox?.isChecked!!
             )
         }
+        membersBtn?.setOnClickListener { showMembers() }
+    }
+
+    private fun showMembers() {
+        MembersDialogFragment().show(childFragmentManager, null)
     }
 
     private fun getTxt(editText: EditText?): String? {

@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">VegAcademy</string>
+    <string name="app_name">Animal Academy</string>
     <string name="cheeses">Cheeses and spreadables</string>
     <string name="desserts">Sweets and desserts</string>
     <string name="pizzas">Pizzas</string>
     <string name="pastas">Pastas and rice</string>
+    <string name="iniciarsesion">Log in</string>
+    <string name="animal_academy">Animal Academy</string>
+    <string name="activist">Activist</string>
+    <string name="organization">Organization</string>
+    <string name="pick_image_intent_text">Pick an image</string>
+    <string name="donate">Donate</string>
+    <string name="suggest_recipe">Suggest Recipe</string>
+    <string name="new_articles">New Articles</string>
+    <string name="new_videos">New Videos</string>
+    <string name="news">Newest</string>
+    <string name="settings">Configuration</string>
+    <string name="logout">Log out</string>
+    <string name="recetas">Recipes</string>
+    <string name="aprendizaje">Learning</string>
+    <string name="noticias">Newest</string>
+    <string name="crear_usuario">Create user</string>
+    <string name="nete_a_nuestra_comunidad_de_activistas">Join our community of activists</string>
 </resources>

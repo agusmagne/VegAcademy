@@ -14,4 +14,5 @@
   <color name="navBarOn">@color/white</color>
   <color name="grey">#414141</color>
   <color name="superAccent">#BEBAFF</color>
+    <color name="accentoff">#6963C1</color>
 </resources>

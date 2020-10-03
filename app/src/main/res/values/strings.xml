@@ -1,27 +1,23 @@
 <resources>
-    <string name="app_name">VegAcademy</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Academia Animal</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
     <string name="iniciarsesion">Iniciar sesión</string>
-    <string name="veg_academy">Veg Academy</string>
+    <string name="animal_academy">Academia Animal</string>
     <string name="nete_a_nuestra_comunidad_de_activistas">Únete a nuestra comunidad de activistas</string>
     <string name="crear_usuario">Crear usuario</string>
-    <string name="anon">o ingresa <u>anónimamente</u></string>
-    <string name="ingresa_tus_datos">Ingresa tus datos</string>
-    <string name="desdevegacademy">Desde VegAcademy trabjamos para brindarte todo lo que un activista por los derechos de los animales necesita</string>
     <string name="facebook_application_id" translatable="false">3058193794261507</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb3058193794261507</string>
-    <string name="noticias">Noticias</string>
+    <string name="noticias">Lo último</string>
     <string name="aprendizaje">Aprendizaje</string>
     <string name="recetas">Recetas</string>
     <string name="logout">Cerrar sesión</string>
     <string name="settings">Configuración</string>
-    <string name="news">Novedades</string>
+    <string name="news">Lo último</string>
     <string name="new_videos">Nuevos Videos</string>
     <string name="new_articles">Nuevos Artículos</string>
-    <string name="agregar_receta">Agregar Receta</string>
-    <string name="filter_recipe">Filtrar Receta</string>
+    <string name="suggest_recipe">Sugerir Receta</string>
     <string name="donate">Donar</string>
     <string name="pick_image_intent_text">Elige una imagen</string>
     <string name="cheeses">Quesos y untables</string>
@@ -30,8 +26,8 @@
     <string name="pastas">Pastas y arroces</string>
     <string name="organization">Organización</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="desc_test">Somos una organización compuesta por desarrolladores de software interesados en contribuir al avance de los derechos de los animales. Construimos aplicaciones web y móviles para nuestros queridos clientes al precio de coste sin perder cuidado en la calidad.</string>
+    <string name="desc_test" translatable="false">Somos una organización compuesta por desarrolladores de software interesados en contribuir al avance de los derechos de los animales. Construimos aplicaciones web y móviles para nuestros queridos clientes al precio de coste sin perder cuidado en la calidad.</string>
+    <string name="activist">Activista</string>
 
 
 </resources>

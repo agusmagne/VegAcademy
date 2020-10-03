@@ -4,17 +4,10 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_filterrecipe"
-        android:icon="@drawable/ic_filter"
-        android:orderInCategory="3"
-        android:title="@string/filter_recipe"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/action_addrecipe"
         android:icon="@drawable/ic_add"
         android:orderInCategory="4"
-        android:title="@string/agregar_receta"
+        android:title="@string/suggest_recipe"
         app:showAsAction="ifRoom" />
 
     <item
