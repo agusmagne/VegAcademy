@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.presenter.login.CreateOrgPresenter
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_org.*
 
 class CreateOrgActivity : AppCompatActivity(), LoginContract.View.CreateOrg {

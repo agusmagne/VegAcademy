@@ -18,7 +18,7 @@ import com.vegdev.vegacademy.contract.profiles.ProfileOrgContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
 import com.vegdev.vegacademy.model.data.models.users.User
 import com.vegdev.vegacademy.presenter.profiles.ProfileOrgPresenter
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 
 class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
 

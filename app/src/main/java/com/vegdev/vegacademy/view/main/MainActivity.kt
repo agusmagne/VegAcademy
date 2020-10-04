@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         menu?.findItem(R.id.action_addrecipe)?.isVisible = false
-        menu?.findItem(R.id.action_filterrecipe)?.isVisible = false
         return super.onCreateOptionsMenu(menu)
     }
 

@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
 import com.vegdev.vegacademy.model.data.models.users.User
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import com.vegdev.vegacademy.view.login.WelcomeActivity
 
 class CreateUserPresenter(

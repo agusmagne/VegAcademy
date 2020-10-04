@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import com.vegdev.vegacademy.view.main.MainActivity
 
 class WelcomePresenter(

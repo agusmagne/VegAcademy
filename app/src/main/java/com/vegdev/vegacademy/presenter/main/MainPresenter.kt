@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import com.vegdev.vegacademy.view.login.StartActivity
 import com.vegdev.vegacademy.view.news.NewsFragment
 

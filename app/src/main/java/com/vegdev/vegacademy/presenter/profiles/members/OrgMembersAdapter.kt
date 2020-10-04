@@ -4,12 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
-import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
-import com.vegdev.vegacademy.model.data.models.users.User
 
 class OrgMembersAdapter : RecyclerView.Adapter<OrgMembersViewHolder>() {
 
-    private val members: MutableList<User> = UserDataHolder.currentUser.organization.members
+    private val presenter = MembersListPresenter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrgMembersViewHolder {
         val view =
@@ -18,8 +16,8 @@ class OrgMembersAdapter : RecyclerView.Adapter<OrgMembersViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: OrgMembersViewHolder, position: Int) {
-//        holder.bindView()
+        presenter.bindMember(holder, position)
     }
 
-    override fun getItemCount(): Int = members.size
+    override fun getItemCount(): Int = presenter.membersSize
 }

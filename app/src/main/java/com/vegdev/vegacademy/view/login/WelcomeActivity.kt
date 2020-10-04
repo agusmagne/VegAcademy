@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.presenter.login.WelcomePresenter
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.coroutines.launch
 
 class WelcomeActivity : AppCompatActivity(), LoginContract.View.Welcome {

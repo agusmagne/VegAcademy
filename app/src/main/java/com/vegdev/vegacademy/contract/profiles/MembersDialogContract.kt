@@ -11,6 +11,5 @@ interface MembersDialogContract {
 
     interface Actions {
         fun buildRv()
-
     }
 }

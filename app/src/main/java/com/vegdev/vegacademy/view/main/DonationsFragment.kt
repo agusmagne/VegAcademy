@@ -7,7 +7,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.DonationsContract
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.donations.*
 
 class DonationsFragment : Fragment(), DonationsContract.View {

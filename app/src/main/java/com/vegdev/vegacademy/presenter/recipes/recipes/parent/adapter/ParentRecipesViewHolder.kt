@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.vegdev.vegacademy.contract.recipes.recipes.ParentRecipeContract
 import com.vegdev.vegacademy.presenter.recipes.recipes.single.adapter.SingleRecipeAdapter
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.recipes_parent_single.view.*
 
 class ParentRecipesViewHolder(

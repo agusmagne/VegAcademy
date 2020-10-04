@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.login.LoginContract
 import com.vegdev.vegacademy.presenter.login.CreateUserPresenter
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity : AppCompatActivity(), LoginContract.View.CreateUser {

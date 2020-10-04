@@ -22,7 +22,7 @@ import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggesti
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.suggestion.RecipeSuggestionPresenter
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.recipe_suggestion.*
 
 class RecipeSuggestionFragment : Fragment(), RecipeSuggestionContract.View {

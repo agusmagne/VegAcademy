@@ -22,4 +22,8 @@
     <string name="noticias">Newest</string>
     <string name="crear_usuario">Create user</string>
     <string name="nete_a_nuestra_comunidad_de_activistas">Join our community of activists</string>
+    <string name="founding_member">Founding Member</string>
+    <string name="project_coordinator">Project Coordinator</string>
+    <string name="member_administrator">Member Administrator</string>
+    <string name="other">Other</string>
 </resources>

@@ -18,7 +18,7 @@ import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
 import com.vegdev.vegacademy.presenter.recipes.details.details.RecipeDetailsPresenter
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.recipe_details.*
 
 class RecipeDetailsFragment : Fragment(), RecipeDetailsContract.View {

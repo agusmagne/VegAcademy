@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 
 class SpinnerAdapter(context: Context, resource: Int, private val types: List<String>) :
     ArrayAdapter<String>(context, resource) {

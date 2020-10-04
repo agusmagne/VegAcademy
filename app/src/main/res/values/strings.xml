@@ -27,7 +27,11 @@
     <string name="organization">Organización</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="desc_test" translatable="false">Somos una organización compuesta por desarrolladores de software interesados en contribuir al avance de los derechos de los animales. Construimos aplicaciones web y móviles para nuestros queridos clientes al precio de coste sin perder cuidado en la calidad.</string>
+    <string name="founding_member">Miembro Fundador</string>
+    <string name="project_coordinator">Coordinador de proyectos</string>
+    <string name="member_administrator">Administrador de miembros</string>
     <string name="activist">Activista</string>
+    <string name="other">Otro</string>
 
 
 </resources>

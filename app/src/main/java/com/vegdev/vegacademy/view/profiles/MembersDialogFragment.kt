@@ -2,11 +2,9 @@ package com.vegdev.vegacademy.view.profiles
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +13,7 @@ import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.profiles.MembersDialogContract
 import com.vegdev.vegacademy.presenter.profiles.members.MembersDialogPresenter
 import com.vegdev.vegacademy.presenter.profiles.members.OrgMembersViewHolder
-import com.vegdev.vegacademy.utils.Utils
+import com.vegdev.vegacademy.helpers.utils.Utils
 
 class MembersDialogFragment : DialogFragment(), MembersDialogContract.View {
 
