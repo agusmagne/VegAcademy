@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
@@ -17,11 +16,23 @@ import android.widget.Toast
 import com.google.firebase.Timestamp
 import com.vegdev.vegacademy.R
 import java.util.concurrent.TimeUnit
-import kotlin.math.roundToInt
 
 class Utils {
 
     companion object {
+
+        fun makeVisibleInvisible(visibleViews: List<View?>?, insvisibleViews: List<View?>?) {
+            visibleViews?.let { list ->
+                list.forEach { view ->
+                    view?.let { it.visibility = View.VISIBLE }
+                }
+            }
+            insvisibleViews?.let { list ->
+                list.forEach { view ->
+                    view?.let { it.visibility = View.INVISIBLE }
+                }
+            }
+        }
 
         fun overrideEnterAndExitTransitions(activity: Activity) {
             activity.overridePendingTransition(R.anim.welcome_fade_in, R.anim.welcome_fade_out)

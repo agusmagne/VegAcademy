@@ -10,12 +10,12 @@ class ProfileOrgPresenter(private val iView: ProfileOrgContract.View, private va
     private val repository = OrgRepository()
 
     fun enterEditMode() {
-        iView.enterEditMode()
+        iView.enterExitEditMode(true)
     }
 
     override fun discardChanges(description: String?, location: String?) {
-        iView.setEditTexts(description, location)
-        iView.exitEditMode()
+        iView.resetValues()
+        iView.enterExitEditMode(false)
         iMainView.hideKeyboard()
     }
 
@@ -28,7 +28,7 @@ class ProfileOrgPresenter(private val iView: ProfileOrgContract.View, private va
     ) {
         iMainView.hideKeyboard()
         iMainView.makeToast("Actualizando tu organización")
-        iView.exitEditMode()
+        iView.enterExitEditMode(false)
 
         iView.enableDisableBtns(showMembers, showContact)
 

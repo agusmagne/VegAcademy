@@ -6,9 +6,8 @@ import com.vegdev.vegacademy.model.data.models.users.Org
 interface ProfileOrgContract {
 
     interface View {
-        fun enterEditMode()
-        fun exitEditMode()
-        fun setEditTexts(description: String?, location: String?)
+        fun enterExitEditMode(enter: Boolean)
+        fun resetValues()
         fun updateOrg(description: String?, location: String?)
         fun enableDisableBtns(showMembers: Boolean, showContact: Boolean)
     }

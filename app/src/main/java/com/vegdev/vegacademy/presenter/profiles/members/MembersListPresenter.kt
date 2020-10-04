@@ -1,7 +1,5 @@
 package com.vegdev.vegacademy.presenter.profiles.members
 
-import android.view.View
-import android.widget.AdapterView
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.profiles.MembersListContract
 import com.vegdev.vegacademy.helpers.enums.OrgMemberRolesEnum

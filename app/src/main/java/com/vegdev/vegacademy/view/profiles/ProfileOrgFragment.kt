@@ -15,10 +15,10 @@ import androidx.transition.TransitionManager
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.profiles.ProfileOrgContract
+import com.vegdev.vegacademy.helpers.utils.Utils
 import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
 import com.vegdev.vegacademy.model.data.models.users.User
 import com.vegdev.vegacademy.presenter.profiles.ProfileOrgPresenter
-import com.vegdev.vegacademy.helpers.utils.Utils
 
 class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
 
@@ -61,7 +61,7 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         bindViews(view)
         setButtonResizers()
         setClickListeners()
-        setEditTexts(org.description, org.location)
+        resetValues()
         enableDisableBtns(org.showMembers, org.showContact)
     }
 
@@ -71,21 +71,18 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         if (context is MainContract.View) presenter = ProfileOrgPresenter(this, context)
     }
 
-    override fun enterEditMode() {
+    override fun enterExitEditMode(enter: Boolean) {
         rootLayout?.let { TransitionManager.beginDelayedTransition(it) }
-        changeButtonsVisibility(true)
-        changeClickabilty(listOf(descriptionEdtxt, locationEdtxt), true)
+        changeButtonsVisibility(enter)
+        changeClickabilty(listOf(descriptionEdtxt, locationEdtxt), enter)
     }
 
-    override fun exitEditMode() {
-        rootLayout?.let { TransitionManager.beginDelayedTransition(it) }
-        changeButtonsVisibility(false)
-        changeClickabilty(listOf(descriptionEdtxt, locationEdtxt), false)
-    }
+    override fun resetValues() {
+        descriptionEdtxt?.setText(org.description)
+        locationEdtxt?.setText(org.location)
+        membersChkBox?.isChecked = org.showMembers
+        contactChkBox?.isChecked = org.showContact
 
-    override fun setEditTexts(description: String?, location: String?) {
-        descriptionEdtxt?.setText(description)
-        locationEdtxt?.setText(location)
     }
 
     override fun updateOrg(description: String?, location: String?) {
@@ -135,19 +132,11 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
     }
 
     private fun changeButtonsVisibility(editMode: Boolean) {
+        val views = listOf(cancelEditModeBtn, saveEditModeBtn, membersChkBox, contactChkBox)
         if (editMode) {
-            enterEditModeBtn?.visibility = View.INVISIBLE
-            cancelEditModeBtn?.visibility = View.VISIBLE
-            saveEditModeBtn?.visibility = View.VISIBLE
-            membersChkBox?.visibility = View.VISIBLE
-            contactChkBox?.visibility = View.VISIBLE
-
+            Utils.makeVisibleInvisible(views, listOf(enterEditModeBtn))
         } else {
-            enterEditModeBtn?.visibility = View.VISIBLE
-            cancelEditModeBtn?.visibility = View.INVISIBLE
-            saveEditModeBtn?.visibility = View.INVISIBLE
-            membersChkBox?.visibility = View.INVISIBLE
-            contactChkBox?.visibility = View.INVISIBLE
+            Utils.makeVisibleInvisible(listOf(enterEditModeBtn), views)
         }
     }
 
