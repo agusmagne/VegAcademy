@@ -22,8 +22,6 @@ import com.vegdev.vegacademy.presenter.profiles.ProfileOrgPresenter
 
 class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
 
-    private var org = UserDataHolder.currentUser.organization
-
     private var rootLayout: ViewGroup? = null
     private var enterEditModeBtn: Button? = null
     private var cancelEditModeBtn: Button? = null
@@ -37,22 +35,11 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
 
     private var presenter: ProfileOrgPresenter? = null
 
-    private fun mockMembers(): MutableList<User> {
-        val memb = mutableListOf<User>()
-        for (i in 0 until 5) {
-            val user = User()
-            user.username = "Usuario Mock"
-            user.email = "EmailMock@gmail.com"
-            memb.add(user)
-        }
-        return memb
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        org.members = mockMembers()
         return inflater.inflate(R.layout.profile_org, container, false)
     }
 
@@ -61,8 +48,8 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         bindViews(view)
         setButtonResizers()
         setClickListeners()
-        resetValues()
-        enableDisableBtns(org.showMembers, org.showContact)
+        presenter?.discardChanges()
+        presenter?.enableDisableBtns()
     }
 
 
@@ -77,23 +64,12 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         changeClickabilty(listOf(descriptionEdtxt, locationEdtxt), enter)
     }
 
-    override fun resetValues() {
-        descriptionEdtxt?.setText(org.description)
-        locationEdtxt?.setText(org.location)
-        membersChkBox?.isChecked = org.showMembers
-        contactChkBox?.isChecked = org.showContact
+    override fun resetValues(description: String, location: String, showMembers: Boolean, showContact: Boolean) {
+        descriptionEdtxt?.setText(description)
+        locationEdtxt?.setText(location)
+        membersChkBox?.isChecked = showMembers
+        contactChkBox?.isChecked = showContact
 
-    }
-
-    override fun updateOrg(description: String?, location: String?) {
-        description?.let {
-            org.description = it
-            UserDataHolder.currentUser.organization.description = it
-        }
-        location?.let {
-            org.location = it
-            UserDataHolder.currentUser.organization.location = it
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -159,14 +135,10 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
     private fun setClickListeners() {
         enterEditModeBtn?.setOnClickListener { presenter?.enterEditMode() }
         cancelEditModeBtn?.setOnClickListener {
-            presenter?.discardChanges(
-                org.description,
-                org.location
-            )
+            presenter?.discardChanges()
         }
         saveEditModeBtn?.setOnClickListener {
             presenter?.saveChanges(
-                org,
                 getTxt(descriptionEdtxt),
                 getTxt(locationEdtxt),
                 membersChkBox?.isChecked!!,
@@ -180,7 +152,8 @@ class ProfileOrgFragment : Fragment(), ProfileOrgContract.View {
         MembersDialogFragment().show(childFragmentManager, null)
     }
 
-    private fun getTxt(editText: EditText?): String? {
-        return editText?.editableText?.toString()?.trim()
+    private fun getTxt(editText: EditText?): String {
+        editText?.let { return it.editableText.toString().trim() }
+        return ""
     }
 }

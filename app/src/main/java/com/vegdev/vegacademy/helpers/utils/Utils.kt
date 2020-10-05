@@ -48,7 +48,7 @@ class Utils {
             return timeUnit.convert(diffInMillis, TimeUnit.SECONDS)
         }
 
-        fun getStringResourceByName(name: String, context: Context): String {
+        fun getTranslation(name: String, context: Context): String {
             return context.getString(
                 context.resources.getIdentifier(
                     name,

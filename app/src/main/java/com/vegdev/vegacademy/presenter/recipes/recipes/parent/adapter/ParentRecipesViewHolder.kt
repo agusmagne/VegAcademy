@@ -19,7 +19,7 @@ class ParentRecipesViewHolder(
 
     override fun bindViewAndBindAdapter(type: String, adapter: SingleRecipeAdapter) {
         this.type = type
-        itemView.type_txt.text = Utils.getStringResourceByName(type, itemView.context)
+        itemView.type_txt.text = Utils.getTranslation(type, itemView.context)
         itemView.child_recipes_rv?.apply {
             this.layoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)

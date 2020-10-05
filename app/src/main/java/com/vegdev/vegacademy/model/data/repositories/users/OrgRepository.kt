@@ -10,7 +10,7 @@ class OrgRepository : ProfileOrgContract.Data {
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    override fun updateOrg(org: Org) : Task<Void> {
+    override fun updateOrg(org: Org?) : Task<Void> {
         return firestore.collection("users").document(UserDataHolder.currentUser.id).update(mapOf(
             "organization" to org
         ))

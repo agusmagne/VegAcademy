@@ -2,27 +2,32 @@ package com.vegdev.vegacademy.presenter.profiles
 
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.profiles.ProfileOrgContract
-import com.vegdev.vegacademy.model.data.models.users.Org
+import com.vegdev.vegacademy.model.data.dataholders.UserDataHolder
+import com.vegdev.vegacademy.model.data.models.users.Member
+import com.vegdev.vegacademy.model.data.models.users.User
 import com.vegdev.vegacademy.model.data.repositories.users.OrgRepository
 
-class ProfileOrgPresenter(private val iView: ProfileOrgContract.View, private val iMainView: MainContract.View) : ProfileOrgContract.Actions {
+class ProfileOrgPresenter(
+    private val iView: ProfileOrgContract.View,
+    private val iMainView: MainContract.View
+) : ProfileOrgContract.Actions {
 
     private val repository = OrgRepository()
+    private var org = UserDataHolder.currentUser.organization
 
     fun enterEditMode() {
         iView.enterExitEditMode(true)
     }
 
-    override fun discardChanges(description: String?, location: String?) {
-        iView.resetValues()
+    override fun discardChanges() {
+        org?.let { iView.resetValues(it.description, it.location, it.showMembers, it.showContact) }
         iView.enterExitEditMode(false)
         iMainView.hideKeyboard()
     }
 
     override fun saveChanges(
-        org: Org,
-        description: String?,
-        location: String?,
+        description: String,
+        location: String,
         showMembers: Boolean,
         showContact: Boolean
     ) {
@@ -32,14 +37,25 @@ class ProfileOrgPresenter(private val iView: ProfileOrgContract.View, private va
 
         iView.enableDisableBtns(showMembers, showContact)
 
-        description?.let { org.description = it }
-        location?.let { org.location = it }
-        org.showMembers = showMembers
-        org.showContact = showContact
-
-        iView.updateOrg(description, location)
+        updateOrg(description, location, showMembers, showContact)
         repository.updateOrg(org).addOnSuccessListener {
             iMainView.makeToast("¡Organización actualizada!")
         }
+    }
+
+    override fun enableDisableBtns() {
+        org?.let { iView.enableDisableBtns(it.showMembers, it.showContact) }
+    }
+
+    private fun updateOrg(
+        description: String,
+        location: String,
+        showMembers: Boolean,
+        showContact: Boolean
+    ) {
+        org?.description = description
+        org?.location = location
+        org?.showMembers = showMembers
+        org?.showContact = showContact
     }
 }

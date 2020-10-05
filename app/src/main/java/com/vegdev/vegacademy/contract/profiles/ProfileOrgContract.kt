@@ -7,25 +7,24 @@ interface ProfileOrgContract {
 
     interface View {
         fun enterExitEditMode(enter: Boolean)
-        fun resetValues()
-        fun updateOrg(description: String?, location: String?)
+        fun resetValues(description: String, location: String, showMembers: Boolean, showContact: Boolean)
         fun enableDisableBtns(showMembers: Boolean, showContact: Boolean)
     }
 
     interface Actions {
-        fun discardChanges(description: String?, location: String?)
+        fun discardChanges()
         fun saveChanges(
-            org: Org,
-            description: String?,
-            location: String?,
+            description: String,
+            location: String,
             showMembers: Boolean,
             showContact: Boolean
         )
 
+        fun enableDisableBtns()
     }
 
     interface Data {
-        fun updateOrg(org: Org): Task<Void>
+        fun updateOrg(org: Org?): Task<Void>
     }
 
 }

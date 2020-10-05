@@ -81,7 +81,7 @@ class RecipeDetailsFragment : Fragment(), RecipeDetailsContract.View {
 
     override fun bindRecipe(recipe: SingleRecipe, src: Bitmap) {
         Glide.with(requireContext()).load(src).into(this.src)
-        type.text = Utils.getStringResourceByName(recipe.type, requireContext())
+        type.text = Utils.getTranslation(recipe.type, requireContext())
         recipe_desc.text = recipe.desc
         title.text = recipe.title
     }

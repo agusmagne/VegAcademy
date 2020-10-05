@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:background="@color/blackBackground"
     android:orientation="vertical"
-    android:layout_gravity="center"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.profiles.MembersDialogFragment">
 
     <TextView
         android:id="@+id/members_txt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="28 miembros"
-        android:fontFamily="@font/typer_roboto_italic"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
-        android:layout_marginStart="32dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text" />
+        android:fontFamily="@font/typer_roboto_italic"
+        android:text="28 miembros"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/members_rv"
         android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"/>
+        android:layout_height="400dp"
+        android:layout_below="@id/members_txt"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/members_save_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/members_rv"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ripple_round_white"
+        android:elevation="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@null"
+        android:text="Guardar cambios"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text" />
+
+</RelativeLayout>

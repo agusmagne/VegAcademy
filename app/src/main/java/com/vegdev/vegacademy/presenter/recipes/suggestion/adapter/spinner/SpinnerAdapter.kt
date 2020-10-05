@@ -15,13 +15,13 @@ class SpinnerAdapter(context: Context, resource: Int, private val types: List<St
     override fun getItemId(position: Int): Long = position.toLong()
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent) as TextView
-        view.text = Utils.getStringResourceByName(types[position], context)
+        view.text = Utils.getTranslation(types[position], context)
         return view
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getDropDownView(position, convertView, parent) as TextView
-        view.text = Utils.getStringResourceByName(types[position], context)
+        view.text = Utils.getTranslation(types[position], context)
         return view
     }
 }
