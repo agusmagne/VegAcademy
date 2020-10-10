@@ -77,7 +77,7 @@
 
     <fragment
         android:id="@+id/navigation_recipe_details"
-        android:name="com.vegdev.vegacademy.view.recipes.RecipeDetailsFragment"
+        android:name="com.vegdev.vegacademy.view.recipes.details.RecipeDetailsFragment"
         android:label="Receta"
         tools:layout="@layout/recipe_details">
         <argument

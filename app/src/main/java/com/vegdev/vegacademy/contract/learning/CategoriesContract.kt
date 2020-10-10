@@ -13,4 +13,8 @@ interface CategoriesContract {
     interface Actions {
         suspend fun fetchAndBuildRecyclerViews()
     }
+
+    interface Data {
+
+    }
 }

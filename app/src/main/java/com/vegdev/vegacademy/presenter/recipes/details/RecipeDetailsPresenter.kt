@@ -1,11 +1,11 @@
-package com.vegdev.vegacademy.presenter.recipes.details.details
+package com.vegdev.vegacademy.presenter.recipes.details
 
 import android.graphics.Bitmap
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.details.RecipeDetailsContract
 import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
-import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
-import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
+import com.vegdev.vegacademy.presenter.recipes.details.adapter.DetailsIngredientsAdapter
+import com.vegdev.vegacademy.presenter.recipes.details.adapter.DetailsStepsAdapter
 
 class RecipeDetailsPresenter(val view: RecipeDetailsContract.View, val iMainView: MainContract.View) : RecipeDetailsContract.Actions {
 

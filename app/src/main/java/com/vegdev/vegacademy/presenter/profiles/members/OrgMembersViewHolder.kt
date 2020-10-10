@@ -1,6 +1,5 @@
 package com.vegdev.vegacademy.presenter.profiles.members
 
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -22,7 +21,13 @@ class OrgMembersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     private var roleEdtxt: EditText? = itemView.findViewById(R.id.member_role_edtxt)
     private var visibilitySrc: ImageView? = itemView.findViewById(R.id.member_visibility_src)
 
-    override fun bindMemberView(member: Member?, spinnerPosition: Int, adapter: SpinnerAdapter, onItemSelectedListener: AdapterView.OnItemSelectedListener, onTextChange: (String?) -> Unit) {
+    override fun bindMemberView(
+        member: Member?,
+        spinnerPosition: Int,
+        adapter: SpinnerAdapter,
+        onItemSelectedListener: AdapterView.OnItemSelectedListener,
+        onTextChange: (String?) -> Unit
+    ) {
         nameTxt?.text = member?.username
         emailTxt?.text = member?.email
         roleSpinner?.adapter = adapter
@@ -43,7 +48,6 @@ class OrgMembersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
                 visibilitySrc?.setImageResource(R.drawable.ic_visibility_off)
             }
         }
-
     }
 
     fun showHideRoleEditText(visibility: Int) {

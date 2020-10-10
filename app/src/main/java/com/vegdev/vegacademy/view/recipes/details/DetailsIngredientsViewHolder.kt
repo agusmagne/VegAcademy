@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients
+package com.vegdev.vegacademy.view.recipes.details
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

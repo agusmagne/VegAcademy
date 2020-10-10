@@ -21,7 +21,7 @@ import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
 import com.vegdev.vegacademy.model.domain.interactor.main.dialogs.RecipeSuggestionInteractor
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.ingredients.IngredientsAdapter
 import com.vegdev.vegacademy.presenter.recipes.suggestion.adapter.steps.StepsAdapter
-import com.vegdev.vegacademy.presenter.recipes.suggestion.suggestion.RecipeSuggestionPresenter
+import com.vegdev.vegacademy.presenter.recipes.suggestion.RecipeSuggestionPresenter
 import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.recipe_suggestion.*
 

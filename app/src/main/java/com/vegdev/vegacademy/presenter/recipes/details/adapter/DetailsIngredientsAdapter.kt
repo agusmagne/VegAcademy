@@ -1,10 +1,11 @@
-package com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients
+package com.vegdev.vegacademy.presenter.recipes.details.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.model.data.models.recipes.Ingredient
+import com.vegdev.vegacademy.view.recipes.details.DetailsIngredientsViewHolder
 
 class DetailsIngredientsAdapter(val ingredients: MutableList<Ingredient>) :
     RecyclerView.Adapter<DetailsIngredientsViewHolder>() {

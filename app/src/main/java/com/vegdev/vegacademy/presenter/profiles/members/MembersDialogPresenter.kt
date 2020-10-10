@@ -3,6 +3,7 @@ package com.vegdev.vegacademy.presenter.profiles.members
 import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
+import com.google.firebase.auth.FirebaseAuth
 import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.profiles.MembersDialogContract

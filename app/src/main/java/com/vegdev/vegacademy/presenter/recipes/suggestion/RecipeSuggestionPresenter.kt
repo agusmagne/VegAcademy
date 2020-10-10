@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.presenter.recipes.suggestion.suggestion
+package com.vegdev.vegacademy.presenter.recipes.suggestion
 
 import android.app.Activity.RESULT_OK
 import android.content.Context

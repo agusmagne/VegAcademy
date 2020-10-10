@@ -1,4 +1,4 @@
-package com.vegdev.vegacademy.view.recipes
+package com.vegdev.vegacademy.view.recipes.details
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -15,9 +15,9 @@ import com.vegdev.vegacademy.R
 import com.vegdev.vegacademy.contract.main.MainContract
 import com.vegdev.vegacademy.contract.recipes.details.RecipeDetailsContract
 import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
-import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
-import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
-import com.vegdev.vegacademy.presenter.recipes.details.details.RecipeDetailsPresenter
+import com.vegdev.vegacademy.presenter.recipes.details.adapter.DetailsIngredientsAdapter
+import com.vegdev.vegacademy.presenter.recipes.details.adapter.DetailsStepsAdapter
+import com.vegdev.vegacademy.presenter.recipes.details.RecipeDetailsPresenter
 import com.vegdev.vegacademy.helpers.utils.Utils
 import kotlinx.android.synthetic.main.recipe_details.*
 

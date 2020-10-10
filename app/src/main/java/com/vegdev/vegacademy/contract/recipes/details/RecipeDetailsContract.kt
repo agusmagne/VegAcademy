@@ -2,8 +2,8 @@ package com.vegdev.vegacademy.contract.recipes.details
 
 import android.graphics.Bitmap
 import com.vegdev.vegacademy.model.data.models.recipes.SingleRecipe
-import com.vegdev.vegacademy.presenter.recipes.details.adapter.ingredients.DetailsIngredientsAdapter
-import com.vegdev.vegacademy.presenter.recipes.details.adapter.steps.DetailsStepsAdapter
+import com.vegdev.vegacademy.presenter.recipes.details.adapter.DetailsIngredientsAdapter
+import com.vegdev.vegacademy.presenter.recipes.details.adapter.DetailsStepsAdapter
 
 interface RecipeDetailsContract {
 
